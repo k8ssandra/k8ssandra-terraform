@@ -7,8 +7,8 @@ resource "google_container_cluster" "container_cluster" {
   remove_default_node_pool = true
   initial_node_count       = var.initial_node_count
 
-  #network    = google_compute_network.compute_network.self_link
-  #subnetwork = google_compute_subnetwork.compute_subnetwork.self_link
+  network    = var.network_link
+  subnetwork = var.subnetwork_link
 
 }
 

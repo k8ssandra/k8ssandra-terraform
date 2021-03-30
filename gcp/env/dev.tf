@@ -11,8 +11,8 @@ module "first_gke_cluster" {
   source = "../modules/gke"
   name   = var.name
   region  = var.region
-  #network_link =  module.datastax_vpc.google_compute_network.compute_network.self_link
-  #subnetwork_link = module.datastax_vpc.google_compute_subnetwork.compute_subnetwork.self_link
+  network_link =  module.datastax_vpc.network_selflink
+  subnetwork_link = module.datastax_vpc.subnetwork_selflink
 }
 
 

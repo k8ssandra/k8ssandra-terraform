@@ -6,7 +6,7 @@ variable "name" {
 variable "region" {
   description = "The region in which to create the VPC network"
   type        = string
-  default     = "us-east-1"
+  default     = "us-central1"
 }
 
 variable "project_id" {

@@ -18,7 +18,7 @@ variable "project_id" {
 variable "zone" {
   description = "The zone in which to create the Kubernetes cluster. Must match the region"
   type        = string
-  default     = "us-east-1a"
+  default     = "us-central-1a"
 }
 
 

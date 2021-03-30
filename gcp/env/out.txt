@@ -1,0 +1,403 @@
+Acquiring state lock. This may take a few moments...
+
+An execution plan has been generated and is shown below.
+Resource actions are indicated with the following symbols:
+  [32m+[0m create
+[0m
+Terraform will perform the following actions:
+
+[1m  # module.datastax_iam.google_project_iam_member.service-account[0][0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "google_project_iam_member" "service-account" {
+      [32m+[0m [0m[1m[0metag[0m[0m    = (known after apply)
+      [32m+[0m [0m[1m[0mid[0m[0m      = (known after apply)
+      [32m+[0m [0m[1m[0mmember[0m[0m  = (known after apply)
+      [32m+[0m [0m[1m[0mproject[0m[0m = "datastax-308813"
+      [32m+[0m [0m[1m[0mrole[0m[0m    = "roles/logging.logWriter"
+    }
+
+[1m  # module.datastax_iam.google_project_iam_member.service-account[1][0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "google_project_iam_member" "service-account" {
+      [32m+[0m [0m[1m[0metag[0m[0m    = (known after apply)
+      [32m+[0m [0m[1m[0mid[0m[0m      = (known after apply)
+      [32m+[0m [0m[1m[0mmember[0m[0m  = (known after apply)
+      [32m+[0m [0m[1m[0mproject[0m[0m = "datastax-308813"
+      [32m+[0m [0m[1m[0mrole[0m[0m    = "roles/monitoring.metricWriter"
+    }
+
+[1m  # module.datastax_iam.google_project_iam_member.service-account[2][0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "google_project_iam_member" "service-account" {
+      [32m+[0m [0m[1m[0metag[0m[0m    = (known after apply)
+      [32m+[0m [0m[1m[0mid[0m[0m      = (known after apply)
+      [32m+[0m [0m[1m[0mmember[0m[0m  = (known after apply)
+      [32m+[0m [0m[1m[0mproject[0m[0m = "datastax-308813"
+      [32m+[0m [0m[1m[0mrole[0m[0m    = "roles/monitoring.viewer"
+    }
+
+[1m  # module.datastax_iam.google_service_account.service_account[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "google_service_account" "service_account" {
+      [32m+[0m [0m[1m[0maccount_id[0m[0m   = "demo-cluster-service-account"
+      [32m+[0m [0m[1m[0mdisplay_name[0m[0m = "GKE Security Service Account"
+      [32m+[0m [0m[1m[0memail[0m[0m        = (known after apply)
+      [32m+[0m [0m[1m[0mid[0m[0m           = (known after apply)
+      [32m+[0m [0m[1m[0mname[0m[0m         = (known after apply)
+      [32m+[0m [0m[1m[0mproject[0m[0m      = "datastax-308813"
+      [32m+[0m [0m[1m[0munique_id[0m[0m    = (known after apply)
+    }
+
+[1m  # module.datastax_vpc.google_compute_network.compute_network[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "google_compute_network" "compute_network" {
+      [32m+[0m [0m[1m[0mauto_create_subnetworks[0m[0m         = false
+      [32m+[0m [0m[1m[0mdelete_default_routes_on_create[0m[0m = false
+      [32m+[0m [0m[1m[0mgateway_ipv4[0m[0m                    = (known after apply)
+      [32m+[0m [0m[1m[0mid[0m[0m                              = (known after apply)
+      [32m+[0m [0m[1m[0mmtu[0m[0m                             = (known after apply)
+      [32m+[0m [0m[1m[0mname[0m[0m                            = "demo-cluster-network"
+      [32m+[0m [0m[1m[0mproject[0m[0m                         = "datastax-308813"
+      [32m+[0m [0m[1m[0mrouting_mode[0m[0m                    = (known after apply)
+      [32m+[0m [0m[1m[0mself_link[0m[0m                       = (known after apply)
+    }
+
+[1m  # module.datastax_vpc.google_compute_subnetwork.compute_subnetwork[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "google_compute_subnetwork" "compute_subnetwork" {
+      [32m+[0m [0m[1m[0mcreation_timestamp[0m[0m         = (known after apply)
+      [32m+[0m [0m[1m[0mfingerprint[0m[0m                = (known after apply)
+      [32m+[0m [0m[1m[0mgateway_address[0m[0m            = (known after apply)
+      [32m+[0m [0m[1m[0mid[0m[0m                         = (known after apply)
+      [32m+[0m [0m[1m[0mip_cidr_range[0m[0m              = "10.0.0.0/24"
+      [32m+[0m [0m[1m[0mname[0m[0m                       = "demo-cluster-subnet"
+      [32m+[0m [0m[1m[0mnetwork[0m[0m                    = (known after apply)
+      [32m+[0m [0m[1m[0mprivate_ip_google_access[0m[0m   = true
+      [32m+[0m [0m[1m[0mprivate_ipv6_google_access[0m[0m = (known after apply)
+      [32m+[0m [0m[1m[0mproject[0m[0m                    = "datastax-308813"
+      [32m+[0m [0m[1m[0mregion[0m[0m                     = "us-east-1"
+      [32m+[0m [0m[1m[0msecondary_ip_range[0m[0m         = [
+          [32m+[0m [0m{
+              [32m+[0m [0mip_cidr_range = "10.1.0.0/16"
+              [32m+[0m [0mrange_name    = "demo-cluster-pod-range"
+            },
+          [32m+[0m [0m{
+              [32m+[0m [0mip_cidr_range = "10.2.0.0/20"
+              [32m+[0m [0mrange_name    = "demo-cluster-svc-range"
+            },
+        ]
+      [32m+[0m [0m[1m[0mself_link[0m[0m                  = (known after apply)
+    }
+
+[1m  # module.datastax_vpc.google_project_service.project_service[0][0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "google_project_service" "project_service" {
+      [32m+[0m [0m[1m[0mdisable_on_destroy[0m[0m = false
+      [32m+[0m [0m[1m[0mid[0m[0m                 = (known after apply)
+      [32m+[0m [0m[1m[0mproject[0m[0m            = "datastax-308813"
+      [32m+[0m [0m[1m[0mservice[0m[0m            = "cloudresourcemanager.googleapis.com"
+    }
+
+[1m  # module.datastax_vpc.google_project_service.project_service[1][0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "google_project_service" "project_service" {
+      [32m+[0m [0m[1m[0mdisable_on_destroy[0m[0m = false
+      [32m+[0m [0m[1m[0mid[0m[0m                 = (known after apply)
+      [32m+[0m [0m[1m[0mproject[0m[0m            = "datastax-308813"
+      [32m+[0m [0m[1m[0mservice[0m[0m            = "servicenetworking.googleapis.com"
+    }
+
+[1m  # module.datastax_vpc.google_project_service.project_service[2][0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "google_project_service" "project_service" {
+      [32m+[0m [0m[1m[0mdisable_on_destroy[0m[0m = false
+      [32m+[0m [0m[1m[0mid[0m[0m                 = (known after apply)
+      [32m+[0m [0m[1m[0mproject[0m[0m            = "datastax-308813"
+      [32m+[0m [0m[1m[0mservice[0m[0m            = "container.googleapis.com"
+    }
+
+[1m  # module.datastax_vpc.google_project_service.project_service[3][0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "google_project_service" "project_service" {
+      [32m+[0m [0m[1m[0mdisable_on_destroy[0m[0m = false
+      [32m+[0m [0m[1m[0mid[0m[0m                 = (known after apply)
+      [32m+[0m [0m[1m[0mproject[0m[0m            = "datastax-308813"
+      [32m+[0m [0m[1m[0mservice[0m[0m            = "compute.googleapis.com"
+    }
+
+[1m  # module.datastax_vpc.google_project_service.project_service[4][0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "google_project_service" "project_service" {
+      [32m+[0m [0m[1m[0mdisable_on_destroy[0m[0m = false
+      [32m+[0m [0m[1m[0mid[0m[0m                 = (known after apply)
+      [32m+[0m [0m[1m[0mproject[0m[0m            = "datastax-308813"
+      [32m+[0m [0m[1m[0mservice[0m[0m            = "iam.googleapis.com"
+    }
+
+[1m  # module.datastax_vpc.google_project_service.project_service[5][0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "google_project_service" "project_service" {
+      [32m+[0m [0m[1m[0mdisable_on_destroy[0m[0m = false
+      [32m+[0m [0m[1m[0mid[0m[0m                 = (known after apply)
+      [32m+[0m [0m[1m[0mproject[0m[0m            = "datastax-308813"
+      [32m+[0m [0m[1m[0mservice[0m[0m            = "logging.googleapis.com"
+    }
+
+[1m  # module.datastax_vpc.google_project_service.project_service[6][0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "google_project_service" "project_service" {
+      [32m+[0m [0m[1m[0mdisable_on_destroy[0m[0m = false
+      [32m+[0m [0m[1m[0mid[0m[0m                 = (known after apply)
+      [32m+[0m [0m[1m[0mproject[0m[0m            = "datastax-308813"
+      [32m+[0m [0m[1m[0mservice[0m[0m            = "monitoring.googleapis.com"
+    }
+
+[1m  # module.datastax_vpc.google_project_service.project_service[7][0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "google_project_service" "project_service" {
+      [32m+[0m [0m[1m[0mdisable_on_destroy[0m[0m = false
+      [32m+[0m [0m[1m[0mid[0m[0m                 = (known after apply)
+      [32m+[0m [0m[1m[0mproject[0m[0m            = "datastax-308813"
+      [32m+[0m [0m[1m[0mservice[0m[0m            = "sqladmin.googleapis.com"
+    }
+
+[1m  # module.datastax_vpc.google_project_service.project_service[8][0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "google_project_service" "project_service" {
+      [32m+[0m [0m[1m[0mdisable_on_destroy[0m[0m = false
+      [32m+[0m [0m[1m[0mid[0m[0m                 = (known after apply)
+      [32m+[0m [0m[1m[0mproject[0m[0m            = "datastax-308813"
+      [32m+[0m [0m[1m[0mservice[0m[0m            = "securetoken.googleapis.com"
+    }
+
+[1m  # module.first_gke_cluster.google_container_cluster.container_cluster[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "google_container_cluster" "container_cluster" {
+      [32m+[0m [0m[1m[0mcluster_ipv4_cidr[0m[0m           = (known after apply)
+      [32m+[0m [0m[1m[0mdatapath_provider[0m[0m           = (known after apply)
+      [32m+[0m [0m[1m[0mdefault_max_pods_per_node[0m[0m   = (known after apply)
+      [32m+[0m [0m[1m[0mdescription[0m[0m                 = "Demo GKE Cluster"
+      [32m+[0m [0m[1m[0menable_binary_authorization[0m[0m = false
+      [32m+[0m [0m[1m[0menable_kubernetes_alpha[0m[0m     = false
+      [32m+[0m [0m[1m[0menable_legacy_abac[0m[0m          = false
+      [32m+[0m [0m[1m[0menable_shielded_nodes[0m[0m       = false
+      [32m+[0m [0m[1m[0mendpoint[0m[0m                    = (known after apply)
+      [32m+[0m [0m[1m[0mid[0m[0m                          = (known after apply)
+      [32m+[0m [0m[1m[0minitial_node_count[0m[0m          = 1
+      [32m+[0m [0m[1m[0minstance_group_urls[0m[0m         = (known after apply)
+      [32m+[0m [0m[1m[0mlabel_fingerprint[0m[0m           = (known after apply)
+      [32m+[0m [0m[1m[0mlocation[0m[0m                    = "us-central1"
+      [32m+[0m [0m[1m[0mlogging_service[0m[0m             = (known after apply)
+      [32m+[0m [0m[1m[0mmaster_version[0m[0m              = (known after apply)
+      [32m+[0m [0m[1m[0mmonitoring_service[0m[0m          = (known after apply)
+      [32m+[0m [0m[1m[0mname[0m[0m                        = "demo-cluster"
+      [32m+[0m [0m[1m[0mnetwork[0m[0m                     = "default"
+      [32m+[0m [0m[1m[0mnode_locations[0m[0m              = (known after apply)
+      [32m+[0m [0m[1m[0mnode_version[0m[0m                = (known after apply)
+      [32m+[0m [0m[1m[0moperation[0m[0m                   = (known after apply)
+      [32m+[0m [0m[1m[0mproject[0m[0m                     = "datastax-308813"
+      [32m+[0m [0m[1m[0mremove_default_node_pool[0m[0m    = true
+      [32m+[0m [0m[1m[0mself_link[0m[0m                   = (known after apply)
+      [32m+[0m [0m[1m[0mservices_ipv4_cidr[0m[0m          = (known after apply)
+      [32m+[0m [0m[1m[0msubnetwork[0m[0m                  = (known after apply)
+      [32m+[0m [0m[1m[0mtpu_ipv4_cidr_block[0m[0m         = (known after apply)
+
+      [32m+[0m [0maddons_config {
+          [32m+[0m [0mcloudrun_config {
+              [32m+[0m [0m[1m[0mdisabled[0m[0m           = (known after apply)
+              [32m+[0m [0m[1m[0mload_balancer_type[0m[0m = (known after apply)
+            }
+
+          [32m+[0m [0mhorizontal_pod_autoscaling {
+              [32m+[0m [0m[1m[0mdisabled[0m[0m = (known after apply)
+            }
+
+          [32m+[0m [0mhttp_load_balancing {
+              [32m+[0m [0m[1m[0mdisabled[0m[0m = (known after apply)
+            }
+
+          [32m+[0m [0mnetwork_policy_config {
+              [32m+[0m [0m[1m[0mdisabled[0m[0m = (known after apply)
+            }
+        }
+
+      [32m+[0m [0mauthenticator_groups_config {
+          [32m+[0m [0m[1m[0msecurity_group[0m[0m = (known after apply)
+        }
+
+      [32m+[0m [0mcluster_autoscaling {
+          [32m+[0m [0m[1m[0menabled[0m[0m = (known after apply)
+
+          [32m+[0m [0mauto_provisioning_defaults {
+              [32m+[0m [0m[1m[0moauth_scopes[0m[0m    = (known after apply)
+              [32m+[0m [0m[1m[0mservice_account[0m[0m = (known after apply)
+            }
+
+          [32m+[0m [0mresource_limits {
+              [32m+[0m [0m[1m[0mmaximum[0m[0m       = (known after apply)
+              [32m+[0m [0m[1m[0mminimum[0m[0m       = (known after apply)
+              [32m+[0m [0m[1m[0mresource_type[0m[0m = (known after apply)
+            }
+        }
+
+      [32m+[0m [0mdatabase_encryption {
+          [32m+[0m [0m[1m[0mkey_name[0m[0m = (known after apply)
+          [32m+[0m [0m[1m[0mstate[0m[0m    = (known after apply)
+        }
+
+      [32m+[0m [0mdefault_snat_status {
+          [32m+[0m [0m[1m[0mdisabled[0m[0m = (known after apply)
+        }
+
+      [32m+[0m [0mmaster_auth {
+          [32m+[0m [0m[1m[0mclient_certificate[0m[0m     = (known after apply)
+          [32m+[0m [0m[1m[0mclient_key[0m[0m             = (sensitive value)
+          [32m+[0m [0m[1m[0mcluster_ca_certificate[0m[0m = (known after apply)
+          [32m+[0m [0m[1m[0mpassword[0m[0m               = (sensitive value)
+          [32m+[0m [0m[1m[0musername[0m[0m               = (known after apply)
+
+          [32m+[0m [0mclient_certificate_config {
+              [32m+[0m [0m[1m[0missue_client_certificate[0m[0m = (known after apply)
+            }
+        }
+
+      [32m+[0m [0mnetwork_policy {
+          [32m+[0m [0m[1m[0menabled[0m[0m  = (known after apply)
+          [32m+[0m [0m[1m[0mprovider[0m[0m = (known after apply)
+        }
+
+      [32m+[0m [0mnode_config {
+          [32m+[0m [0m[1m[0mdisk_size_gb[0m[0m      = (known after apply)
+          [32m+[0m [0m[1m[0mdisk_type[0m[0m         = (known after apply)
+          [32m+[0m [0m[1m[0mguest_accelerator[0m[0m = (known after apply)
+          [32m+[0m [0m[1m[0mimage_type[0m[0m        = (known after apply)
+          [32m+[0m [0m[1m[0mlabels[0m[0m            = (known after apply)
+          [32m+[0m [0m[1m[0mlocal_ssd_count[0m[0m   = (known after apply)
+          [32m+[0m [0m[1m[0mmachine_type[0m[0m      = (known after apply)
+          [32m+[0m [0m[1m[0mmetadata[0m[0m          = (known after apply)
+          [32m+[0m [0m[1m[0mmin_cpu_platform[0m[0m  = (known after apply)
+          [32m+[0m [0m[1m[0moauth_scopes[0m[0m      = (known after apply)
+          [32m+[0m [0m[1m[0mpreemptible[0m[0m       = (known after apply)
+          [32m+[0m [0m[1m[0mservice_account[0m[0m   = (known after apply)
+          [32m+[0m [0m[1m[0mtags[0m[0m              = (known after apply)
+          [32m+[0m [0m[1m[0mtaint[0m[0m             = (known after apply)
+
+          [32m+[0m [0mshielded_instance_config {
+              [32m+[0m [0m[1m[0menable_integrity_monitoring[0m[0m = (known after apply)
+              [32m+[0m [0m[1m[0menable_secure_boot[0m[0m          = (known after apply)
+            }
+
+          [32m+[0m [0mworkload_metadata_config {
+              [32m+[0m [0m[1m[0mnode_metadata[0m[0m = (known after apply)
+            }
+        }
+
+      [32m+[0m [0mnode_pool {
+          [32m+[0m [0m[1m[0minitial_node_count[0m[0m  = (known after apply)
+          [32m+[0m [0m[1m[0minstance_group_urls[0m[0m = (known after apply)
+          [32m+[0m [0m[1m[0mmax_pods_per_node[0m[0m   = (known after apply)
+          [32m+[0m [0m[1m[0mname[0m[0m                = (known after apply)
+          [32m+[0m [0m[1m[0mname_prefix[0m[0m         = (known after apply)
+          [32m+[0m [0m[1m[0mnode_count[0m[0m          = (known after apply)
+          [32m+[0m [0m[1m[0mnode_locations[0m[0m      = (known after apply)
+          [32m+[0m [0m[1m[0mversion[0m[0m             = (known after apply)
+
+          [32m+[0m [0mautoscaling {
+              [32m+[0m [0m[1m[0mmax_node_count[0m[0m = (known after apply)
+              [32m+[0m [0m[1m[0mmin_node_count[0m[0m = (known after apply)
+            }
+
+          [32m+[0m [0mmanagement {
+              [32m+[0m [0m[1m[0mauto_repair[0m[0m  = (known after apply)
+              [32m+[0m [0m[1m[0mauto_upgrade[0m[0m = (known after apply)
+            }
+
+          [32m+[0m [0mnode_config {
+              [32m+[0m [0m[1m[0mdisk_size_gb[0m[0m      = (known after apply)
+              [32m+[0m [0m[1m[0mdisk_type[0m[0m         = (known after apply)
+              [32m+[0m [0m[1m[0mguest_accelerator[0m[0m = (known after apply)
+              [32m+[0m [0m[1m[0mimage_type[0m[0m        = (known after apply)
+              [32m+[0m [0m[1m[0mlabels[0m[0m            = (known after apply)
+              [32m+[0m [0m[1m[0mlocal_ssd_count[0m[0m   = (known after apply)
+              [32m+[0m [0m[1m[0mmachine_type[0m[0m      = (known after apply)
+              [32m+[0m [0m[1m[0mmetadata[0m[0m          = (known after apply)
+              [32m+[0m [0m[1m[0mmin_cpu_platform[0m[0m  = (known after apply)
+              [32m+[0m [0m[1m[0moauth_scopes[0m[0m      = (known after apply)
+              [32m+[0m [0m[1m[0mpreemptible[0m[0m       = (known after apply)
+              [32m+[0m [0m[1m[0mservice_account[0m[0m   = (known after apply)
+              [32m+[0m [0m[1m[0mtags[0m[0m              = (known after apply)
+              [32m+[0m [0m[1m[0mtaint[0m[0m             = (known after apply)
+
+              [32m+[0m [0mshielded_instance_config {
+                  [32m+[0m [0m[1m[0menable_integrity_monitoring[0m[0m = (known after apply)
+                  [32m+[0m [0m[1m[0menable_secure_boot[0m[0m          = (known after apply)
+                }
+
+              [32m+[0m [0mworkload_metadata_config {
+                  [32m+[0m [0m[1m[0mnode_metadata[0m[0m = (known after apply)
+                }
+            }
+
+          [32m+[0m [0mupgrade_settings {
+              [32m+[0m [0m[1m[0mmax_surge[0m[0m       = (known after apply)
+              [32m+[0m [0m[1m[0mmax_unavailable[0m[0m = (known after apply)
+            }
+        }
+
+      [32m+[0m [0mrelease_channel {
+          [32m+[0m [0m[1m[0mchannel[0m[0m = (known after apply)
+        }
+    }
+
+[1m  # module.first_gke_cluster.google_container_node_pool.container_node_pool[0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "google_container_node_pool" "container_node_pool" {
+      [32m+[0m [0m[1m[0mcluster[0m[0m             = "demo-cluster"
+      [32m+[0m [0m[1m[0mid[0m[0m                  = (known after apply)
+      [32m+[0m [0m[1m[0minitial_node_count[0m[0m  = (known after apply)
+      [32m+[0m [0m[1m[0minstance_group_urls[0m[0m = (known after apply)
+      [32m+[0m [0m[1m[0mlocation[0m[0m            = "us-central1"
+      [32m+[0m [0m[1m[0mmax_pods_per_node[0m[0m   = (known after apply)
+      [32m+[0m [0m[1m[0mname[0m[0m                = "demo-cluster-node-pool"
+      [32m+[0m [0m[1m[0mname_prefix[0m[0m         = (known after apply)
+      [32m+[0m [0m[1m[0mnode_count[0m[0m          = 1
+      [32m+[0m [0m[1m[0mnode_locations[0m[0m      = (known after apply)
+      [32m+[0m [0m[1m[0moperation[0m[0m           = (known after apply)
+      [32m+[0m [0m[1m[0mproject[0m[0m             = "datastax-308813"
+      [32m+[0m [0m[1m[0mversion[0m[0m             = (known after apply)
+
+      [32m+[0m [0mmanagement {
+          [32m+[0m [0m[1m[0mauto_repair[0m[0m  = (known after apply)
+          [32m+[0m [0m[1m[0mauto_upgrade[0m[0m = (known after apply)
+        }
+
+      [32m+[0m [0mnode_config {
+          [32m+[0m [0m[1m[0mdisk_size_gb[0m[0m      = (known after apply)
+          [32m+[0m [0m[1m[0mdisk_type[0m[0m         = (known after apply)
+          [32m+[0m [0m[1m[0mguest_accelerator[0m[0m = (known after apply)
+          [32m+[0m [0m[1m[0mimage_type[0m[0m        = (known after apply)
+          [32m+[0m [0m[1m[0mlabels[0m[0m            = (known after apply)
+          [32m+[0m [0m[1m[0mlocal_ssd_count[0m[0m   = (known after apply)
+          [32m+[0m [0m[1m[0mmachine_type[0m[0m      = "n1-standard-1"
+          [32m+[0m [0m[1m[0mmetadata[0m[0m          = {
+              [32m+[0m [0m"disable-legacy-endpoints" = "true"
+            }
+          [32m+[0m [0m[1m[0moauth_scopes[0m[0m      = [
+              [32m+[0m [0m"https://www.googleapis.com/auth/logging.write",
+              [32m+[0m [0m"https://www.googleapis.com/auth/monitoring",
+            ]
+          [32m+[0m [0m[1m[0mpreemptible[0m[0m       = true
+          [32m+[0m [0m[1m[0mservice_account[0m[0m   = (known after apply)
+          [32m+[0m [0m[1m[0mtaint[0m[0m             = (known after apply)
+
+          [32m+[0m [0mshielded_instance_config {
+              [32m+[0m [0m[1m[0menable_integrity_monitoring[0m[0m = (known after apply)
+              [32m+[0m [0m[1m[0menable_secure_boot[0m[0m          = (known after apply)
+            }
+
+          [32m+[0m [0mworkload_metadata_config {
+              [32m+[0m [0m[1m[0mnode_metadata[0m[0m = (known after apply)
+            }
+        }
+
+      [32m+[0m [0mupgrade_settings {
+          [32m+[0m [0m[1m[0mmax_surge[0m[0m       = (known after apply)
+          [32m+[0m [0m[1m[0mmax_unavailable[0m[0m = (known after apply)
+        }
+    }
+
+[0m[1mPlan:[0m 17 to add, 0 to change, 0 to destroy.[0m
+[0m
+[1mChanges to Outputs:[0m
+  [32m+[0m [0m[1m[0mendpoint[0m[0m       = (known after apply)
+  [32m+[0m [0m[1m[0mmaster_version[0m[0m = (known after apply)[0m
+
+------------------------------------------------------------------------
+
+Note: You didn't specify an "-out" parameter to save this plan, so Terraform
+can't guarantee that exactly these actions will be performed if
+"terraform apply" is subsequently run.
+

@@ -14,6 +14,7 @@ module "first_gke_cluster" {
   project = var.project_id
   network_link =  module.datastax_vpc.network_selflink
   subnetwork_link = module.datastax_vpc.subnetwork_selflink
+  service_account = module.datastax_iam.service_account
 }
 
 

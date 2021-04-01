@@ -19,7 +19,7 @@ resource "google_container_cluster" "container_cluster" {
     client_certificate_config {
       issue_client_certificate = false
     }
-  }  
+  }
 }
 
 resource "google_container_node_pool" "container_node_pool" {

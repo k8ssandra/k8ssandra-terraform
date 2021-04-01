@@ -72,7 +72,7 @@ variable "project_services" {
     "monitoring.googleapis.com",
     "sqladmin.googleapis.com",
     "securetoken.googleapis.com",
-    "container.clusters.create", 
+    "container.clusters.create",
   ]
   description = <<-EOF
   The GCP APIs that should be enabled in this project.

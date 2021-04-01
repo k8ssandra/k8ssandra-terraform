@@ -1,8 +1,8 @@
 // Create a network for GKE
 resource "google_compute_network" "compute_network" {
-  name                    = format("%s-network", var.name)
-  project                 = var.project_id
-    # Always define custom subnetworks- one subnetwork per region isn't useful for an opinionated setup
+  name    = format("%s-network", var.name)
+  project = var.project_id
+  # Always define custom subnetworks- one subnetwork per region isn't useful for an opinionated setup
   auto_create_subnetworks = "false"
 
   # A global routing mode can have an unexpected impact on load balancers; always use a regional mode
@@ -13,7 +13,7 @@ resource "google_compute_network" "compute_network" {
 resource "google_compute_router" "vpc_compute_router" {
   # Only create the Cloud NAT if it is enabled.
   count   = var.enable_cloud_nat ? 1 : 0
-  name = format("%s-router", var.name)
+  name    = format("%s-router", var.name)
   project = var.project_id
   region  = var.region
   network = google_compute_network.compute_network.self_link
@@ -43,10 +43,10 @@ resource "google_compute_router_nat" "compute_router_nat" {
 
 // Create subnets config
 resource "google_compute_subnetwork" "compute_subnetwork" {
-  name          = format("%s-subnet", var.name)
-  project       = var.project_id
-  network       = google_compute_network.compute_network.self_link
-  region        = var.region
+  name    = format("%s-subnet", var.name)
+  project = var.project_id
+  network = google_compute_network.compute_network.self_link
+  region  = var.region
   #ip_cidr_range = "10.0.0.0/24"
 
   private_ip_google_access = true
@@ -64,10 +64,10 @@ resource "google_compute_subnetwork" "compute_subnetwork" {
 
 // Create private subnets
 resource "google_compute_subnetwork" "private_compute_subnetwork" {
-  name          = format("%s-private-subnet", var.name)
-  project       = var.project_id
-  network       = google_compute_network.compute_network.self_link
-  region        = var.region
+  name    = format("%s-private-subnet", var.name)
+  project = var.project_id
+  network = google_compute_network.compute_network.self_link
+  region  = var.region
   #ip_cidr_range = "10.0.0.0/24"
 
   private_ip_google_access = true

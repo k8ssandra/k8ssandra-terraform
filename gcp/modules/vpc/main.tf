@@ -12,6 +12,9 @@ resource "google_compute_network" "compute_network" {
 # This Cloud Router is used only for the Cloud NAT.
 resource "google_compute_router" "vpc_compute_router" {
   # Only create the Cloud NAT if it is enabled.
+  depends_on = [
+    google_compute_network.compute_network
+  ]
   count   = var.enable_cloud_nat ? 1 : 0
   name    = format("%s-router", var.name)
   project = var.project_id
@@ -20,11 +23,11 @@ resource "google_compute_router" "vpc_compute_router" {
 }
 
 
-# https://www.terraform.io/docs/providers/google/r/compute_router_nat.html
 resource "google_compute_router_nat" "compute_router_nat" {
   # Only create the Cloud NAT if it is enabled.
   count = var.enable_cloud_nat ? 1 : 0
   name  = format("%s-nat", var.name)
+  project = var.project_id
   // Because router has the count attribute set we have to use [0] here to
   // refer to its attributes.
   router = google_compute_router.vpc_compute_router[0].name

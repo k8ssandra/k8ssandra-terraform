@@ -10,6 +10,16 @@ resource "google_container_cluster" "container_cluster" {
   network    = var.network_link
   subnetwork = var.subnetwork_link
 
+  master_auth {
+    # Setting an empty username and password explicitly disables basic auth
+    username = ""
+    password = ""
+
+    # Whether client certificate authorization is enabled for this cluster.
+    client_certificate_config {
+      issue_client_certificate = false
+    }
+  }  
 }
 
 resource "google_container_node_pool" "container_node_pool" {
@@ -27,6 +37,7 @@ resource "google_container_node_pool" "container_node_pool" {
       disable-legacy-endpoints = "true"
     }
 
+    service_account = var.service_account
     oauth_scopes = [
       "https://www.googleapis.com/auth/logging.write",
       "https://www.googleapis.com/auth/monitoring",

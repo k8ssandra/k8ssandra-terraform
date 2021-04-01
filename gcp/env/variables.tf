@@ -12,7 +12,7 @@ variable "region" {
 variable "project_id" {
   description = "The project in which to hold the components"
   type        = string
-  default     = "datastax-308813"
+  default     = "k8ssandra-testing"
 }
 
 variable "zone" {
@@ -72,6 +72,7 @@ variable "project_services" {
     "monitoring.googleapis.com",
     "sqladmin.googleapis.com",
     "securetoken.googleapis.com",
+    "container.clusters.create", 
   ]
   description = <<-EOF
   The GCP APIs that should be enabled in this project.

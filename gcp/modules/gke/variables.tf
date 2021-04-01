@@ -4,7 +4,7 @@ variable "name" {
 
 variable "project" {
   description = "project ID"
-  default     = "datastax-308813"
+  default     = ""
 }
 
 variable "location" {
@@ -33,4 +33,8 @@ variable "network_link" {
 variable "subnetwork_link" {
   description = "subnetworking link"
   default     = ""
+}
+
+variable "service_account" {
+  default = ""
 }

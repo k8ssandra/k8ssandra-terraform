@@ -43,10 +43,7 @@ variable "service_account_iam_roles" {
     "roles/monitoring.metricWriter",
     "roles/monitoring.viewer",
   ]
-  description = <<-EOF
-  List of the default IAM roles to attach to the service account on the
-  GKE Nodes.
-  EOF
+  description = "List of the default IAM roles to attach to the service account on the GKE Nodes."
 }
 
 variable "service_account_custom_iam_roles" {

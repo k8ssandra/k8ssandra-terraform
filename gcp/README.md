@@ -9,39 +9,41 @@ https://github.com/jonbrouse/terraform-style-guide/blob/master/README.md#file-na
 # folder Structure
 
 k8ssandra-terraform/
-  aws/
-  
-  gcp/
-    modules/
-      vpc/
-        main.tf 
-        variables.tf 
-        outputs.tf 
-        README.md 
-      iam/
-        main.tf 
-        variables.tf 
-        outputs.tf 
-        README.md
-      gke/
-        main.tf 
-        variables.tf 
-        outputs.tf 
-        README.md
-    version.tf 
-    backend.tf 
-    variables.tf 
-    outputs.tf
-    README.md 
-    env/
-      dev.tf
-      ../modules/vpc
-      ../modules/iam
-      ../modules/gke_cluster
-  
-  azure/
-  tanzu/
-  dev.tf
+  -aws/
+  -gcp/
+    -modules/
+      -vpc/
+        -main.tf 
+        -variables.tf 
+        -outputs.tf 
+        -README.md 
+      -iam/
+        -main.tf 
+        -variables.tf 
+        -outputs.tf 
+        -README.md
+      -gke/
+        -main.tf 
+        -variables.tf 
+        -outputs.tf 
+        -README.md
+    -README.md 
+    -env/
+      -dev.tf
+        ../modules/vpc
+        ../modules/iam
+        ../modules/gke_cluster
+      -version.tf 
+      -backend.tf 
+      -variables.tf 
+      -outputs.tf
+  -azure/
+  -tanzu/
+  -test
+  -scripts
+  -LICENSE
+  -Makefile
+  -README.md
 
 
 terraform version 0.14 

@@ -1,3 +1,17 @@
+# copyright 2020 Datastax LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 #google service account
 resource "google_service_account" "service_account" {
   account_id   = format("%s-service-account", var.name)
@@ -5,7 +19,7 @@ resource "google_service_account" "service_account" {
   project      = var.project_id
 }
 
-// Add the service account to the project
+# Add the service account to the project
 resource "google_project_iam_member" "service-account" {
   count   = length(var.service_account_iam_roles)
   project = var.project_id
@@ -14,7 +28,7 @@ resource "google_project_iam_member" "service-account" {
 }
 
 
-// Add user-specified roles
+# Add user-specified roles
 resource "google_project_iam_member" "service-account-custom" {
   count   = length(var.service_account_custom_iam_roles)
   project = var.project_id

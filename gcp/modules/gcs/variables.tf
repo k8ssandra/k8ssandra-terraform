@@ -13,27 +13,39 @@
 # limitations under the License.
 
 variable "name" {
-  description = "name of the cluster"
+  description = "Globally unique name of the bucket"
   type        = string
 }
 
 variable "project_id" {
-  description = "The project in which to hold the components"
+  description = "The ID of the project to create the bucket in."
   type        = string
-}
-
-variable "service_account_custom_iam_roles" {
-  description = "service account custom iam roles"
-  type        = list(string)
-  default     = []
 }
 
 variable "region" {
-  description = "The region in which to create the VPC network"
+  description = "location of the bucket"
   type        = string
 }
 
-variable "service_account_iam_roles" {
-  description = "service account custom iam roles"
-  type        = list(string)
+variable "storage_class" {
+  description = "Storage class for the gcs bucket"
+  type        = string
+  default     = null
+}
+
+variable "bucket_policy_only" {
+  description = "Enables Bucket Policy Only access to a bucket."
+  type        = bool
+  default     = true
+}
+
+variable "role" {
+  description = "Role of the google storage bucket iam member"
+  type        = string
+  default     = "roles/storage.admin"
+}
+
+variable "service_account" {
+  description = "service account email address"
+  type        = string
 }

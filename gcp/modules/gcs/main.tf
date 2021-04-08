@@ -12,10 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-output "network_selflink" {
-  value = google_compute_network.compute_network.self_link
+resource "google_storage_bucket" "storage_bucket" {
+  name                        = var.name
+  project                     = var.project_id
+  location                    = var.region
+  storage_class               = var.storage_class
+  uniform_bucket_level_access = var.bucket_policy_only
+  force_destroy               = true
+
 }
 
-output "subnetwork_selflink" {
-  value = google_compute_subnetwork.compute_subnetwork.self_link
+resource "google_storage_bucket_iam_member" "storage_bucket_iam_member" {
+  bucket = google_storage_bucket.storage_bucket.name
+  role   = "roles/storage.admin"
+  member = format("serviceAccount:%s", var.service_account)
 }

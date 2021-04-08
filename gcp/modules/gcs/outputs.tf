@@ -12,10 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-output "network_selflink" {
-  value = google_compute_network.compute_network.self_link
-}
-
-output "subnetwork_selflink" {
-  value = google_compute_subnetwork.compute_subnetwork.self_link
+output "bucket_name" {
+  description = "name of the google cloud storage bucket"
+  value       = google_storage_bucket.storage_bucket.name
 }

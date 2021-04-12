@@ -1,10 +1,12 @@
-# Google Identity Access Management
-Dynamic Terraform IAM module code. This module will be called from ../env/dev.tf modules file. This module creates a services account and iam memebers and roles.
+# Google Identity Access Management module
+This is a Dynamic module in Terraform to create IAM resources. This module will be called from ../env/dev.tf modules file. This module creates a Services Account and IAM memebers and roles.
 
-main.tf contains all the resources, which will be created while terraform apply, variables.tf file containes all the variables required to create the resources and outputs.tf files for output the attributes of the resources.
+* main.tf : contains all the resources, which will be created with `terraform apply` command.
+* variables.tf : contains all the variables required to create the resources.
+* outputs.tf : print output attributes of the resources.
 
 
-## Google cloud resources
+## Google cloud resources created
 * service account will be created 
 * iam member with roles attached
 * custom iam member with roles attached

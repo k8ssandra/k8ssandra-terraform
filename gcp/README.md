@@ -1,19 +1,31 @@
 # K8ssandra GCP Terraform Example
 
-## GCP resources
+## What is Google Kubernetes Engine (GKE)?
+[Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine) or "GKE" is a Google-managed Kubernetes environment. GKE is a fully managed experience; it handles the management/upgrading of the Kubernetes cluster master as well as autoscaling of "nodes" through "node pool" templates.
+
+Through GKE, your Kubernetes deployments will have first-class support for GCP IAM identities, built-in configuration of high-availability and secured clusters, as well as native access to GCP's networking features such as load balancers.
+
+## What is GKE Node Pool ?
+GKE Node Pools are a group of nodes who share the same configuration, defined as a NodeConfig. Node pools also control the autoscaling of their nodes, and autoscaling configuration is done inline, alongside the node config definition. A GKE Cluster can have multiple node pools defined. Initially by default we have only defined a `1` node pool. 
+
+## VPC Network 
+You must explicitly specify the network and subnetwork of your GKE cluster using the network and subnetwork fields; We will not use the default network with an automatically generated subnetwork.
+
+
+## GCP resources created
 * GKE cluster
 * Cluster node pool
-* service account 
-* iam member 
-* custom iam member
-* google compute network(VPC)
-* public subnet
-* private subnet
-* router
-* compute router nat
-* google storage bucket
-* google storage bucket iam member
-* google compute address
+* Service account 
+* Iam member 
+* Custom Iam member
+* Google compute network(VPC)
+* Public subnet
+* Private subnet
+* Router
+* Compute router NAT
+* Google storage bucket
+* Google storage bucket IAM member
+* Google compute address
 
 
 ## Project directory Structure
@@ -60,8 +72,8 @@ gcp/
 
 |       NAME        |   Version  | 
 |-------------------|------------|
-| terraform version |   0.14     |
-| gcp provider      |   ~>3.0    |
+| Terraform version |   0.14     |
+| GCP provider      |   ~>3.0    |
 | Helm version      |   v3.5.3   |
 | Google Cloud SDK  |   333.0.0  |
 |    bq             |   2.0.65   |
@@ -77,7 +89,7 @@ You will need a google cloud project created, If you do not have a google cloud 
 
 ### Required GCP APIs
 
-The following APIs will be enabled:
+The following APIs are enabled when the terraform is utilized:
 
 * Compute Engine API
 * Kubernetes Engine API
@@ -87,7 +99,7 @@ The following APIs will be enabled:
 * Stackdriver Monitoring API
 * IAM Service Account Credentials API
 
-All the tools for the demo are installed. When using Cloud Shell execute the following command in order to setup gcloud cli. When executing this command please setup your region and zone.
+Execute the following commands on the linux machine in order to setup gcloud cli.
 
 ```console
 gcloud init
@@ -95,9 +107,7 @@ gcloud init
 
 ### Tools
 
-When not using Cloud Shell, the following tools are required:
-
-* Access to an existing Google Cloud project.
+* Access to an existing Google Cloud project as a owner or a developer.
 * Bash and common command line tools (Make, etc.)
 * [Terraform v0.14.0+](https://www.terraform.io/downloads.html)
 * [gcloud v333.0.0+](https://cloud.google.com/sdk/downloads)
@@ -116,12 +126,18 @@ The Google Cloud SDK is used to interact with your GCP resources. [Google cloud 
 The kubectl CLI is used to interteract with both Kubernetes Engine and Kubernetes in general. [kubectl CLI Installation instructions](https://cloud.google.com/kubernetes-engine/docs/quickstart) for multiple platforms are available online.
 
 
-### Authenticate gcloud
+### GCP authenticaion
 
-Prior to running this demo, ensure you have authenticated your gcloud client by running the following command:
+Ensure you have authenticated your gcloud client by running the following command:
 
 ```console
 gcloud auth login
+```
+
+if you are already using another profile on your machine, use the following command to update the credentials:
+
+```console
+gcloud auth application-default login
 ```
 
 ### Configure gcloud settings
@@ -151,30 +167,47 @@ Updated property [core/project].
 
 ## Test this project locally
 
+Export the following terraform environment variables(TFVARS) for terraform to create the resources. 
+```console
+
+export TF_VAR_environment=<ENVIRONMENT_REPLACEME>
+ex:- export TF_VAR_environment=dev
+
+export TF_VAR_name=<CLUSTERNAME_REPLACEME>
+ex:- export TF_VAR_name=k8ssandra
+
+export TF_VAR_project_id=<PROJECTID_REPLACEME>
+ex:- export TF_VAR_project_id=k8ssandra-testing
+
+export TF_VAR_region=<REGION_REPLACEME>
+ex:- export TF_VAR_region=us-central-1
+
 ```
+
+Importent: Initialize the terraform modules delete the backend file for local testing.
+
+```console
 cd env/
 terraform init
 ````
+
 After the terraform initialization is successful, create your workspace and by using the following command
 
-```
-terraform workspace new <WORKSPACENAME>
+```console
+terraform workspace new <WORKSPACENAME_REPLACEME>
 ```
 
 or select the workspace if there are any existing workspaces
 
+```console
+terraform workspace select <WORKSPACENAME_REPLACEME>
 ```
-terraform workspace select <WORKSPACENAME>
-```
-
-Update variables.tf and setup your project ID
 
 run the following commands
 
-```
+```console
 terraform plan
 terraform apply
-```
 ```
 
 ### Install k8ssandra on the kubernetes cluster references documents 

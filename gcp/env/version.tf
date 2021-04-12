@@ -1,4 +1,4 @@
-# copyright 2020 Datastax LLC
+# Copyright 2021 Datastax LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Terraform provider
 terraform {
   required_version = ">= 0.12"
 
@@ -21,4 +22,13 @@ terraform {
       version = "~> 3.0"
     }
   }
+}
+
+# Google beta provider 
+# Necessary for creating and managing Private subnets.
+provider "google-beta" {
+  alias   = "google-beta"
+  project = var.project_id
+  region  = var.region
+  zone    = var.zone
 }

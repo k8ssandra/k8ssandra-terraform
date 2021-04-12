@@ -1,4 +1,4 @@
-# copyright 2020 Datastax LLC
+# Copyright 2021 Datastax LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,6 +14,11 @@
 
 variable "name" {
   description = "Globally unique name of the bucket"
+  type        = string
+}
+
+variable "environment" {
+  description = "The environment of the infrastructure being built."
   type        = string
 }
 

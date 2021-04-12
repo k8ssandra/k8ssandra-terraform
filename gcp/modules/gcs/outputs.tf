@@ -1,4 +1,4 @@
-# copyright 2020 Datastax LLC
+# Copyright 2021 Datastax LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Output bucket name of the google cloud storage.
 output "bucket_name" {
   description = "name of the google cloud storage bucket"
   value       = google_storage_bucket.storage_bucket.name

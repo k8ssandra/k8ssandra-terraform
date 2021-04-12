@@ -1,4 +1,4 @@
-# copyright 2020 Datastax LLC
+# Copyright 2021 Datastax LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#google service account
+# Create Google Service Account
 resource "google_service_account" "service_account" {
   account_id   = format("%s-service-account", var.name)
   display_name = "GKE Security Service Account"
@@ -20,7 +20,7 @@ resource "google_service_account" "service_account" {
 }
 
 # Add the service account to the project
-resource "google_project_iam_member" "service-account" {
+resource "google_project_iam_member" "service_account" {
   count   = length(var.service_account_iam_roles)
   project = var.project_id
   role    = element(var.service_account_iam_roles, count.index)
@@ -29,7 +29,7 @@ resource "google_project_iam_member" "service-account" {
 
 
 # Add user-specified roles
-resource "google_project_iam_member" "service-account-custom" {
+resource "google_project_iam_member" "service_account_custom" {
   count   = length(var.service_account_custom_iam_roles)
   project = var.project_id
   role    = element(var.service_account_custom_iam_roles, count.index)

@@ -1,4 +1,4 @@
-# copyright 2020 Datastax LLC
+# Copyright 2021 Datastax LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,10 +12,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Output variable for the vpc network selflink
 output "network_selflink" {
   value = google_compute_network.compute_network.self_link
 }
 
+# Output variable for the subnetwork selflink. 
 output "subnetwork_selflink" {
-  value = google_compute_subnetwork.compute_subnetwork.self_link
+  value = google_compute_subnetwork.private_compute_subnetwork.self_link
+}
+
+# Output variable for the NAT address selflink. 
+output "compute_address" {
+  value = google_compute_address.compute_address.self_link
+}
+
+# Output variable for the NAT ip address. 
+output "compute_address_id" {
+  value = google_compute_address.compute_address.id
 }

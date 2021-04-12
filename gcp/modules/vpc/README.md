@@ -1,15 +1,17 @@
 # Google Compute Network
-Dynamic terraform vpc module code. this module will be called from the ./env/dev.tf file. 
+This is a Dynamic module in Terraform to create compute Network(VPC). This module will be called from the ./env/dev.tf file. 
 
-main.tf contains all the resources, which will be created while terraform apply, variables.tf file containes all the variables required to create the resources and outputs.tf files for output the attributes of the resources.
+* main.tf : contains all the resources, which will be created with `terraform apply` command.
+* variables.tf : contains all the variables required to create the resources.
+* outputs.tf : print output attributes of the resources.
 
 
-## Google cloud resources
+## Google cloud resources created
 * google compute network(VPC)
 * public subnet
 * private subnet
 * router
-* compute router nat
+* compute router NAT
 * compute address
 
 ## Providers
@@ -17,7 +19,7 @@ main.tf contains all the resources, which will be created while terraform apply,
 |       NAME        |   Version  | 
 |-------------------|------------|
 | terraform version |   0.14     |
-| gcp provider      |   ~>3.0    |
+| GCP provider      |   ~>3.0    |
 
 ## Inputs
 

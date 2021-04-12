@@ -1,13 +1,14 @@
-# GKE Clusters Module
-Dynamic terraform GKEe cluster module code. This module will be called from ../env/dev.tf modules file, by using this module reusable module we will be able to create gke cluster and node pools.
+# GKE Clusters Terraform Module
+This is a Dynamic module in terraform to create GKE cluster. This module will be called from ../env/dev.tf modules file, by using this reusable module we will be able to create GKE cluster and Cluster Node Pool.
 
-main.tf contains all the resources which will be created while terraform apply, variables.tf file containes all the variables required to create the resources and outputs.tf files for output the attributes of the resources.
+* main.tf : contains all the resources which will be created with `terraform apply` command.
+* variables.tf : contains all the variables required to create the resources.
+* outputs.tf : prints output attributes of the resources.
 
 
-## Google cloud resources
+## Google cloud resources created
 * GKE cluster
 * Cluster node pool
-* Google project service
 
 ## Providers
 |       NAME        |   Version  | 

@@ -1,4 +1,4 @@
-# copyright 2020 Datastax LLC
+# Copyright 2021 Datastax LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+
+# Google storage bucket with standared storage class
 resource "google_storage_bucket" "storage_bucket" {
   name                        = var.name
   project                     = var.project_id
@@ -22,6 +24,7 @@ resource "google_storage_bucket" "storage_bucket" {
 
 }
 
+# Google Storage bucket IAM member resource
 resource "google_storage_bucket_iam_member" "storage_bucket_iam_member" {
   bucket = google_storage_bucket.storage_bucket.name
   role   = "roles/storage.admin"

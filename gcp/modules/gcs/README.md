@@ -1,11 +1,12 @@
 # Terraform google cloud storage module 
-Dynamic terraform GCS module code. by using this module to create google cloud storage bucket and assign basic persmissions to the users. 
+This is a Dynamic modules in Terraform to create a GCS bucket and assign basic persmissions to the users.
 
 
-main.tf contains all the resources which will be created while terraform apply, variables.tf file containes all the variables required to create the resources and outputs.tf files for output the attributes of the resources.
+* main.tf : contains all the resources which will be created with `terraform apply` command. 
+* variables.tf : contains all variables required to create the resources.
+* outputs.tf : contains output attributes of the resources. 
 
-
-## google cloud resources
+## google cloud resources created
 * google cloud storage bucket
 * google storage bucket iam member
 

@@ -1,17 +1,32 @@
-All the module calls made from this folder from dev.tf file this folder contains 
+# Terraform Modules Folder
 
-    dev.tf (modules file )
-    backend.tf ( contains backend configuration of the terraform, which contains terraform state files).
-    outputs.tf ( output's of the resource attributes after terraform apply)
-    version.tf ( contains terraform version and cloud provider version)
-    variables.tf (all the variable which required by the terraform modules.)
+All the module calls made from this folder from dev.tf file. 
 
-## Gke cluster example module
+* This folder contains following files
+  * dev.tf (modules file )
+  * backend.tf ( contains backend configuration of the terraform, which contains terraform state files).
+  * outputs.tf ( output's of the resource attributes after terraform apply)
+  * version.tf ( contains terraform version and cloud provider version)
+  * variables.tf (all the variable which required by the terraform modules.)
+
+## What is a module?
+A [Terraform Module](https://www.terraform.io/docs/language/modules/develop/index.html) is a canonical, reusable, best-practices definition for how to run a single piece of infrastructure, such as a database or server cluster. Each Module is written using a combination of Terraform and scripts (mostly bash) and include automated tests, documentation, and examples.
+
+* Every module has:
+  * Input variables: to accept values from the calling module.
+  * Output values: to return results to the calling module, which it can then use to populate arguments elsewhere.
+  * Resources: to define one or more infrastructure objects that the module will manage.
+  * Source: A source can be any local folder path or remote module located in source control systems like git.
+
+## GKE cluster example module
+Usage: The following module call will create GKE cluster and cluster node pool resources. Resources will be configured by using the following input variables on this module. 
+
 ```
-# Module call to create gke cluster
+# Module used for creating a google kubernetes cluster.
 module "gke" {
   source          = "../modules/gke"
   name            = local.prefix
+  environment     = var.environment
   region          = var.region
   project         = var.project_id
   network_link    = module.vpc.network_selflink
@@ -19,11 +34,12 @@ module "gke" {
   service_account = module.iam.service_account
 }
 
-```
+```   
+## IAM example module
+Usage: The following module call will create IAM resources. Resources will be configured using the following input variables on this modules.   
 
-## Iam example module
 ```
-# Module call to create service account and roles
+# Module used for create service account and roles
 module "iam" {
   source                           = "../modules/iam"
   name                             = local.prefix
@@ -36,11 +52,14 @@ module "iam" {
 ```
 
 ## vpc example module
+Usage: The following module call will create google compute network(VPC) and Gooogle Compute Subnet resources. Resources will be configured using the following input variables on this module. 
+
 ```
-# Module call for creating google compute network
+# Module used for creating a google compute network.
 module "vpc" {
   source           = "../modules/vpc"
   name             = local.prefix
+  environment     = var.environment
   region           = var.region
   project_id       = var.project_id
   project_services = var.project_services
@@ -49,12 +68,15 @@ module "vpc" {
 ```
 
 ## gcs example module
+Usage: The following module call will create google cloud storage bucket. Resources will be configured using following input variables on this module.
+
 ```
-# Module call to create google cloud storage bucket
+# Module used for create google cloud storage bucket
 module "gcs" {
   source          = "../modules/gcs"
   name            = format("%s-storage-bucket", local.prefix)
   region          = var.region
+  environment     = var.environment
   project_id      = var.project_id
   service_account = module.iam.service_account
 }
@@ -88,3 +110,4 @@ module "gcs" {
 |-------------|:----------------:|
 |   endpoint  | google container cluster endpoint |
 | master_version| google container cluster master version |
+| bucket_name | google storage bucket name |

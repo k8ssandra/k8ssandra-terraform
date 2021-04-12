@@ -1,4 +1,4 @@
-# copyright 2020 Datastax LLC
+# Copyright 2021 Datastax LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,17 +13,18 @@
 # limitations under the License.
 
 variable "name" {
-  description = "name of the cluster"
+  description = "Name of the cluster"
+  type        = string
+}
+
+variable "environment" {
+  description = "Name of the environment the infrasstructure is being built."
+  type        = string
 }
 
 variable "project_id" {
-  description = "project ID"
-  default     = ""
-}
-
-variable "location" {
-  description = "name of the region"
-  default     = "us-central1"
+  description = "The project ID where all resources will be launched."
+  type        = string
 }
 
 variable "initial_node_count" {
@@ -31,24 +32,44 @@ variable "initial_node_count" {
 }
 
 variable "machine_type" {
-  description = "name of the machine_type"
+  description = "Type of machines which are used by cluster node pool"
+  type        = string
   default     = "n1-standard-8"
 }
 
 variable "region" {
-  description = "name of the region"
+  description = "The location of the GKE cluster."
+  type        = string
 }
 
 variable "network_link" {
-  description = "network link"
+  description = "network link variable from vpc module outputs"
   default     = ""
 }
 
 variable "subnetwork_link" {
-  description = "subnetworking link"
+  description = "subnetworking link variable from vpc module outputs"
   default     = ""
 }
 
 variable "service_account" {
-  default = ""
+  description = "The name of the custom service account used for the GKE cluster. This parameter is limited to a maximum of 28 characters"
+  default     = ""
+}
+
+variable "enable_private_endpoint" {
+  description = "(Beta) Whether the master's internal IP address is used as the cluster endpoint"
+  default     = false
+  type        = bool
+}
+
+variable "enable_private_nodes" {
+  description = "(Beta) Whether nodes have internal IP addresses only"
+  default     = false
+  type        = bool
+}
+
+variable "master_ipv4_cidr_block" {
+  description = "The IP range in CIDR notation (size must be /28) to use for the hosted master network. This range will be used for assigning internal IP addresses to the master or set of masters, as well as the ILB VIP. This range must not overlap with any other ranges in use within the cluster's network."
+  default     = "10.0.0.0/28"
 }

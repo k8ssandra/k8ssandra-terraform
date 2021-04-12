@@ -1,4 +1,4 @@
-# copyright 2020 Datastax LLC
+# Copyright 2021 Datastax LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,11 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Google container cluster(GKE) configuration
 resource "google_container_cluster" "container_cluster" {
   name        = var.name
   project     = var.project_id
   description = "Demo GKE Cluster"
-  location    = var.location
+  location    = var.region
 
   remove_default_node_pool = true
   initial_node_count       = var.initial_node_count
@@ -35,24 +36,40 @@ resource "google_container_cluster" "container_cluster" {
     }
   }
 
-  provisioner "local-exec" {
-    command = "sleep 120"
+  private_cluster_config {
+    enable_private_endpoint = var.enable_private_endpoint
+    enable_private_nodes    = var.enable_private_nodes
   }
 
-  provisioner "local-exec" {
-    command = format("gcloud container clusters get-credentials %s --region %s --project %s", google_container_cluster.container_cluster.name, google_container_cluster.container_cluster.location, var.project_id)
+  resource_labels = {
+    environment = format("%s", var.environment)
   }
 
+  # Creates Internal Load Balancer
+  addons_config {
+    cloudrun_config {
+      disabled           = false
+      load_balancer_type = "LOAD_BALANCER_TYPE_INTERNAL"
+    }
+  }
+
+  node_config {
+    tags            = [var.environment]
+    service_account = var.service_account
+  }
+
+  master_authorized_networks_config {}
 }
 
-
+# Google container node pool configuration
 resource "google_container_node_pool" "container_node_pool" {
   name       = format("%s-node-pool", var.name)
   project    = var.project_id
-  location   = var.location
+  location   = var.region
   cluster    = google_container_cluster.container_cluster.name
   node_count = 1
 
+  # Node configuration
   node_config {
     preemptible  = true
     machine_type = var.machine_type
@@ -66,5 +83,21 @@ resource "google_container_node_pool" "container_node_pool" {
       "https://www.googleapis.com/auth/logging.write",
       "https://www.googleapis.com/auth/monitoring",
     ]
+  }
+
+  depends_on = [
+    google_container_cluster.container_cluster
+  ]
+}
+
+# Null resource to connect the google container cluster after creation.
+# Test the connectivity to GKE cluster that just got created.
+# TODO : Go program to replace this. 
+resource "null_resource" "provisioners" {
+  depends_on = [
+    google_container_cluster.container_cluster
+  ]
+  provisioner "local-exec" {
+    command = format("gcloud container clusters get-credentials %s --region %s --project %s", google_container_cluster.container_cluster.name, google_container_cluster.container_cluster.location, var.project_id)
   }
 }

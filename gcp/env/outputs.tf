@@ -1,4 +1,4 @@
-# copyright 2020 Datastax LLC
+# Copyright 2021 Datastax LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,10 +12,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# gke module output attributes
+#------------------------------
+# Print GKE cluster endpoint.
 output "endpoint" {
   value = module.gke.endpoint
 }
 
+# Print GKE cluster version.
 output "master_version" {
   value = module.gke.master_version
+}
+
+# gcs module output attributes
+#-----------------------------
+output "bucket_name" {
+  value = module.gcs.bucket_name
 }

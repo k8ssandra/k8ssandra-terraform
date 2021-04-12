@@ -1,4 +1,4 @@
-# copyright 2020 Datastax LLC
+# Copyright 2021 Datastax LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,6 +14,12 @@
 
 variable "name" {
   description = "name of the cluster "
+  type        = string
+}
+
+variable "environment" {
+  description = "Name of the environment the infrasstructure is being built."
+  type        = string
 }
 
 variable "project_id" {

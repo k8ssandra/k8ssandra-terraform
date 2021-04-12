@@ -1,4 +1,4 @@
-# copyright 2020 Datastax LLC
+# Copyright 2021 Datastax LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,18 +12,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Module call for creating google compute network
+# Create google compute network(VPC).
 module "vpc" {
   source           = "../modules/vpc"
   name             = local.prefix
+  environment      = var.environment
   region           = var.region
   project_id       = var.project_id
   project_services = var.project_services
 }
 
-# Module call to create gke cluster
+# Create GKE cluster.
 module "gke" {
   source          = "../modules/gke"
+  environment     = var.environment
   name            = local.prefix
   region          = var.region
   project_id      = var.project_id
@@ -32,7 +34,7 @@ module "gke" {
   service_account = module.iam.service_account
 }
 
-# Module call to create service account and roles
+# Create Service Account and IAM roles in GCP.
 module "iam" {
   source                           = "../modules/iam"
   name                             = local.prefix
@@ -42,10 +44,11 @@ module "iam" {
   service_account_iam_roles        = var.service_account_iam_roles
 }
 
-# Module call to create google cloud storage bucket
+# Create GCS bucket
 module "gcs" {
   source          = "../modules/gcs"
   name            = format("%s-storage-bucket", local.prefix)
+  environment     = var.environment
   region          = var.region
   project_id      = var.project_id
   service_account = module.iam.service_account

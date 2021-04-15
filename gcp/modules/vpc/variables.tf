@@ -87,8 +87,3 @@ variable "cloud_nat_logging_filter" {
   default     = "ERRORS_ONLY"
   description = " What filtering should be applied to logs for this NAT. Valid values are: 'ERRORS_ONLY', 'TRANSLATIONS_ONLY', 'ALL'. Defaults to 'ERRORS_ONLY'."
 }
-
-variable "project_services" {
-  type    = list(string)
-  default = []
-}

@@ -14,12 +14,11 @@
 
 # Create google compute network(VPC).
 module "vpc" {
-  source           = "../modules/vpc"
-  name             = local.prefix
-  environment      = var.environment
-  region           = var.region
-  project_id       = var.project_id
-  project_services = var.project_services
+  source      = "../modules/vpc"
+  name        = local.prefix
+  environment = var.environment
+  region      = var.region
+  project_id  = var.project_id
 }
 
 # Create GKE cluster.
@@ -42,6 +41,7 @@ module "iam" {
   project_id                       = var.project_id
   service_account_custom_iam_roles = var.service_account_custom_iam_roles
   service_account_iam_roles        = var.service_account_iam_roles
+  project_services                 = var.project_services
 }
 
 # Create GCS bucket

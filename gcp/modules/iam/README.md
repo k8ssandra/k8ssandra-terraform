@@ -7,9 +7,10 @@ This is a Dynamic module in Terraform to create IAM resources. This module will 
 
 
 ## Google cloud resources created
-* service account will be created 
-* iam member with roles attached
-* custom iam member with roles attached
+* Service Account will be created 
+* IAM member with roles attached
+* Custom IAM member with roles attached
+* Project Services.
 
 
 ## Providers
@@ -27,6 +28,7 @@ This is a Dynamic module in Terraform to create IAM resources. This module will 
 | region | the region to create the vpc network | `string` | yes |
 | service_account_custom_iam_roles | service account custom iam roles | `list` | no |
 | service_account_iam_roles | service account iam roles | `list` | no |
+| project_services | The GCP APIs that should be enabled in this project. | `list` | no |
 
 
 ## Outputs

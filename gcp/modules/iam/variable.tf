@@ -37,3 +37,8 @@ variable "service_account_iam_roles" {
   description = "service account custom iam roles"
   type        = list(string)
 }
+
+variable "project_services" {
+  type    = list(string)
+  default = []
+}

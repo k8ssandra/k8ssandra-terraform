@@ -7,12 +7,12 @@ This is a Dynamic module in Terraform to create compute Network(VPC). This modul
 
 
 ## Google cloud resources created
-* google compute network(VPC)
-* public subnet
-* private subnet
-* router
-* compute router NAT
-* compute address
+* Google Compute Network(VPC)
+* Compute Subnet
+* Google Compute Firewall
+* Compute Router
+* Compute Router NAT
+
 
 ## Providers
 
@@ -37,7 +37,7 @@ This is a Dynamic module in Terraform to create compute Network(VPC). This modul
 | enable_cloud_nat | Whether to enable Cloud NAT. | `bool` | no |
 | enable_cloud_nat_logging | Whether the NAT should export logs. | `bool` | no |
 | cloud_nat_logging_filter | What filtering should be applied to logs | `string` | no |
-| project_services | list of project services | `list` | yes |
+
 
 
 ## Outputs

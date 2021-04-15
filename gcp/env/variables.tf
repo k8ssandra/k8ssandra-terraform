@@ -52,6 +52,7 @@ variable "service_account_iam_roles" {
     "roles/logging.logWriter",
     "roles/monitoring.metricWriter",
     "roles/monitoring.viewer",
+    "roles/stackdriver.resourceMetadata.writer",
   ]
   description = "List of the default IAM roles to attach to the service account on the GKE Nodes."
 }
@@ -79,7 +80,6 @@ variable "project_services" {
     "monitoring.googleapis.com",
     "sqladmin.googleapis.com",
     "securetoken.googleapis.com",
-    "container.clusters.create",
   ]
   description = "The GCP APIs that should be enabled in this project."
 }

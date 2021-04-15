@@ -35,3 +35,12 @@ resource "google_project_iam_member" "service_account_custom" {
   role    = element(var.service_account_custom_iam_roles, count.index)
   member  = format("serviceAccount:%s", google_service_account.service_account.email)
 }
+
+# Allows management of single API service for an existing Google Cloud Platform project.
+resource "google_project_service" "project_services" {
+  count                      = length(var.project_services)
+  project                    = var.project_id
+  service                    = element(var.project_services, count.index)
+  disable_on_destroy         = false
+  disable_dependent_services = false
+}

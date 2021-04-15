@@ -46,14 +46,14 @@ resource "google_compute_router_nat" "compute_router_nat" {
   project = var.project_id
   // Because router has the count attribute set we have to use [0] here to
   // refer to its attributes.
-  router  = google_compute_router.vpc_compute_router[0].name
-  region  = google_compute_router.vpc_compute_router[0].region
+  router = google_compute_router.vpc_compute_router[0].name
+  region = google_compute_router.vpc_compute_router[0].region
 
   nat_ip_allocate_option = "AUTO_ONLY"
-  
+
   # Apply NAT to all IP ranges in the subnetwork.
   source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
- 
+
   log_config {
     enable = var.enable_cloud_nat_logging
     filter = var.cloud_nat_logging_filter
@@ -72,7 +72,7 @@ resource "google_compute_subnetwork" "compute_subnetwork" {
   ip_cidr_range            = cidrsubnet(var.cidr_block, var.cidr_subnetwork_width_delta, 0)
 
   secondary_ip_range {
-    range_name = format("%s-subnet",var.name)
+    range_name = format("%s-subnet", var.name)
     ip_cidr_range = cidrsubnet(
       var.secondary_cidr_block,
       var.secondary_cidr_subnetwork_width_delta,
@@ -84,7 +84,7 @@ resource "google_compute_subnetwork" "compute_subnetwork" {
 # Firewall rules
 # Allow http traffic
 resource "google_compute_firewall" "http_compute_firewall" {
-  name = format("%s-fw-allow-http", var.name)
+  name    = format("%s-fw-allow-http", var.name)
   network = google_compute_network.compute_network.name
   project = var.project_id
   allow {
@@ -96,7 +96,7 @@ resource "google_compute_firewall" "http_compute_firewall" {
 
 # Allow https traffic
 resource "google_compute_firewall" "https_compute_firewall" {
-  name = format("%s-fw-allow-https", var.name)
+  name    = format("%s-fw-allow-https", var.name)
   network = google_compute_network.compute_network.name
   project = var.project_id
   allow {
@@ -108,7 +108,7 @@ resource "google_compute_firewall" "https_compute_firewall" {
 
 # Allow ssh traffic
 resource "google_compute_firewall" "ssh_compute_firewall" {
-  name = format("%s-fw-allow-ssh", var.name)
+  name    = format("%s-fw-allow-ssh", var.name)
   network = google_compute_network.compute_network.name
   project = var.project_id
   allow {
@@ -120,7 +120,7 @@ resource "google_compute_firewall" "ssh_compute_firewall" {
 
 # Allow rdp traffic
 resource "google_compute_firewall" "rdp_compute_firewall" {
-  name = format("%s-fw-allow-rdp", var.name)
+  name    = format("%s-fw-allow-rdp", var.name)
   network = google_compute_network.compute_network.name
   project = var.project_id
   allow {

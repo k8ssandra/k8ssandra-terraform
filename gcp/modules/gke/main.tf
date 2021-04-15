@@ -47,18 +47,15 @@ resource "google_container_cluster" "container_cluster" {
 
   # Creates Internal Load Balancer
   addons_config {
-    cloudrun_config {
-      disabled           = false
-      load_balancer_type = "LOAD_BALANCER_TYPE_INTERNAL"
+    http_load_balancing {
+      disabled = false
     }
   }
 
-  node_config {
-    tags            = [var.environment]
-    service_account = var.service_account
+  provisioner "local-exec" {
+    command = format("gcloud container clusters get-credentials %s --region %s --project %s", google_container_cluster.container_cluster.name, google_container_cluster.container_cluster.location, var.project_id)
   }
 
-  master_authorized_networks_config {}
 }
 
 # Google container node pool configuration
@@ -71,8 +68,9 @@ resource "google_container_node_pool" "container_node_pool" {
 
   # Node configuration
   node_config {
-    preemptible  = true
     machine_type = var.machine_type
+    preemptible     = true
+    tags            = ["http", "ssh", "rdp"]
 
     metadata = {
       disable-legacy-endpoints = "true"
@@ -90,14 +88,5 @@ resource "google_container_node_pool" "container_node_pool" {
   ]
 }
 
-# Null resource to connect the google container cluster after creation.
-# Test the connectivity to GKE cluster that just got created.
 # TODO : Go program to replace this. 
-resource "null_resource" "provisioners" {
-  depends_on = [
-    google_container_cluster.container_cluster
-  ]
-  provisioner "local-exec" {
-    command = format("gcloud container clusters get-credentials %s --region %s --project %s", google_container_cluster.container_cluster.name, google_container_cluster.container_cluster.location, var.project_id)
-  }
-}
+# Test the connectivity to GKE cluster that just got created.

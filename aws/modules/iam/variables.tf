@@ -7,3 +7,7 @@ variable "environment" {
   description = "Name of the environment where infrastrure being built."
   type        = string
 }
+
+variable "tags" {
+  type = map(string)
+}

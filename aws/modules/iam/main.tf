@@ -1,7 +1,8 @@
 # 
 resource "aws_iam_role" "iam_role" {
   name = format("%s-role", var.name)
-
+  force_detach_policies = true
+  tags  = var.tags
   assume_role_policy = <<POLICY
 {
   "Version": "2012-10-17",
@@ -16,7 +17,9 @@ resource "aws_iam_role" "iam_role" {
   ]
 }
 POLICY
-
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_iam_role_policy_attachment" "clusterPolicy_iam_role_policy_attachment" {
@@ -59,7 +62,8 @@ EOF
 
 resource "aws_iam_role" "worker_iam_role" {
   name = format("%s-worker-role", var.name)
-
+  force_detach_policies = true
+  tags  = var.tags
   assume_role_policy = <<POLICY
 {
   "Version": "2012-10-17",
@@ -74,7 +78,9 @@ resource "aws_iam_role" "worker_iam_role" {
   ]
 }
 POLICY
-
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_iam_role_policy_attachment" "WorkerNode_iam_role_policy_attachment" {
@@ -95,4 +101,8 @@ resource "aws_iam_role_policy_attachment" "EC2ContainerRegistryReadOnly_iam_role
 resource "aws_iam_instance_profile" "iam_instance_profile" {
   name = format("%s-instace-profile", var.name)
   role = aws_iam_role.worker_iam_role.name
+  
+  lifecycle {
+    create_before_destroy = true
+  }
 }

@@ -1,9 +1,9 @@
 resource "aws_eks_cluster" "eks_cluster" {
   name     = format("%s-eks-cluster", var.name)
   role_arn = var.role_arn
-  region   = var.region
+  
   vpc_config {
-    security_group_ids = var.security_group_id
+    security_group_ids = [var.security_group_id] // from the vpc module
     subnet_ids         = var.subnet_ids // from the vpc module
   }
 
@@ -17,23 +17,28 @@ resource "aws_eks_cluster" "eks_cluster" {
 # This data block will get the current caller identity(account_id)
 data "aws_caller_identity" "current" {}
 
-data "aws_ami" "worker_ami" {
+data "aws_ami" "eks_worker" {
+  most_recent      = true
+    owners = ["099720109477"] #Cannonical
+
   filter {
     name   = "name"
-    values = ["amazon-eks-node-${aws_eks_cluster.eks_cluster.version}-v*"]
+    values = ["ubuntu/images/hvm-ssd/ubuntu-trusty-14.04-amd64-server-*"]
   }
 
-  most_recent = true
-  owners      = [data.aws_caller_identity.current] # Amazon
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
 }
 
-resource "aws_launch_configuration" "lunch_configuration" {
+resource "aws_launch_configuration" "launch_configuration" {
   associate_public_ip_address = true
   iam_instance_profile        = var.instance_profile_name
-  image_id                    = data.aws_ami.worker_ami.id
+  image_id                    = data.aws_ami.eks_worker.id
   instance_type               = "t2.medium"
   name_prefix                 = var.name
-  security_groups             = var.security_group_id
+  security_groups             = [var.security_group_id]
   user_data_base64            = base64encode(local.demo-node-userdata)
 
   lifecycle {
@@ -57,7 +62,7 @@ resource "aws_autoscaling_group" "autoscaling_group" {
   }
 
   tag {
-    key                 = "kubernetes.io/cluster/${var.name}"
+    key                 = format("kubernetes.io/cluster/%s",var.name)
     value               = "owned"
     propagate_at_launch = true
   }

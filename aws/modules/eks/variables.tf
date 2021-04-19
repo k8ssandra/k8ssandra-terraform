@@ -21,19 +21,33 @@ variable "region" {
 
 variable "subnet_ids" {
   description = "Subnet id to attach the eks cluster."
-  type        = list(string)
-  default     = []
 }
 
 variable "security_group_id" {
   description = "Security group id to configure eks cluster."
-  type        = list(string)
-  default     = []
+  type        = string
+}
+
+variable "public_subnets" {
+}
+
+variable "tags" {
+  type = map(string)
 }
 
 variable "instance_profile_name" {
   description = "Instance profile name to attach aws lunch configuration."
   type        = string
+}
+
+variable "cluster_version" {
+  type = string
+  default = "1.18"
+}
+
+variable "worker_ami_name_filter" {
+  type = string
+  default = ""
 }
 
 locals {
@@ -42,4 +56,6 @@ locals {
 set -o xtrace
 /etc/eks/bootstrap.sh --apiserver-endpoint '${aws_eks_cluster.eks_cluster.endpoint}' --b64-cluster-ca '${aws_eks_cluster.eks_cluster.certificate_authority[0].data}' '${var.name}'
 USERDATA
+
+#worker_ami_name_filter = var.worker_ami_name_filter != "" ? var.worker_ami_name_filter : "amazon-eks-node-${var.cluster_version}-v*"
 }

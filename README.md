@@ -10,10 +10,10 @@ This repo contains a Terraform modules for creating Kubernetes clusters on Googl
         * [vpc](./gcp/modules/vpc/README.md): Google Compute Network module.
         * [gke](./gcp/modules/gke/README.md): Google Kubernetes Engine module.
         * [iam](./gcp/modules/iam/README.md): Identity Access Management modules.
-*[aws](./aws/README.md): Amazon Web Services terraform module to create kubernetes cluster using Elastic Kubernetes Service(EKS).
-[azure](./azure/README.md): Azure terraform module to create kubernetes cluster using Azure Kubernetes Service(AKS).
-[aws](./aws/README.md): Tanzu terraform module to create kubernetes cluster using Elastic Kubernetes Service.
-[test](./test): Automated tests for the files in this project repository.
+* [aws](./aws/README.md): Amazon Web Services terraform module to create kubernetes cluster using Elastic Kubernetes Service(EKS).
+* [azure](./azure/README.md): Azure terraform module to create kubernetes cluster using Azure Kubernetes Service(AKS).
+* [aws](./aws/README.md): Tanzu terraform module to create kubernetes cluster using Elastic Kubernetes Service.
+* [test](./test): Automated tests for the files in this project repository.
 
 
 ## What is Kubernetes?
@@ -94,16 +94,18 @@ k8ssandra-terraform/
 
 ## Create GKE resources
 
-Testing this project Locally [gcp](./gcp/README.md)
-How to create GKE cluster resources by using the make command
+* Testing this project Locally [gcp](./gcp#test-this-project-locally)
+
+* How to create GKE cluster resources by using the make command
 [ WORK IN PROGRESS ]
 
 ## Create EKS resources
-How to create EKS cluster resources by using the make command
+
+* How to create EKS cluster resources by using the make command
 [ WORK IN PROGRESS ]
 
 ## Create AKE resources
-How to create AKS cluster resources by using make command
+* How to create AKS cluster resources by using make command
 [ work In progress] 
 
 

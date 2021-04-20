@@ -37,12 +37,6 @@ resource "google_compute_router" "vpc_compute_router" {
   network = google_compute_network.compute_network.self_link
 }
 
-# create a public ip for NAT service
-resource "google_compute_address" "compute_address" {
-  name    = "${var.name}-nat-ip"
-  project = var.project_id
-  region  = var.region
-}
 
 # create compute router NAT service
 resource "google_compute_router_nat" "compute_router_nat" {
@@ -52,29 +46,20 @@ resource "google_compute_router_nat" "compute_router_nat" {
   project = var.project_id
   // Because router has the count attribute set we have to use [0] here to
   // refer to its attributes.
-  router  = google_compute_router.vpc_compute_router[0].name
-  region  = google_compute_router.vpc_compute_router[0].region
-  nat_ips = [google_compute_address.compute_address.self_link]
-  # For this example project just use IPs allocated automatically by GCP.
-  nat_ip_allocate_option = "MANUAL_ONLY"
+  router = google_compute_router.vpc_compute_router[0].name
+  region = google_compute_router.vpc_compute_router[0].region
+
+  nat_ip_allocate_option = "AUTO_ONLY"
+
   # Apply NAT to all IP ranges in the subnetwork.
-  source_subnetwork_ip_ranges_to_nat = "LIST_OF_SUBNETWORKS"
-
-  subnetwork {
-    name = google_compute_subnetwork.private_compute_subnetwork.self_link
-
-    source_ip_ranges_to_nat = ["PRIMARY_IP_RANGE", "LIST_OF_SECONDARY_IP_RANGES"]
-
-    secondary_ip_range_names = [
-      google_compute_subnetwork.private_compute_subnetwork.secondary_ip_range.0.range_name
-    ]
-  }
+  source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
 
   log_config {
     enable = var.enable_cloud_nat_logging
     filter = var.cloud_nat_logging_filter
   }
 }
+
 
 // Create a public subnets config
 resource "google_compute_subnetwork" "compute_subnetwork" {
@@ -87,7 +72,7 @@ resource "google_compute_subnetwork" "compute_subnetwork" {
   ip_cidr_range            = cidrsubnet(var.cidr_block, var.cidr_subnetwork_width_delta, 0)
 
   secondary_ip_range {
-    range_name = "public-services"
+    range_name = format("%s-subnet", var.name)
     ip_cidr_range = cidrsubnet(
       var.secondary_cidr_block,
       var.secondary_cidr_subnetwork_width_delta,
@@ -96,28 +81,51 @@ resource "google_compute_subnetwork" "compute_subnetwork" {
   }
 }
 
-# Create private subnets
-resource "google_compute_subnetwork" "private_compute_subnetwork" {
-  name     = format("%s-private-subnet", var.name)
-  project  = var.project_id
-  network  = google_compute_network.compute_network.self_link
-  region   = var.region
-  provider = google-beta
-  purpose  = "PRIVATE"
-
-  private_ip_google_access = true
-  ip_cidr_range = cidrsubnet(
-    var.cidr_block,
-    var.cidr_subnetwork_width_delta,
-    1 * (1 + var.cidr_subnetwork_spacing)
-  )
-
-  secondary_ip_range {
-    range_name = "private-services"
-    ip_cidr_range = cidrsubnet(
-      var.secondary_cidr_block,
-      var.secondary_cidr_subnetwork_width_delta,
-      1 * (1 + var.secondary_cidr_subnetwork_spacing)
-    )
+# Firewall rules
+# Allow http traffic
+resource "google_compute_firewall" "http_compute_firewall" {
+  name    = format("%s-fw-allow-http", var.name)
+  network = google_compute_network.compute_network.name
+  project = var.project_id
+  allow {
+    protocol = "tcp"
+    ports    = ["80"]
   }
+  target_tags = ["http"]
+}
+
+# Allow https traffic
+resource "google_compute_firewall" "https_compute_firewall" {
+  name    = format("%s-fw-allow-https", var.name)
+  network = google_compute_network.compute_network.name
+  project = var.project_id
+  allow {
+    protocol = "tcp"
+    ports    = ["443"]
+  }
+  target_tags = ["https"]
+}
+
+# Allow ssh traffic
+resource "google_compute_firewall" "ssh_compute_firewall" {
+  name    = format("%s-fw-allow-ssh", var.name)
+  network = google_compute_network.compute_network.name
+  project = var.project_id
+  allow {
+    protocol = "tcp"
+    ports    = ["22"]
+  }
+  target_tags = ["ssh"]
+}
+
+# Allow rdp traffic
+resource "google_compute_firewall" "rdp_compute_firewall" {
+  name    = format("%s-fw-allow-rdp", var.name)
+  network = google_compute_network.compute_network.name
+  project = var.project_id
+  allow {
+    protocol = "tcp"
+    ports    = ["3389"]
+  }
+  target_tags = ["rdp"]
 }

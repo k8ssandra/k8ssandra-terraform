@@ -14,14 +14,14 @@
 
 # Google container cluster(GKE) configuration
 resource "google_container_cluster" "container_cluster" {
-  name        = var.name
-  project     = var.project_id
-  description = "Demo GKE Cluster"
-  location    = var.region
-
+  name                     = var.name
+  project                  = var.project_id
+  description              = format("%s-GKE Cluster", var.name)
+  location                 = var.region
   remove_default_node_pool = true
   initial_node_count       = var.initial_node_count
 
+  # VPC and Subnet work self links. 
   network    = var.network_link
   subnetwork = var.subnetwork_link
 
@@ -36,29 +36,29 @@ resource "google_container_cluster" "container_cluster" {
     }
   }
 
+  # Private Cluster configuration
   private_cluster_config {
     enable_private_endpoint = var.enable_private_endpoint
     enable_private_nodes    = var.enable_private_nodes
   }
 
+  # Resource lables
   resource_labels = {
     environment = format("%s", var.environment)
   }
 
   # Creates Internal Load Balancer
   addons_config {
-    cloudrun_config {
-      disabled           = false
-      load_balancer_type = "LOAD_BALANCER_TYPE_INTERNAL"
+    http_load_balancing {
+      disabled = false
     }
   }
 
-  node_config {
-    tags            = [var.environment]
-    service_account = var.service_account
+  # Provisioner to connect the GEK cluster. 
+  provisioner "local-exec" {
+    command = format("gcloud container clusters get-credentials %s --region %s --project %s", google_container_cluster.container_cluster.name, google_container_cluster.container_cluster.location, var.project_id)
   }
 
-  master_authorized_networks_config {}
 }
 
 # Google container node pool configuration
@@ -71,15 +71,24 @@ resource "google_container_node_pool" "container_node_pool" {
 
   # Node configuration
   node_config {
-    preemptible  = true
     machine_type = var.machine_type
+    preemptible  = true
+    tags         = ["http", "ssh", "rdp"]
 
     metadata = {
       disable-legacy-endpoints = "true"
     }
 
+
     service_account = var.service_account
     oauth_scopes = [
+      "https://www.googleapis.com/auth/devstorage.read_write",
+      "https://www.googleapis.com/auth/logging.write",
+      "https://www.googleapis.com/auth/monitoring",
+      "https://www.googleapis.com/auth/compute",
+      "https://www.googleapis.com/auth/servicecontrol",
+      "https://www.googleapis.com/auth/service.management.readonly",
+      "https://www.googleapis.com/auth/trace.append",
       "https://www.googleapis.com/auth/logging.write",
       "https://www.googleapis.com/auth/monitoring",
     ]
@@ -90,14 +99,5 @@ resource "google_container_node_pool" "container_node_pool" {
   ]
 }
 
-# Null resource to connect the google container cluster after creation.
-# Test the connectivity to GKE cluster that just got created.
 # TODO : Go program to replace this. 
-resource "null_resource" "provisioners" {
-  depends_on = [
-    google_container_cluster.container_cluster
-  ]
-  provisioner "local-exec" {
-    command = format("gcloud container clusters get-credentials %s --region %s --project %s", google_container_cluster.container_cluster.name, google_container_cluster.container_cluster.location, var.project_id)
-  }
-}
+# Test the connectivity to GKE cluster that just got created.

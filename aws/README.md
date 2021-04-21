@@ -1,4 +1,4 @@
-# Auto Deploymemnt of EKS Infrastructure on AWS with Terraform
+# K8ssandra AWS Terraform Module
 
 ## Project Content
 This project contains the three modules

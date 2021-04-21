@@ -108,7 +108,7 @@ k8ssandra-terraform/
 
 * Testing this project Locally [gcp](./gcp#test-this-project-locally)
 
-* Set up environment on your machine before running the following commands. use the following guide lines
+* Set up environment on your machine before running the make commands. use the following links to setup your machine.
     * [Tools](./gcp#Tools)
     * [GCP-authentication](./gcp#GCP-authentication)
     * [Configure-gcloud-settings](./gcp/#Configure-gcloud-settings)

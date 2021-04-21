@@ -30,8 +30,10 @@ A [Terraform Module](https://www.terraform.io/docs/language/modules/develop/inde
 
 Instead of figuring out the details of how to run a piece of infrastructure from scratch, you can reuse existing code that has been proven in production. And instead of maintaining all that infrastructure code yourself, you can leverage the work of the Module to pick up infrastructure improvements through a version number bump.
 
+## Prerequisites
+At a minimum 61 GiB of memory, 8 vCPUs virtual machines are needed to run k8ssandra. Minimum recommendation for volumes is 1.5 - 2 TB, but that's all set up through the persistent volume requests.
 
-## GCP Prerequisites
+### GCP Prerequisites
 
 |       NAME        |   Version  | 
 |-------------------|------------|
@@ -109,7 +111,7 @@ k8ssandra-terraform/
 * Set up environment on your machine before running the following commands. use the following guide lines
     * [Tools](./gcp#Tools)
     * [GCP-authentication](./gcp#GCP-authentication)
-    * [Configure-gcloud-settings](./gcp/Configure-gcloud-settings)
+    * [Configure-gcloud-settings](./gcp/#Configure-gcloud-settings)
 
 * How to create GKE cluster resources by using the make command
 Before using the make commands export the following terraform environment variables(TFVARS) for terraform to create the resources. 

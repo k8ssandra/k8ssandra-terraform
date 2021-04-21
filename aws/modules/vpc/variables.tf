@@ -1,3 +1,17 @@
+# Copyright 2021 Datastax LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 variable "name" {
   description = "The name to give the new Kubernetes cluster resources."
   type        = string
@@ -11,15 +25,16 @@ variable "environment" {
 variable "region" {
   description = "The aws region in kwhich resources will be defined."
   type        = string
-  default     = "us-east-1"
 }
 
 variable "vpc_cidr_block" {
-  type    = string
-  default = "10.0.0.0/16"
+  description = "Virtual Private Cloud cidr block"
+  type        = string
+  default     = "10.0.0.0/16"
 }
+
 # Optional Variables
-## Exposed VPC Settings
+## Exposed VPC Settings.
 variable "vpc_instance_tenancy" {
   type    = string
   default = "default"
@@ -43,15 +58,18 @@ variable "vpc_enable_classiclink" {
 
 # Expose Subnet Ssettings
 variable "public_cidr_block" {
-  type = list(string)
+  description = "List of public subnet cidr blocks"
+  type        = list(string)
 }
 variable "private_cidr_block" {
-  type = list(string)
+  description = "List of private subnet cidr blocks"
+  type        = list(string)
 }
 
 variable "tags" {
-  type    = map(string)
-  default = {}
+  description = "Common tags to attach all the resources create in this project."
+  type        = map(string)
+  default     = {}
 }
 
 
@@ -74,4 +92,12 @@ locals {
   pri_az_count = length(local.pri_avilability_zones)
 
   workstation-external-cidr = "${chomp(data.http.workstation-external-ip.body)}/32"
+}
+
+# This data block help you to get the avilability zone from the region.
+data "aws_availability_zones" "availability_zones" {
+}
+
+data "http" "workstation-external-ip" {
+  url = "http://ipv4.icanhazip.com"
 }

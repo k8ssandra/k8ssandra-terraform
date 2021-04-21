@@ -1,16 +1,35 @@
+# Copyright 2021 Datastax LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Create Virtual Private Cloud
 module "vpc" {
   source             = "../modules/vpc"
   name               = local.name_prefix
   environment        = var.environment
+  region             = var.region
   public_cidr_block  = var.public_cidr_block
   private_cidr_block = var.private_cidr_block
   tags               = local.tags
 }
 
+# Create Elastic Kubernetes Service
 module "eks" {
   source                = "../modules/eks"
   name                  = local.name_prefix
+  region                = var.region
   environment           = var.environment
+  instance_type         = var.instance_type
   role_arn              = module.iam.role_arn
   subnet_ids            = module.vpc.aws_subnet_private_ids
   security_group_id     = module.vpc.security_group_id
@@ -19,9 +38,11 @@ module "eks" {
   tags                  = local.tags
 }
 
+# Create Identity Access Management
 module "iam" {
   source      = "../modules/iam"
   name        = local.name_prefix
+  region      = var.region
   environment = var.environment
   tags        = local.tags
 }

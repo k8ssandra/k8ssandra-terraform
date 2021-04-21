@@ -1,3 +1,17 @@
+# Copyright 2021 Datastax LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 variable "name" {
   description = "The name to give the new Kubernetes cluster resources."
   type        = string
@@ -16,7 +30,6 @@ variable "role_arn" {
 variable "region" {
   description = "The aws region in kwhich resources will be defined."
   type        = string
-  default     = "us-east-1"
 }
 
 variable "subnet_ids" {
@@ -29,10 +42,12 @@ variable "security_group_id" {
 }
 
 variable "public_subnets" {
+  description = "List of public subnets to create the resources."
 }
 
 variable "tags" {
-  type = map(string)
+  description = "Common tags to attach all the resources create in this project."
+  type        = map(string)
 }
 
 variable "instance_profile_name" {
@@ -41,13 +56,32 @@ variable "instance_profile_name" {
 }
 
 variable "cluster_version" {
-  type = string
-  default = "1.18"
+  description = "Version of the EKS cluster."
+  type        = string
+  default     = "1.18"
 }
 
-variable "worker_ami_name_filter" {
-  type = string
-  default = ""
+variable "instance_type" {
+  description = "Type of instance to be used in the k8ssandra."
+  type        = string
+}
+
+variable "desired_capacity" {
+  description = "Desired capacity for the autoscaling Group."
+  type        = string
+  default     = "2"
+}
+
+variable "max_size" {
+  description = "Maximum number of the instances in autoscaling group"
+  type        = string
+  default     = "5"
+}
+
+variable "min_size" {
+  description = "Minimum number of the instances in autoscaling group"
+  type        = string
+  default     = "2"
 }
 
 locals {
@@ -57,5 +91,4 @@ set -o xtrace
 /etc/eks/bootstrap.sh --apiserver-endpoint '${aws_eks_cluster.eks_cluster.endpoint}' --b64-cluster-ca '${aws_eks_cluster.eks_cluster.certificate_authority[0].data}' '${var.name}'
 USERDATA
 
-#worker_ami_name_filter = var.worker_ami_name_filter != "" ? var.worker_ami_name_filter : "amazon-eks-node-${var.cluster_version}-v*"
 }

@@ -92,12 +92,69 @@ k8ssandra-terraform/
 |  README.md
 </pre>
 
+* How to use Makefile 
+    * `make help`  To list out the available options to use. 
+    * `make init`	Initialize and configure Backend.
+    * `make plan`	Plan all GCP resources.
+    * `make apply`	Create or update GCP resources.
+    * `make destroy`   Destroy all GCP resources.
+    * `make validate`   Check that installed resources work as expected.
+    * `make lint`       Check syntax of all scripts.
+    * `make getpods`	Get running pods IPs and Namespaces run this command after apply
+
 ## Create GKE resources
 
 * Testing this project Locally [gcp](./gcp#test-this-project-locally)
 
+* Set up environment on your machine before running the following commands. use the following guide lines
+    * [Tools](./gcp#Tools)
+    * [GCP-authentication](./gcp#GCP-authentication)
+    * [Configure-gcloud-settings](./gcp/Configure-gcloud-settings)
+
 * How to create GKE cluster resources by using the make command
-[ WORK IN PROGRESS ]
+Before using the make commands export the following terraform environment variables(TFVARS) for terraform to create the resources. 
+
+```console
+
+export TF_VAR_environment=<ENVIRONMENT_REPLACEME>
+ex:- export TF_VAR_environment=dev
+
+export TF_VAR_name=<CLUSTERNAME_REPLACEME>
+ex:- export TF_VAR_name=k8ssandra
+
+export TF_VAR_project_id=<PROJECTID_REPLACEME>
+ex:- export TF_VAR_project_id=k8ssandra-testing
+
+export TF_VAR_region=<REGION_REPLACEME>
+ex:- export TF_VAR_region=us-central-1
+
+```
+
+```console
+#To list out the available options to use.
+make help
+```
+### important: Before running the following command, we need to Export the environment variables as show above.
+
+```console
+# Initialize and configure Backend.
+make init
+```
+```console
+# Plan all GCP resources.
+make plan
+```
+### This command will create a Kubernetes cluster and deploy k8ssandra on the cluster.
+```console
+# Create or update GCP resources
+# This command takes some time to execute. 
+make apply
+```
+```console
+# Destroy all GCP resources
+
+make destroy
+```
 
 ## Create EKS resources
 

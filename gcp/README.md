@@ -16,16 +16,13 @@ You must explicitly specify the network and subnetwork of your GKE cluster using
 * GKE cluster
 * Cluster node pool
 * Service account 
-* Iam member 
-* Custom Iam member
+* Iam members 
 * Google compute network(VPC)
-* Public subnet
-* Private subnet
+* Subnet
 * Router
 * Compute router NAT
 * Google storage bucket
 * Google storage bucket IAM member
-* Google compute address
 
 
 ## Project directory Structure
@@ -123,10 +120,10 @@ The Google Cloud SDK is used to interact with your GCP resources. [Google cloud 
 
 #### Install kubectl CLI
 
-The kubectl CLI is used to interteract with both Kubernetes Engine and Kubernetes in general. [kubectl CLI Installation instructions](https://cloud.google.com/kubernetes-engine/docs/quickstart) for multiple platforms are available online.
+The kubectl CLI is used to interact with both Kubernetes Engine and Kubernetes in general. [kubectl CLI Installation instructions](https://cloud.google.com/kubernetes-engine/docs/quickstart) for multiple platforms are available online.
 
 
-### GCP authenticaion
+### GCP-authentication
 
 Ensure you have authenticated your gcloud client by running the following command:
 
@@ -140,7 +137,7 @@ if you are already using another profile on your machine, use the following comm
 gcloud auth application-default login
 ```
 
-### Configure gcloud settings
+### Configure-gcloud-settings
 
 Run `gcloud config list` and make sure that `compute/zone`, `compute/region` and `core/project` are populated with values that work for you. You can choose a [region and zone near you](https://cloud.google.com/compute/docs/regions-zones/). You can set their values with the following commands:
 

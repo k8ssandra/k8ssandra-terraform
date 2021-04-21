@@ -26,7 +26,7 @@ help:
 	@echo '    make destroy   Destroy all GCP resources.'
 	@echo '    make validate   Check that installed resources work as expected.'
 	@echo '    make lint       Check syntax of all scripts.'
-	@echo '    make get pods	Get running pods IP's and Namespaces run this command after apply'
+	@echo '    make getpods	Get running pods IPs and Namespaces run this command after apply'
 	@echo
 
 # Before you run this command please export the required variables.
@@ -56,12 +56,12 @@ validate:
 	bash ${ROOT}/scripts/validate.sh
 
 # Get pods details of	 the running container cluster.
-.PHONY: get pods
-get pods:
+.PHONY: getpods
+getpods:
 	python ${ROOT}/test/kube-pods.py
 
 .PHONY: lint
-lint: Check_shell check_terraform check_shebangs check_trailing_whitespace
+lint: check_shell check_terraform check_shebangs check_trailing_whitespace
 
 # Shell check
 .PHONY: check_shell

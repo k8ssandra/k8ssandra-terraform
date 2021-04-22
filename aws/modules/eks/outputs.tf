@@ -13,3 +13,6 @@
 # limitations under the License.
 
 # Output attributes  of the eks cluster.
+output "cluster_name" {
+  value = aws_eks_cluster.eks_cluster.name
+}

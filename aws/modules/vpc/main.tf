@@ -37,7 +37,8 @@ resource "aws_subnet" "public_subnet" {
   availability_zone = local.pub_avilability_zones[count.index]
 
   tags = merge(var.tags, {
-    Name = format("public_avilability_zone-%s", local.pub_avilability_zones[count.index])
+    Name                                                     = format("%s-eks-cluster-nodes-%s", var.name, local.pub_avilability_zones[count.index])
+    format("kubernetes.io/cluster/%s-eks-cluster", var.name) = "owned"
     }
   )
 }
@@ -58,7 +59,8 @@ resource "aws_subnet" "private_subnet" {
   availability_zone = local.pri_avilability_zones[count.index]
 
   tags = merge(var.tags, {
-    Name = format("private_avilability_zone-%s", local.pri_avilability_zones[count.index])
+    Name                                                     = format("%s-eks-cluster-nodes-%s", var.name, local.pri_avilability_zones[count.index])
+    format("kubernetes.io/cluster/%s-eks-cluster", var.name) = "owned"
     }
   )
 }
@@ -96,7 +98,7 @@ resource "aws_route_table" "private_route_table" {
   tags = merge(
     var.tags,
     {
-      az_name = format("private_route_table_az-%s", local.pri_avilability_zones[count.index])
+      Name = "private_route_table"
     }
   )
 }
@@ -166,7 +168,10 @@ resource "aws_security_group" "security_group" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags = var.tags
+  tags = merge(var.tags, {
+    "Name" = format("%s-security-group", var.name)
+    }
+  )
 }
 
 # Create AWS HTTPS Security group rule.
@@ -180,9 +185,10 @@ resource "aws_security_group_rule" "https_security_group_rule" {
   type                     = "ingress"
 }
 
+
 # Create AWS Workstation HTTPS Security group rule.
 resource "aws_security_group_rule" "workstation_https_group_rule" {
-  cidr_blocks       = [local.workstation-external-cidr]
+  cidr_blocks       = [var.cluster_api_cidr]
   description       = "Allow workstation to communicate with the cluster API Server"
   from_port         = 443
   protocol          = "tcp"
@@ -204,7 +210,11 @@ resource "aws_security_group" "worker_security_group" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags = var.tags
+  tags = merge(var.tags, {
+    "Name"                                      = format("%s-worker-security-group", var.name)
+    format("kubernetes.io/cluster/%s-eks-cluster", var.name) = "owned"
+    }
+  )
 }
 
 # Create Worker self Security group rule

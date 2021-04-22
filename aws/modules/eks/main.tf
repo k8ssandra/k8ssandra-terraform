@@ -16,16 +16,13 @@
 resource "aws_eks_cluster" "eks_cluster" {
   name     = format("%s-eks-cluster", var.name)
   role_arn = var.role_arn
-
+  version  = var.cluster_version
   vpc_config {
     security_group_ids = [var.security_group_id] // from the vpc module
     subnet_ids         = var.subnet_ids          // from the vpc module
   }
 
-  tags = {
-    "Name"        = var.name
-    "Environment" = var.environment
-  }
+  tags = var.tags
 
 }
 
@@ -48,40 +45,25 @@ data "aws_ami" "eks_worker" {
   }
 }
 
-# AWS Autoscaling launch configuration for the worker nodes.
-resource "aws_launch_configuration" "launch_configuration" {
-  associate_public_ip_address = true
-  iam_instance_profile        = var.instance_profile_name
-  image_id                    = data.aws_ami.eks_worker.id
-  instance_type               = var.instance_type
-  name_prefix                 = var.name
-  security_groups             = [var.security_group_id]
-  user_data_base64            = base64encode(local.demo-node-userdata)
+# 
+resource "aws_eks_node_group" "eks_node_group" {
+  cluster_name    = aws_eks_cluster.eks_cluster.name
+  node_group_name = format("%s-node-group", var.name)
+  node_role_arn   = var.worker_role_arn
+  subnet_ids      = var.subnet_ids
+  instance_types  = [var.instance_type]
 
-  lifecycle {
-    create_before_destroy = true
+  scaling_config {
+    desired_size = var.desired_capacity
+    max_size     = var.max_size
+    min_size     = var.min_size
   }
-}
+  depends_on = [
+    aws_eks_cluster.eks_cluster
+  ]
 
-# AWS Autoscaling Group configuration.
-resource "aws_autoscaling_group" "autoscaling_group" {
-  desired_capacity     = var.desired_capacity
-  launch_configuration = aws_launch_configuration.launch_configuration.id
-  max_size             = var.max_size
-  min_size             = var.min_size
-  name                 = format("%s-autoscaling-group", var.name)
-
-  vpc_zone_identifier = var.public_subnets
-
-  tag {
-    key                 = "Name"
-    value               = var.name
-    propagate_at_launch = true
-  }
-
-  tag {
-    key                 = format("kubernetes.io/cluster/%s", var.name)
-    value               = "owned"
-    propagate_at_launch = true
-  }
+  tags = merge(var.tags, {
+    format("kubernetes.io/cluster/%s-eks-cluster", var.name) = "owned"
+    }
+  )
 }

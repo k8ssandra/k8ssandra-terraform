@@ -26,6 +26,7 @@ variable "environment" {
 variable "project_id" {
   description = "The id of the project."
   type        = string
+  default     = ""
 }
 
 variable "resource_owner" {
@@ -67,6 +68,8 @@ locals {
     "Environment"    = var.environment
     "resource-name"  = var.name
     "resource-owner" = var.resource_owner
-    "project-id"     = var.project_id
+    "project-id"     = format("%s", data.aws_caller_identity.current.id)
   }
 }
+
+data "aws_caller_identity" "current" {}

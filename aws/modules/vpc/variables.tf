@@ -72,6 +72,13 @@ variable "tags" {
   default     = {}
 }
 
+# Allow workstation to communicate with the cluster API Server
+
+variable "cluster_api_cidr" {
+  description = "Allow workstation to communicate with the cluster API Server"
+  type = string
+  default = "10.2.0.0/32"
+}
 
 # Avilability Zones variables
 variable "multi_az_nat_gateway" {
@@ -91,13 +98,8 @@ locals {
   pub_az_count = length(local.pub_avilability_zones)
   pri_az_count = length(local.pri_avilability_zones)
 
-  workstation-external-cidr = "${chomp(data.http.workstation-external-ip.body)}/32"
 }
 
 # This data block help you to get the avilability zone from the region.
 data "aws_availability_zones" "availability_zones" {
-}
-
-data "http" "workstation-external-ip" {
-  url = "http://ipv4.icanhazip.com"
 }

@@ -27,6 +27,11 @@ variable "role_arn" {
   type        = string
 }
 
+variable "worker_role_arn" {
+  description = "Iam worker role arn to attach the EKS cluster."
+  type        = string
+}
+
 variable "region" {
   description = "The aws region in kwhich resources will be defined."
   type        = string
@@ -58,7 +63,7 @@ variable "instance_profile_name" {
 variable "cluster_version" {
   description = "Version of the EKS cluster."
   type        = string
-  default     = "1.18"
+  default     = "1.19"
 }
 
 variable "instance_type" {
@@ -69,7 +74,7 @@ variable "instance_type" {
 variable "desired_capacity" {
   description = "Desired capacity for the autoscaling Group."
   type        = string
-  default     = "2"
+  default     = "3"
 }
 
 variable "max_size" {
@@ -81,7 +86,7 @@ variable "max_size" {
 variable "min_size" {
   description = "Minimum number of the instances in autoscaling group"
   type        = string
-  default     = "2"
+  default     = "3"
 }
 
 locals {

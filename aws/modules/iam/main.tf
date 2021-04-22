@@ -48,6 +48,11 @@ resource "aws_iam_role_policy_attachment" "servicePolicy_iam_role_policy_attachm
   role       = aws_iam_role.iam_role.name
 }
 
+# Create AWS EKSVPCResourceController iam role policy attachment.
+resource "aws_iam_role_policy_attachment" "EKSVPCResourceController_iam_role_policy_attachment" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSVPCResourceController"
+  role       = aws_iam_role.iam_role.name
+}
 
 # If no loadbalancer was ever created in this region, then this following role is necessary
 resource "aws_iam_role_policy" "service_linked_iam_role_policy" {

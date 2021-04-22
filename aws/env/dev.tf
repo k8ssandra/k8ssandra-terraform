@@ -31,6 +31,7 @@ module "eks" {
   environment           = var.environment
   instance_type         = var.instance_type
   role_arn              = module.iam.role_arn
+  worker_role_arn       = module.iam.worker_role_arn
   subnet_ids            = module.vpc.aws_subnet_private_ids
   security_group_id     = module.vpc.security_group_id
   public_subnets        = module.vpc.aws_subnet_public_ids

@@ -38,17 +38,17 @@ At a minimum 61 GiB of memory, 8 vCPUs virtual machines are needed to run k8ssan
     - eg: environment="development" and Project_name="k8ssandra"
             resource_name "development-k8ssandra-gke-cluster"
 
-* Naming Limitation: Every cloud provider have limitations on the resource names, they will only allows resource names up to some characters long.
-    - eg:if we pass `environment` as **production** the `project_name` as **K8ssandra-terraform-project-resources-for-multiple-cloud-providers** 
-        looks some thing like this resource_name **production-K8ssandra-terraform-project-resources-for-multiple-cloud-providers-gke-cluster**
+* Naming Limitation: Every cloud provider have limitations on the resource names, they will only allow resource names up to some characters long.
+    - eg: If we pass `environment`=**production** the `project_name`=**K8ssandra-terraform-project-resources-for-multiple-cloud-providers** 
+    your resource will create as resource_name =**production-K8ssandra-terraform-project-resources-for-multiple-cloud-providers-gke-cluster**
     
-    * In the above example the resource exceeds the 63 characters naming limit. These limitation are hard limitation which can not be changed by any cloud provider.
-    make sure your resource naming conventions follow standards. **It is a good practice maintain limits on length of Cloud resource names**. 
+    * In the above example the resource name exceeds more than 63 characters long. It is an invalid resource name, these will error out when you run `Terraform plan` or `Terraform validate` commands. These limitations are hard limitations which can not be changed by your cloud provider.
+    make sure you followed naming standards while creating your resources. **It is a good practice maintain limits on length of resource names**. 
     
     * refer the following documentation 
         * [azure](https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/resource-name-rules).
         * [gcp](https://stepan.wtf/cloud-naming-convention/)
-        
+
 
 ### GCP Prerequisites
 

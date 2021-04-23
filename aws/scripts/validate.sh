@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # Copyright 2021 Datastax LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,13 +14,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Backend s3 bucket for terraform statefiles.
-# Delete the backend file for local testing.
+# Bash safeties: exit on error, no unset variables, pipelines can't hide errors
+set -o errexit
+set -o nounset
+set -o pipefail
 
-terraform {
-  backend "s3" {
-    bucket = "k8ssandra-terraform-statefiles"
-    key    = "terraform/"
-    region = "us-east-1"
-  }
-}
+# Locate the root directory
+ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
+
+# Run common.sh script for variable declaration and validation
+source "${ROOT}/scripts/common.sh"
+
+#make validate : this command will validate the terraform code
+cd "${ROOT}"/env
+
+terraform validate

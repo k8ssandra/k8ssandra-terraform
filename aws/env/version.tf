@@ -24,10 +24,6 @@ terraform {
   }
 }
 
-provider "http" {
-}
-
-# Provider region
 provider "aws" {
   region = var.region
 }

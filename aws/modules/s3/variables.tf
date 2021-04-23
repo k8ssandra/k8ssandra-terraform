@@ -13,3 +13,9 @@ variable "tags" {
   description = "Common tags to attach all the resources create in this project."
   type        = map(string)
 }
+
+variable "region" {
+  description = "The aws region in which resources will be defined."
+  type        = string
+  default     = "us-east-1"
+}

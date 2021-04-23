@@ -26,26 +26,7 @@ resource "aws_eks_cluster" "eks_cluster" {
 
 }
 
-# This data block will get the current caller identity(account_id)
-data "aws_caller_identity" "current" {}
-
-# This data block helps to get the latest Ubuntu image id's form AWS.
-data "aws_ami" "eks_worker" {
-  most_recent = true
-  owners      = ["099720109477"] #Cannonical
-
-  filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-trusty-14.04-amd64-server-*"]
-  }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-}
-
-# 
+# AWS EKS node group configuration. 
 resource "aws_eks_node_group" "eks_node_group" {
   cluster_name    = aws_eks_cluster.eks_cluster.name
   node_group_name = format("%s-node-group", var.name)

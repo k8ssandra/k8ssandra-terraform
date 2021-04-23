@@ -30,9 +30,9 @@ command -v git >/dev/null 2>&1 || { \
 }
 
 # glcoud is required for this tutorial
-# https://cloud.google.com/sdk/install
+# https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-linux.html
 command -v aws >/dev/null 2>&1 || { \
- echo >&2 "I require aws but it's not installed.  Aborting."
+ echo >&2 "I require aws cliv2 but it's not installed.  Aborting."
  echo >&2 "Refer to: https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-linux.html"
  exit 1
 }

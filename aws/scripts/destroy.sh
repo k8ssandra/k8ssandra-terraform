@@ -20,7 +20,7 @@ set -o nounset
 set -o pipefail
 
 # Locate the root directory
-ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 # Run common.sh script for variable declaration and validation
 source "${ROOT}/scripts/common.sh"
@@ -28,18 +28,18 @@ source "${ROOT}/scripts/common.sh"
 # Exporting the bucket name as an environment variable.
 export bucket_name="${TF_VAR_name}-${TF_VAR_project_id}-statefiles"
 
-# Make destroy : this command will destroy the GKE cluster- infrastructure
-cd "${ROOT}"/env
+# Make destroy : this command will destroy the cluster- infrastructure
+cd "${ROOT}/env"
 
 # Select the environment workspace where you want destroy all your resources
 terraform workspace select $"TF_VAR_environment"
 
-# this will destroy all of your resources in the environment workspace 
+# this will destroy all of your resources in the environment workspace
 terraform destroy -input=flase -auto-approve
 
-# Delete terraform workspace. 
+# Delete terraform workspace.
 terraform workspace select default
 terraform workspace delete "${TF_VAR_environment}"
 
 # Delete the terraform statefile bucket folder.
-gsutil rm gs://"${bucket_name}/terraform/${TF_VAR_environment}"
+aws s3 rm s3://"${bucket_name}/terraform/${TF_VAR_environment}" --recursive

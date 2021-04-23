@@ -28,13 +28,13 @@ source "${ROOT}/scripts/common.sh"
 # Make apply : this command will apply the infrastructure changes
 (cd "${ROOT}/env"; terraform apply -input=false -auto-approve)
 
-# Get cluster outputs from the gke cluster.
-GET_OUTPUTS="$(terraform output endpoint master_version)"
+# Get cluster outputs from the cluster.
+GET_OUTPUTS="$(terraform output endpoint)"
 ${GET_OUTPUTS}
 
 # Clone k8ssandra repo
 git clone https://github.com/k8ssandra/k8ssandra.git
 cd k8ssandra 
 
-# Call the existing script to run the E2E testing on the gke cluster.
+# Call the existing script to run the E2E testing on the cluster.
 make integ-test

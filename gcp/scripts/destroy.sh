@@ -29,7 +29,7 @@ source "${ROOT}/scripts/common.sh"
 export bucket_name="${TF_VAR_name}-${TF_VAR_project_id}-statefiles"
 
 # Make destroy : this command will destroy the GKE cluster- infrastructure
-cd "${ROOT}"/gcp/env
+cd "${ROOT}"/env
 
 # Select the environment workspace where you want destroy all your resources
 terraform workspace select $"TF_VAR_environment"

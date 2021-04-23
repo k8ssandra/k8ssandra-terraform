@@ -22,26 +22,28 @@ set -o pipefail
 # Locate the root directory
 ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 
-# Make will use bash instead of sh
+# Run common.sh script for validation
+source "${ROOT}/scripts/common.sh"
+
 # Set environment variables
 # Create a gcs bucket through cli to store terraform statefiles
 # Create google storage bucket for the terraform backend.
 export bucket_name="${TF_VAR_name}-${TF_VAR_project_id}-statefiles"
 
 # Create Google cloud storage bucket to store the state files. 
-source "${ROOT}/scripts/make_bucket.py"
-
-# Run common.sh script for validation
-source "${ROOT}/scripts/common.sh"
+source "${ROOT}/gcp/scripts/make_bucket.py"
 
 # Terraform initialize and run cd gcp/env
-cd "${ROOT}/gcp/env"
+cd "${ROOT}/env"
 
 # Terraform initinalize the backend bucket
 terraform init -input=false -backend-config="bucket=${bucket_name}" -backend-config="prefix=terraform/${TF_VAR_environment}/"
 
 # Create workspace based on the environment, by doing this you don't overlap wih the resources in different environments.
 terraform workspace new "$TF_VAR_environment" || terraform workspace select "$TF_VAR_environment"
+
+#make validate : this command will validate the terraform code
+terraform validate
 
 # Functions Script to enable google api's
 source "${ROOT}/scripts/enable.sh"

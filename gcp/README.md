@@ -1,12 +1,12 @@
 # K8ssandra GCP Terraform Example
 
 ## What is Google Kubernetes Engine (GKE)?
-[Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine) or "GKE" is a Google-managed Kubernetes environment. GKE is a fully managed experience; it handles the management/upgrading of the Kubernetes cluster master as well as autoscaling of "nodes" through "node pool" templates.
+[Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine) or "GKE" is a Google-managed Kubernetes environment. GKE is a fully managed experience; it handles the management/upgrading of the Kubernetes cluster master as well as Autoscaling of "nodes" through "node pool" templates.
 
 Through GKE, your Kubernetes deployments will have first-class support for GCP IAM identities, built-in configuration of high-availability and secured clusters, as well as native access to GCP's networking features such as load balancers.
 
 ## What is GKE Node Pool ?
-GKE Node Pools are a group of nodes who share the same configuration, defined as a NodeConfig. Node pools also control the autoscaling of their nodes, and autoscaling configuration is done inline, alongside the node config definition. A GKE Cluster can have multiple node pools defined. Initially by default we have only defined a `1` node pool. 
+GKE Node Pools are a group of nodes who share the same configuration, defined as a NodeConfig. Node pools also control the Autoscaling of their nodes, and Autoscaling configuration is done inline, alongside the node config definition. A GKE Cluster can have multiple node pools defined. Initially by default we have only defined a `1` node pool. 
 
 ## VPC Network 
 You must explicitly specify the network and subnetwork of your GKE cluster using the network and subnetwork fields; We will not use the default network with an automatically generated subnetwork.
@@ -16,16 +16,13 @@ You must explicitly specify the network and subnetwork of your GKE cluster using
 * GKE cluster
 * Cluster node pool
 * Service account 
-* Iam member 
-* Custom Iam member
+* Iam members 
 * Google compute network(VPC)
-* Public subnet
-* Private subnet
+* Subnet
 * Router
 * Compute router NAT
 * Google storage bucket
 * Google storage bucket IAM member
-* Google compute address
 
 
 ## Project directory Structure
@@ -85,7 +82,7 @@ The steps to create kubernetes cluster in this document require the following to
 
 ### Cloud project
 
-You will need a google cloud project created, If you do not have a google cloud account plese sigup [google](https://cloud.google.com).  
+You will need a google cloud project created, If you do not have a google cloud account please signup [google](https://cloud.google.com).  
 
 ### Required GCP APIs
 
@@ -104,6 +101,9 @@ Execute the following commands on the linux machine in order to setup gcloud cli
 ```console
 gcloud init
 ```
+### GCP Quotas
+
+If you created your Google cloud account newly, Google Compute Engine enforces quotas on resource usage for a variety of reasons. For example, quotas protect the community of Google Cloud users by preventing unforeseen spikes in usage, Google keep some soft limitations on the resources, you can always make a request to increase your quota limit. If you are planning to deploy k8ssandra cluster on GKE, you will need to make a request to increase your **Compute Engine API (backend services)** quota to `50` for the future use.
 
 ### Tools
 
@@ -121,12 +121,8 @@ Terraform is used to automate the manipulation of cloud infrastructure. Its [Ter
 
 The Google Cloud SDK is used to interact with your GCP resources. [Google cloud SDK Installation instructions](https://cloud.google.com/sdk/downloads) for multiple platforms are available online.
 
-#### Install kubectl CLI
 
-The kubectl CLI is used to interteract with both Kubernetes Engine and Kubernetes in general. [kubectl CLI Installation instructions](https://cloud.google.com/kubernetes-engine/docs/quickstart) for multiple platforms are available online.
-
-
-### GCP authenticaion
+### GCP-authentication
 
 Ensure you have authenticated your gcloud client by running the following command:
 
@@ -134,13 +130,20 @@ Ensure you have authenticated your gcloud client by running the following comman
 gcloud auth login
 ```
 
-if you are already using another profile on your machine, use the following command to update the credentials:
+If you are already using another profile on your machine, use the following command to update the credentials:
 
 ```console
 gcloud auth application-default login
 ```
+#### Install Kubectl
+The kubectl CLI is used to interact with both Kubernetes Engine and Kubernetes in general. Use the following command to install kubectl using gcloud:
 
-### Configure gcloud settings
+```console
+# install Kubectl 
+gcloud components install kubectl.
+```
+
+### Configure-gcloud-settings
 
 Run `gcloud config list` and make sure that `compute/zone`, `compute/region` and `core/project` are populated with values that work for you. You can choose a [region and zone near you](https://cloud.google.com/compute/docs/regions-zones/). You can set their values with the following commands:
 
@@ -184,7 +187,7 @@ ex:- export TF_VAR_region=us-central-1
 
 ```
 
-Importent: Initialize the terraform modules delete the backend file for local testing.
+Important: Initialize the terraform modules delete the backend file for local testing.
 
 ```console
 cd env/

@@ -18,6 +18,11 @@ output "role_arn" {
   value = aws_iam_role.iam_role.arn
 }
 
+# AWS Iam assume role arn.
+output "assume_role_arn" {
+  value = aws_iam_role.iam_role.arn
+}
+
 # AWS Iam worker role arn.
 output "worker_role_arn" {
   value = aws_iam_role.worker_iam_role.arn

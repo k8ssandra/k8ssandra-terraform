@@ -47,3 +47,11 @@ module "iam" {
   environment = var.environment
   tags        = local.tags
 }
+
+# Create S3 bucket
+module "s3" {
+  source      = "../modules/s3"
+  name        = local.name_prefix
+  environment = var.environment
+  tags        = local.tags
+}

@@ -76,8 +76,8 @@ variable "tags" {
 
 variable "cluster_api_cidr" {
   description = "Allow workstation to communicate with the cluster API Server"
-  type = string
-  default = "10.2.0.0/32"
+  type        = string
+  default     = "10.2.0.0/32"
 }
 
 # Avilability Zones variables

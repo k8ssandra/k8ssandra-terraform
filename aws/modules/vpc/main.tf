@@ -174,7 +174,7 @@ resource "aws_security_group" "security_group" {
   )
 }
 
-# Create AWS HTTPS Security group rule.
+# Create AWS HTTPS Security group rule. Allow pods to communicate with the cluster API Server.
 resource "aws_security_group_rule" "https_security_group_rule" {
   description              = "Allow pods to communicate with the cluster API Server"
   from_port                = 443
@@ -211,7 +211,7 @@ resource "aws_security_group" "worker_security_group" {
   }
 
   tags = merge(var.tags, {
-    "Name"                                      = format("%s-worker-security-group", var.name)
+    "Name"                                                   = format("%s-worker-security-group", var.name)
     format("kubernetes.io/cluster/%s-eks-cluster", var.name) = "owned"
     }
   )

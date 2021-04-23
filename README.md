@@ -33,6 +33,23 @@ Instead of figuring out the details of how to run a piece of infrastructure from
 ## Prerequisites
 At a minimum 61 GiB of memory, 8 vCPUs virtual machines are needed to run k8ssandra. Minimum recommendation for volumes is 1.5 - 2 TB, but that's all set up through the persistent volume requests.
 
+## Resource Naming Conventions
+* Naming Conventions: All the resources will be created with the prefix of `environment`-`project_name`.
+    - eg: environment="development" and Project_name="k8ssandra"
+            resource_name "development-k8ssandra-gke-cluster"
+
+* Naming Limitation: Every cloud provider have limitations on the resource names, they will only allows resource names up to some characters long.
+    - eg:if we pass `environment` as **production** the `project_name` as **K8ssandra-terraform-project-resources-for-multiple-cloud-providers** 
+        looks some thing like this resource_name **production-K8ssandra-terraform-project-resources-for-multiple-cloud-providers-gke-cluster**
+    
+    * In the above example the resource exceeds the 63 characters naming limit. These limitation are hard limitation which can not be changed by any cloud provider.
+    make sure your resource naming conventions follow standards. **It is a good practice maintain limits on length of Cloud resource names**. 
+    
+    * refer the following documentation 
+        * [azure](https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/resource-name-rules).
+        * [gcp](https://stepan.wtf/cloud-naming-convention/)
+        
+
 ### GCP Prerequisites
 
 |       NAME        |   Version  | 

@@ -10,4 +10,3 @@
 * [init.sh](./init.sh): By using this script we can initialize the modules, Terraform workspace, environment and create terraform statefile bucket.
 * [make_bucket.py](./make_bucket.py): This script is used by [init.sh](./init.sh) to create terraform Statefiles bucket in GCP.  
 * [plan.sh](./plan.sh): By using this script we plan the resources by running `terraform plan` command. 
-* [validate.sh](./validate.sh): By using this script we can validate the Terraform code.

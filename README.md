@@ -94,13 +94,14 @@ k8ssandra-terraform/
 |  README.md
 </pre>
 
-* How to use Makefile 
+## How to use Makefile 
+* Terraform scripts are in different folders choose your cloud provider to create resources in.
+    list of available providers "aws, gcp, azure "
     * `make help`  To list out the available options to use. 
-    * `make init`	Initialize and configure Backend.
-    * `make plan`	Plan all GCP resources.
-    * `make apply`	Create or update GCP resources.
-    * `make destroy`   Destroy all GCP resources.
-    * `make validate`   Check that installed resources work as expected.
+    * `make init "provider=<REPLACEME>"`	Initialize and configure Backend.
+    * `make plan "provider=<REPLACEME>"`	Plan all Terraform resources.
+    * `make apply "provider=<REPLACEME>"`	Create or update Terraform resources.
+    * `make destroy "provider=<REPLACEME>"`   Destroy all Terraform resources.
     * `make lint`       Check syntax of all scripts.
     * `make getpods`	Get running pods IPs and Namespaces run this command after apply
 
@@ -140,22 +141,22 @@ make help
 
 ```console
 # Initialize and configure Backend.
-make init
+make init "provider=gcp"
 ```
 ```console
 # Plan all GCP resources.
-make plan
+make plan "provider=gcp"
 ```
 ### This command will create a Kubernetes cluster and deploy k8ssandra on the cluster.
 ```console
 # Create or update GCP resources
 # This command takes some time to execute. 
-make apply
+make apply "provider=gcp"
 ```
 ```console
 # Destroy all GCP resources
 
-make destroy
+make destroy "provider=gcp"
 ```
 
 ## Create EKS resources
@@ -171,7 +172,12 @@ make destroy
 ## Troubleshooting
 
 * **The create script fails with a `Permission denied` when running Terraform** - The credentials that Terraform is using do not provide the necessary permissions to create resources in the selected projects. Ensure that the account listed in `gcloud config list` has necessary permissions to create resources. If it does, regenerate the application default credentials using `gcloud auth application-default login`.
+
 * **Terraform timeouts** - Sometimes resources may take longer than usual to create and Terraform will timeout. The solution is to just run `make create` again. Terraform should pick up where it left off.
+
+* **Terraform statelock** - Sometime if two are more people working on the same Terraform statefile a lock will be placed on your remote Terraform statefile, to unlock the state run the following command `terraform force-unlock <LOCK_ID>`.
+
+* **Terraform Incomplete resource deletion** - If you created some resources manually on the cloud console and attach those resources to the resources created by the Terraform, `terraform destroy` or `make destroy` commands will fail. To resolve those errors you will have to login into the cloud console, delete those resource manually and run `make destroy` or `terraform destory`.
 
 ## Relevant Material
 

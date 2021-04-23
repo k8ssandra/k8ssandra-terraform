@@ -25,6 +25,16 @@ ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 # Run common.sh script for variable declaration and validation
 source "${ROOT}/scripts/common.sh"
 
-#make validate : this command will validate the terraform code
-cd "${ROOT}"/gcp/env
-terraform validate
+# Make apply : this command will apply the infrastructure changes
+(cd "${ROOT}/env"; terraform apply -input=false -auto-approve)
+
+# Get cluster outputs from the gke cluster.
+GET_OUTPUTS="$(terraform output endpoint master_version)"
+${GET_OUTPUTS}
+
+# Clone k8ssandra repo
+git clone https://github.com/k8ssandra/k8ssandra.git
+cd k8ssandra 
+
+# Call the existing script to run the E2E testing on the gke cluster.
+make integ-test

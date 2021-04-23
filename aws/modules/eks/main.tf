@@ -47,4 +47,8 @@ resource "aws_eks_node_group" "eks_node_group" {
     format("kubernetes.io/cluster/%s-eks-cluster", var.name) = "owned"
     }
   )
+
+  labels = {
+    "key" = format("%s", aws_eks_cluster.eks_cluster.name)
+  }
 }

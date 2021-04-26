@@ -23,12 +23,6 @@ variable "environment" {
   type        = string
 }
 
-variable "project_id" {
-  description = "The id of the project."
-  type        = string
-  default     = ""
-}
-
 variable "resource_owner" {
   description = "The name of the Project Owner"
   type        = string

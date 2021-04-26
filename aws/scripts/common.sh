@@ -87,7 +87,7 @@ command pip3 show boto3 2>&1 || { \
 }
 
 # Make sure you initialize the following TF_VAR's before you initialize the environment
-if [ -z "${TF_VAR_environment}" ] || [ -z "${TF_VAR_project_id}" ] || [ -z "${TF_VAR_name}" ] || [ -z "${TF_VAR_region}" ]; then
+if [ -z "${TF_VAR_environment}" ] || [ -z "${TF_VAR_name}" ] || [ -z "${TF_VAR_region}" ]; then
   printf "This step requires to export the the following variables \nTF_VAR_environment: %s \nTF_VAR_name: %s \nTF_VAR_region: %s \nTF_VAR_project_id: %s" "${TF_VAR_environment}" "${TF_VAR_name}" "${TF_VAR_region}" "${TF_VAR_region}"
   exit 1
 else 

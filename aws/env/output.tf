@@ -15,8 +15,14 @@
 # eks module output attributes
 #------------------------------
 
+
 # vpc module output attributes
 #------------------------------
 
+
 # iam module output attributes
 #------------------------------
+
+
+# s3 module output attributes
+#-----------------------------

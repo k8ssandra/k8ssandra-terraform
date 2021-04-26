@@ -16,52 +16,47 @@
 # Export the required environment variables before using the make command. 
 SHELL := /usr/bin/env bash
 ROOT := ${CURDIR}
+provider := ${}
 
 .PHONY: help
 help:
 	@echo 'Usage:'
-	@echo '    make init	Initialize and configure Backend.'
-	@echo '    make plan	Plan all GCP resources.'
-	@echo '    make apply	Create or update GCP resources.'
-	@echo '    make destroy   Destroy all GCP resources.'
-	@echo '    make validate   Check that installed resources work as expected.'
-	@echo '    make lint       Check syntax of all scripts.'
-	@echo '    make get pods	Get running pods IP's and Namespaces run this command after apply'
+	@echo '    make init "provider=<REPLACEME>"	   Initialize and configure Terraform Backend.'
+	@echo '    make plan "provider=<REPLACEME>"	   Plan all Terraform resources.'
+	@echo '    make apply "provider=<REPLACEME>"   Create or update Terraform resources.'
+	@echo '    make destroy "provider=<REPLACEME>" Destroy all Terraform resources.'
+	@echo '    make lint	Check syntax of all scripts.'
+	@echo '    make getpods	Get running pods IPs and Namespaces run this command after apply'
 	@echo
 
 # Before you run this command please export the required variables.
 # Initialize the environment variables 
 .PHONY: init
 init:
-	bash $(ROOT)/scripts/init.sh
+	bash $(ROOT)/$(provider)/scripts/init.sh
 
-# Plan the google cloud resources
+# Plan the Terraform resources
 .PHONY: plan
 plan:
-	bash $(ROOT)/scripts/plan.sh
+	bash $(ROOT)/$(provider)/scripts/plan.sh
 
-# Apply the google cloud resources
+# Apply the Terraform resources
 .PHONY: apply
 apply:
-	bash $(ROOT)/scripts/apply.sh
+	bash $(ROOT)/$(provider)/scripts/apply.sh
 
 # Destroy the terraform resources
 .PHONY: destroy
 destroy:
-	bash $(ROOT)/scripts/destroy.sh
+	bash $(ROOT)/$(provider)/scripts/destroy.sh
 
-# Validate terraform resources
-.PHONY: validate
-validate:
-	bash ${ROOT}/scripts/validate.sh
-
-# Get pods details of	 the running container cluster.
-.PHONY: get pods
-get pods:
+# Get pods details of the running cluster.
+.PHONY: getpods
+getpods:
 	python ${ROOT}/test/kube-pods.py
 
 .PHONY: lint
-lint: Check_shell check_terraform check_shebangs check_trailing_whitespace
+lint: check_shell check_terraform check_shebangs check_trailing_whitespace
 
 # Shell check
 .PHONY: check_shell

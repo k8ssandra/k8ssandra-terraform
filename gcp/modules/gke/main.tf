@@ -16,7 +16,7 @@
 resource "google_container_cluster" "container_cluster" {
   name                     = var.name
   project                  = var.project_id
-  description              = format("%s-GKE Cluster", var.name)
+  description              = format("%s-gke-cluster", var.name)
   location                 = var.region
   remove_default_node_pool = true
   initial_node_count       = var.initial_node_count

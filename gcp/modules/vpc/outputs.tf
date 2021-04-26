@@ -21,15 +21,3 @@ output "network_selflink" {
 output "subnetwork_selflink" {
   value = google_compute_subnetwork.compute_subnetwork.self_link
 }
-
-/*
-# Output variable for the NAT address selflink. 
-output "compute_address" {
-  value = google_compute_address.compute_address.self_link
-}
-
-# Output variable for the NAT ip address. 
-output "compute_address_id" {
-  value = google_compute_address.compute_address.id
-}
-*/

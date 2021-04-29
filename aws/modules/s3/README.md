@@ -1,4 +1,9 @@
 # Terraform AWS s3 module
+This is a Dynamic modules in Terraform to create a S3 bucket and block public access permissions.
+
+* main.tf : contains all the resources which will be created with `terraform apply` command. 
+* variables.tf : contains all variables required to create the resources.
+* outputs.tf : contains output attributes of the resources. 
 
 ## Requirements
 

@@ -1,4 +1,9 @@
 # Terraform AWS VPC module
+This is a Dynamic module in Terraform to create Virtual Private Cloud (VPC). This module will be called from the ./env/dev.tf file. 
+
+* main.tf : contains all the resources, which will be created with `terraform apply` command.
+* variables.tf : contains all the variables required to create the resources.
+* outputs.tf : print output attributes of the resources.
 
 ## Requirements
 

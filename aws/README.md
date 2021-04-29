@@ -46,20 +46,19 @@ aws/
  |     └── variables.tf 
  |     └── outputs.tf 
  |     └── README.md
- └──README.md
- └──gitignore
  |
  ├──<a href="env/README.md">env</a>
-    ├── dev.tf
-      ../modules/vpc
-      ../modules/iam
-      ../modules/gke
-      ../modules/gcs
-    ├── version.tf 
-    └── backend.tf 
-    └── variables.tf 
-    └── outputs.tf
-    └── README.md
+ |   ├── dev.tf
+ |    ../modules/vpc
+ |    ../modules/iam
+ |    ../modules/gke
+ |    ../modules/gcs
+ |  ├── version.tf 
+ |  └── backend.tf 
+ |  └── variables.tf 
+ |  └── outputs.tf
+ |  └── README.md
+ └──README.md
 </pre>
 
 ## Prerequisites
@@ -75,7 +74,23 @@ aws/
 |  python             |    3       |
 |aws-iam-authenticator|   0.5.2    |
 
+### Backend
+  * Terraform uses persistent state data to keep track of the resources it manages. Since it needs the state in order to know which real-world infrastructure objects correspond to the resources in a configuration, everyone working with a given collection of infrastructure resources must be able to access the same state data.
+  * Terraform backend configuration: 
+  [Configuring your backend in aws s3](https://www.terraform.io/docs/language/settings/backends/s3.html)
+  * Terraform state
+  [How Terraform state works](https://www.terraform.io/docs/language/state/index.html)
 
+Sample template to configure your backend in s3 bucket:
+```
+  terraform {
+    backend "s3" {
+      bucket = "<REPLACEME_bucket_name>"
+      key    = "<REPLACEME_bucket_key>"
+      region = "<REPLACEME_region>"
+    }
+  }
+```   
 ### Tools
 
 * Access to an existing AWS cloud as a owner or a developer.

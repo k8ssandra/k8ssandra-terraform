@@ -1,4 +1,9 @@
 # Terraform AWS IAM module
+This is a Dynamic module in Terraform to create IAM resources. This module will be called from ../env/dev.tf modules file. This module creates roles, policies.
+
+* main.tf : contains all the resources, which will be created with `terraform apply` command.
+* variables.tf : contains all the variables required to create the resources.
+* outputs.tf : print output attributes of the resources.
 
 ## Requirements
 

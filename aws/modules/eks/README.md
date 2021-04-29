@@ -1,5 +1,11 @@
 # Terraform AWS EKS module
 
+This is a Dynamic module in terraform to create EKS cluster. This module will be called from ../env/dev.tf modules file, by using this reusable module we will be able to create EKS cluster and Cluster Node Pool.
+
+* main.tf : contains all the resources which will be created with `terraform apply` command.
+* variables.tf : contains all the variables required to create the resources.
+* outputs.tf : prints output attributes of the resources.
+
 ## Requirements
 
 No requirements.

@@ -1,3 +1,87 @@
+# Terraform Modules Folder
+
+All the module calls made from this folder from dev.tf file. 
+
+* This folder contains following files
+  * dev.tf (modules file )
+  * backend.tf ( contains backend configuration of the terraform, which contains terraform state files).
+  * outputs.tf ( output's of the resource attributes after terraform apply)
+  * version.tf ( contains terraform version and cloud provider version)
+  * variables.tf (all the variable which required by the terraform modules.)
+
+## What is a module?
+A [Terraform Module](https://www.terraform.io/docs/language/modules/develop/index.html) is a canonical, reusable, best-practices definition for how to run a single piece of infrastructure, such as a database or server cluster. Each Module is written using a combination of Terraform and scripts (mostly bash) and include automated tests, documentation, and examples.
+
+* Every module has:
+  * Input variables: to accept values from the calling module.
+  * Output values: to return results to the calling module, which it can then use to populate arguments elsewhere.
+  * Resources: to define one or more infrastructure objects that the module will manage.
+  * Source: A source can be any local folder path or remote module located in source control systems like git.
+
+## GKE cluster example module
+Usage: The following module call will create EKS cluster and cluster node pool resources. Resources will be configured by using the following input variables on this module. 
+
+```
+# Create Elastic Kubernetes Service
+module "eks" {
+  source                = "../modules/eks"
+  name                  = local.name_prefix
+  region                = var.region
+  environment           = var.environment
+  instance_type         = var.instance_type
+  role_arn              = module.iam.role_arn
+  worker_role_arn       = module.iam.worker_role_arn
+  subnet_ids            = module.vpc.aws_subnet_private_ids
+  security_group_id     = module.vpc.security_group_id
+  public_subnets        = module.vpc.aws_subnet_public_ids
+  instance_profile_name = module.iam.iam_instance_profile
+  tags                  = local.tags
+}
+```
+## IAM example module
+Usage: The following module call will create IAM resources. Resources will be configured using the following input variables on this modules.   
+
+```
+# Create Identity Access Management
+module "iam" {
+  source      = "../modules/iam"
+  name        = local.name_prefix
+  region      = var.region
+  environment = var.environment
+  tags        = local.tags
+}
+
+```
+
+## vpc example module
+Usage: The following module call will create AWS virtual private network(VPC), subnets, firewall rules, security groups, NAT Gateway's, Internet Gateway, Elastic IP's, route tables, route table associations.
+
+```
+# Create Virtual Private Cloud
+module "vpc" {
+  source             = "../modules/vpc"
+  name               = local.name_prefix
+  environment        = var.environment
+  region             = var.region
+  public_cidr_block  = var.public_cidr_block
+  private_cidr_block = var.private_cidr_block
+  tags               = local.tags
+}
+```
+
+## s3 example module
+Usage: The following module call will create Amazon s3 bucket. Resources will be configured using following input variables on this module.
+
+```
+# Create S3 bucket
+module "s3" {
+  source      = "../modules/s3"
+  name        = local.name_prefix
+  environment = var.environment
+  tags        = local.tags
+}
+```
+
 ## Requirements
 
 | Name | Version |

@@ -87,7 +87,7 @@ module "gcs" {
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.14 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.12 |
 | <a name="requirement_google"></a> [google](#requirement\_google) | ~> 3.0 |
 
 ## Providers
@@ -126,8 +126,9 @@ No resources.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_bucket_name"></a> [bucket\_name](#output\_bucket\_name) | gcs module output attributes ----------------------------- |
-| <a name="output_endpoint"></a> [endpoint](#output\_endpoint) | gke module output attributes ------------------------------ Print GKE cluster endpoint. |
-| <a name="output_master_version"></a> [master\_version](#output\_master\_version) | Print GKE cluster version. |
-| <a name="output_service_account"></a> [service\_account](#output\_service\_account) | Google cloud service account ----------------------------- |
-| <a name="output_service_account_key"></a> [service\_account\_key](#output\_service\_account\_key) | n/a |
+| <a name="output_bucket_name"></a> [bucket\_name](#output\_bucket\_name) | The name of the GCS bucket. |
+| <a name="output_connect_cluster"></a> [connect\_cluster](#output\_connect\_cluster) | Configuring GKE cluster access for kubectl |
+| <a name="output_endpoint"></a> [endpoint](#output\_endpoint) | Endpoint for the GKE cluster |
+| <a name="output_master_version"></a> [master\_version](#output\_master\_version) | Master version of GKE cluster |
+| <a name="output_service_account"></a> [service\_account](#output\_service\_account) | The E-mail id of the service account. |
+| <a name="output_service_account_key"></a> [service\_account\_key](#output\_service\_account\_key) | The service Account Key to configure Medusa backups to use GCS bucket |

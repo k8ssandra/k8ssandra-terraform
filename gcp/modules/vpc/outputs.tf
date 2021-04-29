@@ -12,12 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Output variable for the vpc network selflink
+# Output variable for the vpc network selflink.
 output "network_selflink" {
+  description = "variable for the vpc network selflink"
   value = google_compute_network.compute_network.self_link
 }
 
 # Output variable for the subnetwork selflink. 
 output "subnetwork_selflink" {
+  description = "variable for the subnetwork selflink"
   value = google_compute_subnetwork.compute_subnetwork.self_link
 }

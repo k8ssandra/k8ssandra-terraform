@@ -13,7 +13,7 @@ No requirements.
 
 | Name | Version |
 |------|---------|
-| <a name="provider_google"></a> [google](#provider\_google) | 3.0 |
+| <a name="provider_google"></a> [google](#provider\_google) | n/a |
 
 ## Modules
 
@@ -47,5 +47,6 @@ No modules.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_endpoint"></a> [endpoint](#output\_endpoint) | End point of the google container cluster. |
-| <a name="output_master_version"></a> [master\_version](#output\_master\_version) | Master version of Kubernetes cluster. |
+| <a name="output_cluster_name"></a> [cluster\_name](#output\_cluster\_name) | GKE cluster name |
+| <a name="output_endpoint"></a> [endpoint](#output\_endpoint) | End point of the google container cluster |
+| <a name="output_master_version"></a> [master\_version](#output\_master\_version) | Master version of Kubernetes cluster |

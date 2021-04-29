@@ -16,26 +16,38 @@
 #------------------------------
 # Print GKE cluster endpoint.
 output "endpoint" {
+  description = "Endpoint for the GKE cluster"
   value = module.gke.endpoint
 }
 
 # Print GKE cluster version.
 output "master_version" {
+  description = "Master version of GKE cluster"
   value = module.gke.master_version
 }
 
 # gcs module output attributes
 #-----------------------------
 output "bucket_name" {
+  description = "The name of the GCS bucket."
   value = module.gcs.bucket_name
 }
 
 # Google cloud service account
 #-----------------------------
 output "service_account" {
+  description = "The E-mail id of the service account."
   value = module.iam.service_account
 }
 
 output "service_account_key" {
+  description = "The service Account Key to configure Medusa backups to use GCS bucket"
   value = module.iam.service_account_key
+}
+
+# Configuring GKE cluster access for kubectl.
+#-----------------------
+output "connect_cluster" {
+  description = "Configuring GKE cluster access for kubectl"
+  value = format("gcloud container clusters get-credentials %s --region %s --project %s", module.gke.cluster_name, var.region, var.project_id)
 }

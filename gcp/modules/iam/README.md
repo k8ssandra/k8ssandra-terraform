@@ -13,7 +13,7 @@ No requirements.
 
 | Name | Version |
 |------|---------|
-| <a name="provider_google"></a> [google](#provider\_google) | 3.0 |
+| <a name="provider_google"></a> [google](#provider\_google) | n/a |
 
 ## Modules
 
@@ -44,5 +44,5 @@ No modules.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_service_account"></a> [service\_account](#output\_service\_account) | Output variable for the service account email |
-| <a name="output_service_account_key"></a> [service\_account\_key](#output\_service\_account\_key) | n/a |
+| <a name="output_service_account"></a> [service\_account](#output\_service\_account) | Service Account Email-id |
+| <a name="output_service_account_key"></a> [service\_account\_key](#output\_service\_account\_key) | The service Account Key to configure Medusa backups to use GCS bucket |

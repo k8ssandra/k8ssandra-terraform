@@ -13,7 +13,7 @@ No requirements.
 
 | Name | Version |
 |------|---------|
-| <a name="provider_google"></a> [google](#provider\_google) | 3.0 |
+| <a name="provider_google"></a> [google](#provider\_google) | n/a |
 
 ## Modules
 
@@ -54,5 +54,5 @@ No modules.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_network_selflink"></a> [network\_selflink](#output\_network\_selflink) | Output variable for the vpc network selflink |
-| <a name="output_subnetwork_selflink"></a> [subnetwork\_selflink](#output\_subnetwork\_selflink) | Output variable for the subnetwork selflink. |
+| <a name="output_network_selflink"></a> [network\_selflink](#output\_network\_selflink) | variable for the vpc network selflink |
+| <a name="output_subnetwork_selflink"></a> [subnetwork\_selflink](#output\_subnetwork\_selflink) | variable for the subnetwork selflink |

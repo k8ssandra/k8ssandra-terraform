@@ -52,7 +52,7 @@ module "iam" {
 ```
 
 ## vpc example module
-Usage: The following module call will create google compute network(VPC) and Gooogle Compute Subnet resources. Resources will be configured using the following input variables on this module. 
+Usage: The following module call will create google compute network(VPC) and Google Compute Subnet resources. Resources will be configured using the following input variables on this module. 
 
 ```
 # Module used for creating a google compute network.

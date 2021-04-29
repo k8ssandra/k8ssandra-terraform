@@ -24,6 +24,10 @@ resource "aws_eks_cluster" "eks_cluster" {
 
   tags = var.tags
 
+  provisioner "local-exec" {
+    command = format("aws eks --region %s update-kubeconfig --name %s", var.region, aws_eks_cluster.eks_cluster.name)
+  }
+
 }
 
 # AWS EKS node group configuration. 

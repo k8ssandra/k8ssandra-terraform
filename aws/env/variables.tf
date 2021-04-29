@@ -38,7 +38,7 @@ variable "region" {
 variable "instance_type" {
   description = "Type of instance to be used in the k8ssandra."
   type        = string
-  default     = "t2.medium"
+  default     = "r5d.2xlarge"
 }
 
 # Expose Subnet Ssettings

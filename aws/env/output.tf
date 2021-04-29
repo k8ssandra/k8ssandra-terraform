@@ -14,7 +14,22 @@
 
 # eks module output attributes
 #------------------------------
+output "cluster_name" {
+  description = "Name of the EKS cluster"
+  value = module.eks.cluster_name
+}
 
+# Version of the EKS cluster
+output "cluster_version" {
+  description = "Version of the EKS cluster"
+  value = module.eks.cluster_version
+}
+
+# The endpoint for your EKS Kubernetes API
+output "cluster_Endpoint" {
+  description = "The endpoint for your EKS Kubernetes API"
+  value = module.eks.cluster_Endpoint
+}
 
 # vpc module output attributes
 #------------------------------
@@ -26,3 +41,8 @@
 
 # s3 module output attributes
 #-----------------------------
+# AWS s3 bucket id
+output "bucket_id" {
+  description = "Bucket Name (aka ID)"
+  value       = module.s3.bucket_id
+}

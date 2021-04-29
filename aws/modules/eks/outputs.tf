@@ -12,7 +12,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Output attributes  of the eks cluster.
+# Output attributes of the eks cluster.
+# Name of the EKS cluster
 output "cluster_name" {
-  value = aws_eks_cluster.eks_cluster.name
+  description = "Name of the EKS cluster"
+  value = aws_eks_cluster.eks_cluster.id
+}
+
+# Version of the EKS cluster
+output "cluster_version" {
+  description = "Version of the EKS cluster"
+  value = aws_eks_cluster.eks_cluster.version
+}
+
+# The endpoint for your EKS Kubernetes API
+output "cluster_Endpoint" {
+  description = "The endpoint for your EKS Kubernetes API"
+  value = aws_eks_cluster.eks_cluster.endpoint
 }

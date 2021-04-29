@@ -81,7 +81,7 @@ aws/
 * Access to an existing AWS cloud as a owner or a developer.
 * Bash and common command line tools (Make, etc.)
 * [Terraform v0.14.0+](https://www.terraform.io/downloads.html)
-* [AWS CLI v2](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html))
+* [AWS CLI v2](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html)
 * [kubectl](https://kubernetes.io/docs/reference/kubectl/overview/) that matches the latest generally-available GKE cluster version.
 
 #### Install Terraform
@@ -102,7 +102,7 @@ Run `aws configure` command to configure your AWS cli, This Terraform module AWS
 * [Install AWS cli v2](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html)
 
 ```console
-AWS configure
+aws configure
 ```
 Enter `access key`, `secret access key` default `region`.
 

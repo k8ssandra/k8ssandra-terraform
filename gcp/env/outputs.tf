@@ -35,3 +35,7 @@ output "bucket_name" {
 output "service_account" {
   value = module.iam.service_account
 }
+
+output "service_account_key" {
+  value = module.iam.service_account_key
+}

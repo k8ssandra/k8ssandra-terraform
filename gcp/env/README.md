@@ -82,32 +82,52 @@ module "gcs" {
 }
 
 ```
+
+## Requirements
+
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.14 |
+| <a name="requirement_google"></a> [google](#requirement\_google) | ~> 3.0 |
+
 ## Providers
 
-|       NAME        |   Version  | 
-|-------------------|------------|
-| terraform version |   0.14     |
-| gcp provider      |   ~>3.0    |
+No providers.
+
+## Modules
+
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_gcs"></a> [gcs](#module\_gcs) | ../modules/gcs |  |
+| <a name="module_gke"></a> [gke](#module\_gke) | ../modules/gke |  |
+| <a name="module_iam"></a> [iam](#module\_iam) | ../modules/iam |  |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | ../modules/vpc |  |
+
+## Resources
+
+No resources.
 
 ## Inputs
 
-|       Name        |   Description  |  Type  |  Required    |
-|-------------------|----------------|--------|:------------:|
-| name |  Name of the cluster and prefix of the related resources names | `string` | yes |
-| environment | Environment of the infrastructure being buit | `string` | yes | 
-| project_id |  Id of the project which holds the components | `string` | yes |
-| region | the region to create the vpc network | `string` | yes |
-| k8s_namespace | The namespace to use for the deployment and workload identity binding | `string` | no |
-| zone | The zone in which to create the Kubernetes cluster. Must match the region | `string` | yes |
-| service_account_iam_roles | iam roles for the service account | `list` | yes |
-| service_account_custom_iam_roles | List of arbitrary additional IAM roles to attach to the service account on
-  the GKE nodes. | `list` | no |
-| project_services | The GCP APIs that should be enabled in this project. | `list` | yes |
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_environment"></a> [environment](#input\_environment) | The environment of the infrastructure being built. | `any` | n/a | yes |
+| <a name="input_k8s_namespace"></a> [k8s\_namespace](#input\_k8s\_namespace) | The namespace to use for the deployment and workload identity binding | `string` | `"default"` | no |
+| <a name="input_machine_type"></a> [machine\_type](#input\_machine\_type) | Type of machines which are used by cluster node pool | `string` | `"e2-highmem-8"` | no |
+| <a name="input_name"></a> [name](#input\_name) | Name of the cluster resources | `string` | `"k8ssandra"` | no |
+| <a name="input_project_id"></a> [project\_id](#input\_project\_id) | The GCP project in which the components are created. | `string` | `"k8ssandra-testing"` | no |
+| <a name="input_project_services"></a> [project\_services](#input\_project\_services) | The GCP APIs that should be enabled in this project. | `list(string)` | <pre>[<br>  "cloudresourcemanager.googleapis.com",<br>  "servicenetworking.googleapis.com",<br>  "container.googleapis.com",<br>  "compute.googleapis.com",<br>  "iam.googleapis.com",<br>  "logging.googleapis.com",<br>  "monitoring.googleapis.com",<br>  "sqladmin.googleapis.com",<br>  "securetoken.googleapis.com"<br>]</pre> | no |
+| <a name="input_region"></a> [region](#input\_region) | The region in which to create the VPC network | `string` | `"us-central1"` | no |
+| <a name="input_service_account_custom_iam_roles"></a> [service\_account\_custom\_iam\_roles](#input\_service\_account\_custom\_iam\_roles) | List of arbitrary additional IAM roles to attach to the service account on<br>the GKE nodes. | `list(string)` | `[]` | no |
+| <a name="input_service_account_iam_roles"></a> [service\_account\_iam\_roles](#input\_service\_account\_iam\_roles) | List of the default IAM roles to attach to the service account on the GKE Nodes. | `list(string)` | <pre>[<br>  "roles/logging.logWriter",<br>  "roles/monitoring.metricWriter",<br>  "roles/monitoring.viewer",<br>  "roles/stackdriver.resourceMetadata.writer"<br>]</pre> | no |
+| <a name="input_zone"></a> [zone](#input\_zone) | The zone in which to create the Kubernetes cluster. Must match the region | `string` | `"us-central-1a"` | no |
 
 ## Outputs
 
-|    Name     |    description   | 
-|-------------|:----------------:|
-|   endpoint  | google container cluster endpoint |
-| master_version| google container cluster master version |
-| bucket_name | google storage bucket name |
+| Name | Description |
+|------|-------------|
+| <a name="output_bucket_name"></a> [bucket\_name](#output\_bucket\_name) | gcs module output attributes ----------------------------- |
+| <a name="output_endpoint"></a> [endpoint](#output\_endpoint) | gke module output attributes ------------------------------ Print GKE cluster endpoint. |
+| <a name="output_master_version"></a> [master\_version](#output\_master\_version) | Print GKE cluster version. |
+| <a name="output_service_account"></a> [service\_account](#output\_service\_account) | Google cloud service account ----------------------------- |
+| <a name="output_service_account_key"></a> [service\_account\_key](#output\_service\_account\_key) | n/a |

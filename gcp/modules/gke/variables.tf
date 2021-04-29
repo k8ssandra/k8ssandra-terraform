@@ -34,7 +34,7 @@ variable "initial_node_count" {
 variable "machine_type" {
   description = "Type of machines which are used by cluster node pool"
   type        = string
-  default     = "n1-standard-8"
+  default     = "e2-highmem-8"
 }
 
 variable "region" {

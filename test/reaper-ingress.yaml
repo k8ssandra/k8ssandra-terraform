@@ -12,7 +12,3 @@ spec:
               servicePort: 8080
             path: /webui/*
             pathType: ImplementationSpecific
-status:
-  loadBalancer:
-    ingress:
-      - ip: 34.117.48.220

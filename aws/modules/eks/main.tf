@@ -48,6 +48,7 @@ resource "aws_eks_node_group" "eks_node_group" {
   ]
 
   tags = merge(var.tags, {
+    "Name"                                                   = format("%s-node-group", var.name)
     format("kubernetes.io/cluster/%s-eks-cluster", var.name) = "owned"
     }
   )

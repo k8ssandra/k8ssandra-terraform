@@ -37,7 +37,7 @@ resource "aws_subnet" "public_subnet" {
   availability_zone = local.pub_avilability_zones[count.index]
 
   tags = merge(var.tags, {
-    Name                                                     = format("%s-eks-cluster-nodes-%s", var.name, local.pub_avilability_zones[count.index])
+    "Name"                                                   = format("%s-public-subnet-%s", var.name, local.pub_avilability_zones[count.index])
     format("kubernetes.io/cluster/%s-eks-cluster", var.name) = "owned"
     }
   )
@@ -59,7 +59,7 @@ resource "aws_subnet" "private_subnet" {
   availability_zone = local.pri_avilability_zones[count.index]
 
   tags = merge(var.tags, {
-    Name                                                     = format("%s-eks-cluster-nodes-%s", var.name, local.pri_avilability_zones[count.index])
+    "Name"                                                   = format("%s-private-subnet-%s", var.name, local.pri_avilability_zones[count.index])
     format("kubernetes.io/cluster/%s-eks-cluster", var.name) = "owned"
     }
   )
@@ -79,7 +79,7 @@ resource "aws_route_table" "public_route_table" {
   tags = merge(
     var.tags,
     {
-      "Name" = "public_route_table"
+      "Name" = format("%s-public_route_table", var.name)
     }
   )
 }
@@ -98,7 +98,7 @@ resource "aws_route_table" "private_route_table" {
   tags = merge(
     var.tags,
     {
-      Name = "private_route_table"
+      "Name" = format("%s-private_route_table", var.name)
     }
   )
 }
@@ -122,7 +122,9 @@ resource "aws_nat_gateway" "nat_gateway" {
   count         = var.multi_az_nat_gateway * local.pri_az_count + var.single_nat_gateway * 1
   subnet_id     = element(aws_subnet.public_subnet.*.id, count.index)
   allocation_id = element(aws_eip.mod_nat_eip.*.id, count.index)
-  tags          = var.tags
+  tags = merge(var.tags, {
+    "Name" = format("%s-nat-gateway-%s", var.name, local.pri_avilability_zones[count.index])
+  })
   depends_on = [
     aws_internet_gateway.internet_gateway,
     aws_eip.mod_nat_eip,
@@ -141,7 +143,7 @@ resource "aws_internet_gateway" "internet_gateway" {
   tags = merge(
     var.tags,
     {
-      "name" = format("%s", aws_vpc.vpc.id)
+      "Name" = format("%s-internet-gateway", aws_vpc.vpc.id)
     }
   )
 }
@@ -150,8 +152,10 @@ resource "aws_internet_gateway" "internet_gateway" {
 # create Elastic ip adress for the NAT
 resource "aws_eip" "mod_nat_eip" {
   count = var.multi_az_nat_gateway * local.pri_az_count + var.single_nat_gateway * 1
-  tags  = var.tags
-  vpc   = true
+  tags = merge(var.tags, {
+    "Name" = format("%s-elasticIP-%s", var.name, local.pub_avilability_zones[count.index])
+  })
+  vpc = true
 }
 
 #-------------------------------------------------------------------------

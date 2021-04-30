@@ -56,9 +56,8 @@ resource "aws_iam_role_policy_attachment" "EKSVPCResourceController_iam_role_pol
 
 # If no loadbalancer was ever created in this region, then this following role is necessary
 resource "aws_iam_role_policy" "service_linked_iam_role_policy" {
-  name = format("%s-service-linked-role", var.name)
-  role = aws_iam_role.iam_role.name
-
+  name   = format("%s-service-linked-role", var.name)
+  role   = aws_iam_role.iam_role.name
   policy = <<EOF
 {
     "Version": "2012-10-17",

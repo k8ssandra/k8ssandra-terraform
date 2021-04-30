@@ -14,9 +14,9 @@
 
 # Create s3 bucket resource
 resource "aws_s3_bucket" "s3_bucket" {
-  bucket        = format("%s-s3-bucket", var.name)
-  tags          = var.tags
-  
+  bucket = format("%s-s3-bucket", var.name)
+  tags   = var.tags
+
   # Force destroy bucket if there are any files exists. 
   force_destroy = true
 
@@ -33,7 +33,7 @@ resource "aws_s3_bucket" "s3_bucket" {
       }
     }
   }
-  
+
   lifecycle {
     create_before_destroy = true
   }

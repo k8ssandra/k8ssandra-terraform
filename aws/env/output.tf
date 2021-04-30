@@ -46,3 +46,9 @@ output "bucket_id" {
   description = "Bucket Name (aka ID)"
   value       = module.s3.bucket_id
 }
+
+# Connect AWS cluster
+output "connect_cluster" {
+  description = "Configuring EKS cluster access for kubectl"
+  value       = format("aws eks --region %s update-kubeconfig --name %s", var.region, module.eks.cluster_name)
+}

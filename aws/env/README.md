@@ -18,7 +18,7 @@ A [Terraform Module](https://www.terraform.io/docs/language/modules/develop/inde
   * Resources: to define one or more infrastructure objects that the module will manage.
   * Source: A source can be any local folder path or remote module located in source control systems like git.
 
-## GKE cluster example module
+## EKS cluster example module
 Usage: The following module call will create EKS cluster and cluster node pool resources. Resources will be configured by using the following input variables on this module. 
 
 ```

@@ -46,6 +46,7 @@ module "iam" {
   region      = var.region
   environment = var.environment
   tags        = local.tags
+  bucket_id   = module.s3.bucket_id
 }
 
 # Create S3 bucket

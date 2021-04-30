@@ -51,8 +51,8 @@ aws/
  |   ├── dev.tf
  |    ../modules/vpc
  |    ../modules/iam
- |    ../modules/gke
- |    ../modules/gcs
+ |    ../modules/eks
+ |    ../modules/s3
  |  ├── version.tf 
  |  └── backend.tf 
  |  └── variables.tf 
@@ -97,7 +97,7 @@ Sample template to configure your backend in s3 bucket:
 * Bash and common command line tools (Make, etc.)
 * [Terraform v0.14.0+](https://www.terraform.io/downloads.html)
 * [AWS CLI v2](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html)
-* [kubectl](https://kubernetes.io/docs/reference/kubectl/overview/) that matches the latest generally-available GKE cluster version.
+* [kubectl](https://kubernetes.io/docs/reference/kubectl/overview/) that matches the latest generally-available EKS cluster version.
 
 #### Install Terraform
 
@@ -156,9 +156,34 @@ or select the workspace if there are any existing workspaces
 terraform workspace select <WORKSPACENAME_REPLACEME>
 ```
 
-run the following commands
+Run the following commands to apply changes to your infrastructure.
 
 ```console
 terraform plan
 terraform apply
+```
+
+To destroy the resource, use the following instructions:
+
+Create your workspace with the environment name, it is the recommended way of working with the Terraform workspaces among your teams. Select the workspace where resources need to be destroyed.
+
+It is important to export the same values when destroying the resources on a workspace. Make sure you exported the right environment variables (TF_VAR).
+
+```console
+terraform workspace select <WORKSPACENAME_REPLACEME>
+```
+verify the resources before you destroy Used the following command.
+
+```console
+terraform plan -destroy
+```
+
+Run the following command to destroy all the resources in your workspace. 
+
+```console
+terraform destroy
+```
+or 
+```console
+terraform destroy -auto-approve
 ```

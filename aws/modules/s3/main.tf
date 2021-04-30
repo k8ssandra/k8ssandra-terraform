@@ -32,7 +32,10 @@ resource "aws_s3_bucket" "s3_bucket" {
         sse_algorithm = "AES256"
       }
     }
-
+  }
+  
+  lifecycle {
+    create_before_destroy = true
   }
 
 }

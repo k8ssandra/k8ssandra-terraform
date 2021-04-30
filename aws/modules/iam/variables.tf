@@ -33,3 +33,8 @@ variable "tags" {
   description = "Common tags to attach all the resources create in this project."
   type        = map(string)
 }
+
+variable "bucket_id" {
+  description = "Bucket name (aka ID) to attach medusa s3 access policy."
+  type        = string
+}

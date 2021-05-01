@@ -146,7 +146,10 @@ resource "aws_iam_policy" "medusa_s3_iam_policy" {
       {
         Action   = ["s3:*"]
         Effect   = "Allow"
-        Resource = format("arn:aws:s3:::%s", var.bucket_id)
+        Resource = [
+          format("arn:aws:s3:::%s", var.bucket_id),
+          format("arn:aws:s3:::%s/*", var.bucket_id)
+        ]
       },
     ]
   })

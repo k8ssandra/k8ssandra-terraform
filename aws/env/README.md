@@ -119,7 +119,7 @@ module "s3" {
 | <a name="input_name"></a> [name](#input\_name) | The name to give the new Kubernetes cluster resources. | `string` | n/a | yes |
 | <a name="input_private_cidr_block"></a> [private\_cidr\_block](#input\_private\_cidr\_block) | List of private subnet cidr blocks | `list(string)` | <pre>[<br>  "10.0.1.0/24",<br>  "10.0.2.0/24",<br>  "10.0.3.0/24"<br>]</pre> | no |
 | <a name="input_public_cidr_block"></a> [public\_cidr\_block](#input\_public\_cidr\_block) | List of public subnet cidr blocks | `list(string)` | <pre>[<br>  "10.0.101.0/24",<br>  "10.0.102.0/24",<br>  "10.0.103.0/24"<br>]</pre> | no |
-| <a name="input_region"></a> [region](#input\_region) | The aws region in which resources will be defined. | `string` | `"us-east-1"` | no |
+| <a name="input_region"></a> [region](#input\_region) | The aws regionwhere terraform builds resources. | `string` | `"us-east-1"` | no |
 | <a name="input_resource_owner"></a> [resource\_owner](#input\_resource\_owner) | The name of the Project Owner | `string` | `"Datastax"` | no |
 
 ## Outputs

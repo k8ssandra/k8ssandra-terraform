@@ -37,7 +37,8 @@ resource "aws_subnet" "public_subnet" {
   availability_zone = local.pub_avilability_zones[count.index]
 
   tags = merge(var.tags, {
-    "Name"                                                   = format("%s-public-subnet-%s", var.name, local.pub_avilability_zones[count.index])
+    "Name" = format("%s-public-subnet-%s", var.name, local.pub_avilability_zones[count.index])
+
     format("kubernetes.io/cluster/%s-eks-cluster", var.name) = "owned"
     }
   )
@@ -59,7 +60,8 @@ resource "aws_subnet" "private_subnet" {
   availability_zone = local.pri_avilability_zones[count.index]
 
   tags = merge(var.tags, {
-    "Name"                                                   = format("%s-private-subnet-%s", var.name, local.pri_avilability_zones[count.index])
+    "Name" = format("%s-private-subnet-%s", var.name, local.pri_avilability_zones[count.index])
+
     format("kubernetes.io/cluster/%s-eks-cluster", var.name) = "owned"
     }
   )
@@ -215,7 +217,8 @@ resource "aws_security_group" "worker_security_group" {
   }
 
   tags = merge(var.tags, {
-    "Name"                                                   = format("%s-worker-security-group", var.name)
+    "Name" = format("%s-worker-security-group", var.name)
+
     format("kubernetes.io/cluster/%s-eks-cluster", var.name) = "owned"
     }
   )

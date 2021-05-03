@@ -122,6 +122,7 @@ resource "aws_iam_role_policy_attachment" "EC2ContainerRegistryReadOnly_iam_role
   role       = aws_iam_role.worker_iam_role.name
 }
 
+# Create AWS Medusa iam role policy attachment to the worker nodes.
 resource "aws_iam_role_policy_attachment" "medusa_s3_iam_role_policy_attachment" {
   policy_arn = aws_iam_policy.medusa_s3_iam_policy.arn
   role       = aws_iam_role.worker_iam_role.name
@@ -137,6 +138,7 @@ resource "aws_iam_instance_profile" "iam_instance_profile" {
   }
 }
 
+# Create AWS iam policy document to create access to the s3 bucket to store the medusa backups.
 resource "aws_iam_policy" "medusa_s3_iam_policy" {
   name = format("%s-medusa-s3-access", var.name)
 

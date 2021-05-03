@@ -22,7 +22,7 @@ output "aws_vpc_cidr" {
   value = aws_vpc.vpc.cidr_block
 }
 
-# Output attribute of the public and private subnet's
+# Output attributes of the public and private subnet's
 #----------------------------------------------------
 output "aws_subnet_public_ids" {
   value = aws_subnet.public_subnet.*.id
@@ -53,11 +53,12 @@ output "aws_nat_gateway_ids" {
 }
 
 # Output attribute of the elastic ip.
+#-------------------------------------
 output "aws_eip_nat_ips" {
   value = aws_eip.mod_nat_eip.*.public_ip
 }
 
-# Output attributes of the Security group.
+# Output attributes of the Security group's.
 #-----------------------------------------
 output "security_group_id" {
   value = aws_security_group.security_group.id

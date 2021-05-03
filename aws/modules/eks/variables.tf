@@ -33,7 +33,7 @@ variable "worker_role_arn" {
 }
 
 variable "region" {
-  description = "The AWS region in which resources will be defined."
+  description = "The AWS regionwhere terraform builds resources."
   type        = string
 }
 

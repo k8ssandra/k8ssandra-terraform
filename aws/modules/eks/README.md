@@ -40,7 +40,7 @@ No modules.
 | <a name="input_min_size"></a> [min\_size](#input\_min\_size) | Minimum number of the instances in autoscaling group | `string` | `"3"` | no |
 | <a name="input_name"></a> [name](#input\_name) | The name to give the new Kubernetes cluster resources. | `string` | n/a | yes |
 | <a name="input_public_subnets"></a> [public\_subnets](#input\_public\_subnets) | List of public subnets to create the resources. | `any` | n/a | yes |
-| <a name="input_region"></a> [region](#input\_region) | The aws region in kwhich resources will be defined. | `string` | n/a | yes |
+| <a name="input_region"></a> [region](#input\_region) | The AWS regionwhere terraform builds resources. | `string` | n/a | yes |
 | <a name="input_role_arn"></a> [role\_arn](#input\_role\_arn) | Iam role arn to attach the EKS cluster. | `string` | n/a | yes |
 | <a name="input_security_group_id"></a> [security\_group\_id](#input\_security\_group\_id) | Security group id to configure eks cluster. | `string` | n/a | yes |
 | <a name="input_subnet_ids"></a> [subnet\_ids](#input\_subnet\_ids) | Subnet id to attach the eks cluster. | `any` | n/a | yes |

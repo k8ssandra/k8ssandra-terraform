@@ -53,7 +53,7 @@ No modules.
 | <a name="input_name"></a> [name](#input\_name) | The name to give the new Kubernetes cluster resources. | `string` | n/a | yes |
 | <a name="input_private_cidr_block"></a> [private\_cidr\_block](#input\_private\_cidr\_block) | List of private subnet cidr blocks | `list(string)` | n/a | yes |
 | <a name="input_public_cidr_block"></a> [public\_cidr\_block](#input\_public\_cidr\_block) | List of public subnet cidr blocks | `list(string)` | n/a | yes |
-| <a name="input_region"></a> [region](#input\_region) | The aws region in kwhich resources will be defined. | `string` | n/a | yes |
+| <a name="input_region"></a> [region](#input\_region) | The AWS regionwhere terraform builds resources. | `string` | n/a | yes |
 | <a name="input_single_nat_gateway"></a> [single\_nat\_gateway](#input\_single\_nat\_gateway) | use a single NAT gateway to serve outbound traffic for all AZs | `number` | `0` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Common tags to attach all the resources create in this project. | `map(string)` | `{}` | no |
 | <a name="input_vpc_cidr_block"></a> [vpc\_cidr\_block](#input\_vpc\_cidr\_block) | Virtual Private Cloud cidr block | `string` | `"10.0.0.0/16"` | no |

@@ -30,7 +30,7 @@ variable "resource_owner" {
 }
 
 variable "region" {
-  description = "The aws region in which resources will be defined."
+  description = "The aws regionwhere terraform builds resources."
   type        = string
   default     = "us-east-1"
 }

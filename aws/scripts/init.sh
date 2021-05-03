@@ -37,7 +37,7 @@ source "${ROOT}/scripts/common.sh"
 cd "${ROOT}/env"
 
 # Terraform initinalize the backend bucket
-terraform init -input=false -backend-config="bucket=${bucket_name}" -backend-config="prefix=terraform/${TF_VAR_environment}/"
+terraform init -input=false -backend-config="bucket=${bucket_name}" -backend-config="prefix=terraform/${TF_VAR_environment}/" --backend-config="region=${TF_VAR_region}"
 
 # Validate the Terraform resources.
 terraform validate

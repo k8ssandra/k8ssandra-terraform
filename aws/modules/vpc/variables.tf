@@ -23,10 +23,11 @@ variable "environment" {
 }
 
 variable "region" {
-  description = "The aws region in kwhich resources will be defined."
+  description = "The AWS region in where terraform builds resources."
   type        = string
 }
 
+# Virtual Private Cloud cidr block
 variable "vpc_cidr_block" {
   description = "Virtual Private Cloud cidr block"
   type        = string
@@ -56,7 +57,7 @@ variable "vpc_enable_classiclink" {
 }
 
 
-# Expose Subnet Ssettings
+# Expose Subnet settings.
 variable "public_cidr_block" {
   description = "List of public subnet cidr blocks"
   type        = list(string)
@@ -66,6 +67,7 @@ variable "private_cidr_block" {
   type        = list(string)
 }
 
+# Common tags for the resources.
 variable "tags" {
   description = "Common tags to attach all the resources create in this project."
   type        = map(string)
@@ -73,28 +75,31 @@ variable "tags" {
 }
 
 # Allow workstation to communicate with the cluster API Server
-
 variable "cluster_api_cidr" {
   description = "Allow workstation to communicate with the cluster API Server"
   type        = string
   default     = "10.2.0.0/32"
 }
 
-# Avilability Zones variables
+# Avilability Zones variables.
+# Create a NAT gateway in each avilability zone to ensure a zone independent architecture.
 variable "multi_az_nat_gateway" {
   description = "place a NAT gateway in each AZ"
   default     = 1
 }
 
+# By default we are using multiple NAT gateways for high avilablility, and zone independent architecture.
 variable "single_nat_gateway" {
   description = "use a single NAT gateway to serve outbound traffic for all AZs"
   default     = 0
 }
 
 locals {
+  # Query on Data to pick up avilability zone automatically based on the length cidr blocks. 
   pri_avilability_zones = slice(data.aws_availability_zones.availability_zones.names, 0, length(var.private_cidr_block))
   pub_avilability_zones = slice(data.aws_availability_zones.availability_zones.names, 0, length(var.public_cidr_block))
 
+  # Set local variables number of avilability zones based on the query results.
   pub_az_count = length(local.pub_avilability_zones)
   pri_az_count = length(local.pri_avilability_zones)
 

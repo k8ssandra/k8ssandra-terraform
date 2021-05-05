@@ -1,7 +1,6 @@
 # Cluster Identity
-
 resource "azuread_application" "application" {
-  name = var.cluster_name
+  name = var.name
 }
 
 #service principal

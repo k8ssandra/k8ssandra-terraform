@@ -6,6 +6,6 @@ output "azurerm_kubernetes_cluster_fqdn" {
   value = azurerm_kubernetes_cluster.kubernetes_cluster.fqdn
 }
 
-output "azurerm_kubernetes_cluster_node_resource_group" {
+output "resource_group" {
   value = azurerm_kubernetes_cluster.kubernetes_cluster.node_resource_group
 }

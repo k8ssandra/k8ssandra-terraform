@@ -1,13 +1,13 @@
-resource "azurerm_resource_group" "rg" {
+resource "azurerm_resource_group" "resource_group" {
   name     = var.resource_group_name
   location = var.location
 }
 
-resource "azurerm_kubernetes_cluster" "aks" {
-  name                = var.cluster_name
+resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
+  name                = var.name
   kubernetes_version  = var.kubernetes_version
   location            = var.location
-  resource_group_name = azurerm_resource_group.rg.name
+  resource_group_name = azurerm_resource_group.resource_group.name
   dns_prefix          = var.cluster_name
   node_resource_group = var.node_resource_group
 
@@ -36,4 +36,13 @@ resource "azurerm_kubernetes_cluster" "aks" {
     prevent_destroy = true
   }
 
+}
+
+resource "azurerm_kubernetes_cluster_node_pool" "kubernetes_cluster_node_pool" {
+  name                  = format("%s-node-pool", var.name)
+  kubernetes_cluster_id = azurerm_kubernetes_cluster.kubernetes_cluster.id
+  vm_size               = "Standard_DS2_v2"
+  node_count            = var.system_node_count
+
+  tags = var.tags
 }

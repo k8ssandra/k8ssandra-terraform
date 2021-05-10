@@ -1,23 +1,17 @@
-resource "azurerm_resource_group" "resource_group" {
-  name     = var.resource_group_name
-  location = var.location
-}
-
 resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
-  name                = var.name
+  name                = format("%s-AKS-cluster", var.name)
   kubernetes_version  = var.kubernetes_version
   location            = var.location
-  resource_group_name = azurerm_resource_group.resource_group.name
-  dns_prefix          = var.cluster_name
-  node_resource_group = var.node_resource_group
+  resource_group_name = var.resource_group_name
+  dns_prefix          = var.name
 
   default_node_pool {
-    name               = "system"
-    node_count         = var.system_node_count
-    vm_size            = "Standard_DS2_v2"
-    type               = "VirtualMachineScaleSets"
-    availability_zones = [1, 2, 3]
-
+    name                = format("%snodepool", var.environment) # only 12 charecters 
+    node_count          = var.node_count
+    vm_size             = var.vm_size
+    type                = "VirtualMachineScaleSets"
+    vnet_subnet_id      = var.private_subnet
+    availability_zones  = [1, 2, 3]
     enable_auto_scaling = true
     min_count           = var.min_count
     max_count           = var.max_count
@@ -28,21 +22,17 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
   }
 
   network_profile {
-    load_balancer_sku = "Standard"
-    network_plugin    = "kubenet" # CNI
+    load_balancer_sku  = "Standard"
+    network_plugin     = "azure" # CNI
+    docker_bridge_cidr = var.docker_bridge_cidr
+    dns_service_ip     = var.dns_service_ip
+    service_cidr       = var.service_cidr
   }
 
   lifecycle {
-    prevent_destroy = true
+    prevent_destroy = false
+
+    create_before_destroy = true
   }
 
-}
-
-resource "azurerm_kubernetes_cluster_node_pool" "kubernetes_cluster_node_pool" {
-  name                  = format("%s-node-pool", var.name)
-  kubernetes_cluster_id = azurerm_kubernetes_cluster.kubernetes_cluster.id
-  vm_size               = "Standard_DS2_v2"
-  node_count            = var.system_node_count
-
-  tags = var.tags
 }

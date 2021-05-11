@@ -1,4 +1,4 @@
-# K8saandra Terraform
+# K8ssandra Terraform
 This repo contains a Terraform modules for creating Kubernetes clusters on Google Cloud Platform (GCP), Amazon Web Services(AWS), Microsoft Azure, Tanzu.
 
 ## What's in this repo

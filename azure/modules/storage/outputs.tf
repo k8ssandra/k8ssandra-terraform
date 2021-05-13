@@ -12,23 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#variables
-variable "location" {
-  description = "Azure location where all the resources being created."
-  type        = string
+# Azure Kubernetes Cluster output attributes.
+output "storage_account_id" {
+  description = "Azure Storage account id."
+  value       = azurerm_storage_account.storage_account.id
 }
 
-variable "name" {
-  description = "Prifix of the all resource name."
-  type        = string
+output "storage_container_id" {
+  description = "Azure storage container id"
+  value       = azurerm_storage_container.storage_container.id
 }
 
-variable "environment" {
-  description = "The environment of the infrastructure being built."
-  type        = string
-}
-
-variable "tags" {
-  description = "A map of the tags to use on the resources that are deployed with this module."
-  type        = map(string)
+output "policy_id" {
+  description = "subnet service storage endpoint policy id."
+  value       = azurerm_subnet_service_endpoint_storage_policy.subnet_service_endpoint_policy.id
 }

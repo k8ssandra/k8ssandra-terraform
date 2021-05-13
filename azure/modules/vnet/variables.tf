@@ -1,18 +1,39 @@
-variable "name" {
-  description = "Name of the vnet to create"
+# Copyright 2021 DataStax, Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Common variables.
+variable "location" {
+  description = "Azure location where all the resources being created."
   type        = string
 }
 
-variable "location" {
-  description = "Name of the resource group to be imported."
+variable "name" {
+  description = "Prifix of the all resource name."
+  type        = string
+}
+
+variable "environment" {
+  description = "The environment of the infrastructure being built."
   type        = string
 }
 
 variable "resource_group_name" {
-  description = "Name of the resource group to be imported."
+  description = "The name of the resource group in which the resources will be created."
   type        = string
 }
 
+# Vnet address space
 variable "address_space" {
   type        = list(string)
   description = "The address space that is used by the virtual network."
@@ -48,6 +69,11 @@ variable "private_service_endpoints" {
   default     = []
 }
 
+variable "policy_id" {
+  description = "subnet service storage endpoint policy id."
+  type        = string
+}
+
 variable "endpoint_network_policies" {
   description = "A map of subnet name to enable/disable private link endpoint network policies on the subnet."
   type        = bool
@@ -57,15 +83,13 @@ variable "endpoint_network_policies" {
 variable "service_network_policies" {
   description = "A map of subnet name to enable/disable private link service network policies on the subnet."
   type        = bool
-  default     = true 
+  default     = true
 }
 
 variable "nsg_ids" {
   description = "A map of subnet name to Network Security Group IDs"
   type        = map(string)
-
-  default = {
-  }
+  default     = {}
 }
 
 variable "tags" {

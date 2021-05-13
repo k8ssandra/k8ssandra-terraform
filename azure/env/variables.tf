@@ -51,7 +51,7 @@ variable "public_service_endpoints" {
 
 locals {
   prefix = format("%s-%s", lower(var.environment), lower(var.name))
-  
+
   tags = {
     "environment"     = var.environment
     "project_name"    = var.name

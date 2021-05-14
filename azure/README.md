@@ -86,7 +86,7 @@ terraform {
 
 ### Tools
 
-* Access to an existing AWS cloud as a owner or a developer.
+* Access to an existing Azure cloud as a owner or a developer.
 * Bash and common command line tools (Make, etc.)
 * [Terraform v0.14.0+](https://www.terraform.io/downloads.html)
 * [AZ cli](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-linux?pivots=apt)
@@ -97,9 +97,11 @@ terraform {
 Terraform is used to automate the manipulation of cloud infrastructure. Its [Terraform installation instructions](https://www.terraform.io/intro/getting-started/install.html) are also available online.
 
 #### Install kubectl
+
 Kubernetes uses a command line utility called kubectl for communicating with the cluster API server. The kubectl binary is available in many operating system package managers, and this option is often much easier than a manual download and install process. Follow the instructions to install [kubectl installation instructions](https://docs.aws.amazon.com/eks/latest/userguide/install-kubectl.html).
 
 ### Configure AZ CLI
+
 After Installing the Azure CLI, Please follow the Installation Instructions to configure cli. [run-the-azure-cli](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-windows?tabs=azure-cli#run-the-azure-cli)
 
 ```console

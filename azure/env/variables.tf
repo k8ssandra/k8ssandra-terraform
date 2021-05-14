@@ -1,6 +1,20 @@
+# Copyright 2021 DataStax, Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 variable "environment" {
+  description = "The environment of the infrastructure being built."
   type        = string
-  description = "name of the environment where infrastructure being built"
 }
 
 variable "name" {
@@ -9,7 +23,7 @@ variable "name" {
 }
 
 variable "region" {
-  description = "The location in which to create the resources."
+  description = "Azure location where all the resources being created."
   type        = string
 }
 
@@ -38,18 +52,19 @@ variable "private_subnet_prefixes" {
 }
 
 variable "private_service_endpoints" {
-  description = "private service endpoints"
+  description = "service endpoints to attach Private Subnets."
   type        = list(string)
   default     = ["Microsoft.Storage"]
 }
 
 variable "public_service_endpoints" {
-  description = "public service endpoints"
+  description = "service endpoints to attche public Subnets."
   type        = list(string)
   default     = []
 }
 
 locals {
+  # Prefix of all the resourec names.
   prefix = format("%s-%s", lower(var.environment), lower(var.name))
 
   tags = {
@@ -60,5 +75,6 @@ locals {
   }
 }
 
+# Current subscription id.
 data "azurerm_subscription" "current" {
 }

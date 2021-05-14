@@ -27,7 +27,7 @@ resource "azurerm_storage_account" "storage_account" {
   tags = var.tags
 }
 
-
+# Azure subnet Service endpoint storage policy to let Kubernetes cluster nodes to communicate with the storage account.
 resource "azurerm_subnet_service_endpoint_storage_policy" "subnet_service_endpoint_policy" {
   name                = format("%s-storage-policy", var.name)
   resource_group_name = var.resource_group_name

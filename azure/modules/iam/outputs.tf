@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Cluster Identity
+# Output attribute of the Managed Identities
 output "user_id" {
   description = "Azure Managed Identity id."
   value       = azurerm_user_assigned_identity.user_assigned_identity.id
@@ -23,6 +23,7 @@ output "principal_id" {
   value       = azurerm_user_assigned_identity.user_assigned_identity.principal_id
 }
 
+# Output attributes of the resource group
 output "resource_group_name" {
   description = "The name of the resource group in which the resources will be created."
   value       = azurerm_resource_group.resource_group.name

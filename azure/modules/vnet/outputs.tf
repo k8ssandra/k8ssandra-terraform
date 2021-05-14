@@ -33,6 +33,7 @@ output "virtual_network_address_space" {
   value       = azurerm_virtual_network.virtual_network.address_space
 }
 
+# Output attributes of the subnet ids.
 output "public_subnets" {
   description = "The ids of subnets created inside the newl virtual_network"
   value       = azurerm_subnet.public_subnet.id

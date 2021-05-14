@@ -31,13 +31,7 @@ variable "replication_type" {
   default     = "LRS"
   type        = string
 }
-/*
-# subnet id
-variable "private_subnet" {
-  description = "The subnet id of the virtual network where the virtual machines will reside."
-  type        = string
-}
-*/
+
 # tags
 variable "tags" {
   description = "A map of the tags to use on the resources that are deployed with this module."

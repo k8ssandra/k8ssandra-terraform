@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC1091
 
 # Copyright 2021 DataStax, Inc.
 #
@@ -32,5 +33,6 @@ source "${ROOT}/scripts/init.sh"
 terraform destroy -input=flase -auto-approve
 
 # Delete terraform workspace.
+
 terraform workspace select default
 terraform workspace delete "${TF_VAR_environment}"

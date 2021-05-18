@@ -43,8 +43,8 @@ source "${ROOT}/scripts/create_storage_account.py"
 # Terraform initialize should run on env folder.
 cd "${ROOT}/env"
 
-# Terraform initinalize the backend bucket
-terraform init -input=false -backend-config="bucket=${bucket_name}" -backend-config="prefix=terraform/${TF_VAR_environment}/" --backend-config="region=${TF_VAR_region}"
+# Terraform initinalize the backend Storage Account.
+terraform init -input=false -backend-config="resource_group_name=${resource_group_name}" -backend-config="storage_account_name=${storage_account_name}" -backend-config="container_name=${storage_container_name}" -backend-config="key=${TF_VAR_environment}/"
 
 # Validate the Terraform resources.
 terraform validate

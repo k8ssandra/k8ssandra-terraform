@@ -26,10 +26,23 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 source "${ROOT}/scripts/common.sh"
 
 # Exporting the bucket name as an environment variable.
-export bucket_name="${TF_VAR_name}-${TF_VAR_project_id}-statefiles"
+export bucket_name="${TF_VAR_name}-bucket-statefiles"
 
-# Make destroy : this command will destroy the cluster- infrastructure
+# Generate Backend Template to store Terraform State files.
+readonly backend_config="terraform {
+  backend \"s3\" {
+    region = \"${TF_VAR_region}\"
+    bucket = \"${bucket_name}\"
+    key    = \"terraform/${TF_VAR_environment}/\"
+  }
+}"
+
+# Make destroy : this command will destroy the cluster infrastructure.
 cd "${ROOT}/env"
+echo -e "${backend_config}" > backend.tf
+
+# Terraform initinalize the backend bucket
+terraform init -input=false
 
 # Select the environment workspace where you want destroy all your resources
 terraform workspace select $"TF_VAR_environment"

@@ -48,15 +48,15 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_cluster_api_cidr"></a> [cluster\_api\_cidr](#input\_cluster\_api\_cidr) | Allow workstation to communicate with the cluster API Server | `string` | `"10.2.0.0/32"` | no |
-| <a name="input_environment"></a> [environment](#input\_environment) | Name of the environment where infrastrure being built. | `string` | n/a | yes |
+| <a name="input_environment"></a> [environment](#input\_environment) | Name of the environment where infrastructure being built. | `string` | n/a | yes |
 | <a name="input_multi_az_nat_gateway"></a> [multi\_az\_nat\_gateway](#input\_multi\_az\_nat\_gateway) | place a NAT gateway in each AZ | `number` | `1` | no |
 | <a name="input_name"></a> [name](#input\_name) | The name to give the new Kubernetes cluster resources. | `string` | n/a | yes |
-| <a name="input_private_cidr_block"></a> [private\_cidr\_block](#input\_private\_cidr\_block) | List of private subnet cidr blocks | `list(string)` | n/a | yes |
-| <a name="input_public_cidr_block"></a> [public\_cidr\_block](#input\_public\_cidr\_block) | List of public subnet cidr blocks | `list(string)` | n/a | yes |
-| <a name="input_region"></a> [region](#input\_region) | The AWS regionwhere terraform builds resources. | `string` | n/a | yes |
+| <a name="input_private_cidr_block"></a> [private\_cidr\_block](#input\_private\_cidr\_block) | List of private subnet CIDR blocks | `list(string)` | n/a | yes |
+| <a name="input_public_cidr_block"></a> [public\_cidr\_block](#input\_public\_cidr\_block) | List of public subnet CIDr blocks | `list(string)` | n/a | yes |
+| <a name="input_region"></a> [region](#input\_region) | The AWS region where terraform builds resources. | `string` | n/a | yes |
 | <a name="input_single_nat_gateway"></a> [single\_nat\_gateway](#input\_single\_nat\_gateway) | use a single NAT gateway to serve outbound traffic for all AZs | `number` | `0` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Common tags to attach all the resources create in this project. | `map(string)` | `{}` | no |
-| <a name="input_vpc_cidr_block"></a> [vpc\_cidr\_block](#input\_vpc\_cidr\_block) | Virtual Private Cloud cidr block | `string` | `"10.0.0.0/16"` | no |
+| <a name="input_vpc_cidr_block"></a> [vpc\_cidr\_block](#input\_vpc\_cidr\_block) | Virtual Private Cloud CIDR block | `string` | `"10.0.0.0/16"` | no |
 | <a name="input_vpc_enable_classiclink"></a> [vpc\_enable\_classiclink](#input\_vpc\_enable\_classiclink) | n/a | `bool` | `"false"` | no |
 | <a name="input_vpc_enable_dns_hostnames"></a> [vpc\_enable\_dns\_hostnames](#input\_vpc\_enable\_dns\_hostnames) | n/a | `bool` | `"true"` | no |
 | <a name="input_vpc_enable_dns_support"></a> [vpc\_enable\_dns\_support](#input\_vpc\_enable\_dns\_support) | n/a | `bool` | `"true"` | no |
@@ -70,10 +70,10 @@ No modules.
 | <a name="output_aws_nat_gateway_count"></a> [aws\_nat\_gateway\_count](#output\_aws\_nat\_gateway\_count) | Output attributes of the NAT gateway --------------------------------------- |
 | <a name="output_aws_nat_gateway_ids"></a> [aws\_nat\_gateway\_ids](#output\_aws\_nat\_gateway\_ids) | n/a |
 | <a name="output_aws_route_table_private_ids"></a> [aws\_route\_table\_private\_ids](#output\_aws\_route\_table\_private\_ids) | n/a |
-| <a name="output_aws_route_table_public_ids"></a> [aws\_route\_table\_public\_ids](#output\_aws\_route\_table\_public\_ids) | Output atrributes of the route table id's. --------------------------------------------- |
+| <a name="output_aws_route_table_public_ids"></a> [aws\_route\_table\_public\_ids](#output\_aws\_route\_table\_public\_ids) | Output attributes of the route table id's. --------------------------------------------- |
 | <a name="output_aws_subnet_private_ids"></a> [aws\_subnet\_private\_ids](#output\_aws\_subnet\_private\_ids) | n/a |
 | <a name="output_aws_subnet_public_ids"></a> [aws\_subnet\_public\_ids](#output\_aws\_subnet\_public\_ids) | Output attribute of the public and private subnet's ---------------------------------------------------- |
-| <a name="output_aws_vpc_cidr"></a> [aws\_vpc\_cidr](#output\_aws\_vpc\_cidr) | output attribute of the VPC cidr block. |
+| <a name="output_aws_vpc_cidr"></a> [aws\_vpc\_cidr](#output\_aws\_vpc\_cidr) | output attribute of the VPC CIDR block. |
 | <a name="output_aws_vpc_id"></a> [aws\_vpc\_id](#output\_aws\_vpc\_id) | Output attributes for the VPC module Output attribute id of the VPC |
 | <a name="output_security_group_id"></a> [security\_group\_id](#output\_security\_group\_id) | Output attributes of the Security group. ----------------------------------------- |
 | <a name="output_worker_security_group_id"></a> [worker\_security\_group\_id](#output\_worker\_security\_group\_id) | n/a |

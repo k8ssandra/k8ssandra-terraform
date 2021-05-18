@@ -19,7 +19,7 @@ variable "name" {
 }
 
 variable "environment" {
-  description = "Name of the environment where infrastrure being built."
+  description = "Name of the environment where infrastructure being built."
   type        = string
 }
 
@@ -30,7 +30,7 @@ variable "resource_owner" {
 }
 
 variable "region" {
-  description = "The aws regionwhere terraform builds resources."
+  description = "The AWS region where terraform build resources."
   type        = string
   default     = "us-east-1"
 }

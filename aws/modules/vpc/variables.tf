@@ -18,7 +18,7 @@ variable "name" {
 }
 
 variable "environment" {
-  description = "Name of the environment where infrastrure being built."
+  description = "Name of the environment where infrastructure being built."
   type        = string
 }
 
@@ -29,7 +29,7 @@ variable "region" {
 
 # Virtual Private Cloud cidr block
 variable "vpc_cidr_block" {
-  description = "Virtual Private Cloud cidr block"
+  description = "Virtual Private Cloud CIDR block"
   type        = string
   default     = "10.0.0.0/16"
 }
@@ -59,11 +59,11 @@ variable "vpc_enable_classiclink" {
 
 # Expose Subnet settings.
 variable "public_cidr_block" {
-  description = "List of public subnet cidr blocks"
+  description = "List of public subnet CIDR blocks"
   type        = list(string)
 }
 variable "private_cidr_block" {
-  description = "List of private subnet cidr blocks"
+  description = "List of private subnet CIDR blocks"
   type        = list(string)
 }
 

@@ -18,7 +18,7 @@ variable "name" {
 }
 
 variable "environment" {
-  description = "Name of the environment where infrastrure being built."
+  description = "Name of the environment where infrastructure being built."
   type        = string
 }
 
@@ -38,11 +38,11 @@ variable "region" {
 }
 
 variable "subnet_ids" {
-  description = "Subnet id to attach the eks cluster."
+  description = "Subnet id to attach the EKS cluster."
 }
 
 variable "security_group_id" {
-  description = "Security group id to configure eks cluster."
+  description = "Security group id to configure EKS cluster."
   type        = string
 }
 
@@ -87,13 +87,4 @@ variable "min_size" {
   description = "Minimum number of the instances in autoscaling group"
   type        = string
   default     = "3"
-}
-
-locals {
-  demo-node-userdata = <<USERDATA
-#!/bin/bash
-set -o xtrace
-/etc/eks/bootstrap.sh --apiserver-endpoint '${aws_eks_cluster.eks_cluster.endpoint}' --b64-cluster-ca '${aws_eks_cluster.eks_cluster.certificate_authority[0].data}' '${var.name}'
-USERDATA
-
 }

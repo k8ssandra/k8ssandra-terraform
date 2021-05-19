@@ -12,9 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Variables to pass into the aws terraform aws modules
+# Variables to pass into the aws terraform modules.
 variable "name" {
-  description = "The name to give the new Kubernetes cluster resources."
+  description = "Name is the prefix to use for resources that needs to be created."
   type        = string
 }
 
@@ -24,7 +24,7 @@ variable "environment" {
 }
 
 variable "resource_owner" {
-  description = "The name of the Project Owner"
+  description = "The name of the Account Owner"
   type        = string
   default     = "Datastax"
 }
@@ -36,7 +36,7 @@ variable "region" {
 }
 
 variable "instance_type" {
-  description = "Type of instance to be used in the k8ssandra."
+  description = "Type of instance to be used for the Kubernetes cluster."
   type        = string
   default     = "r5d.2xlarge"
 }

@@ -31,14 +31,6 @@ output "cluster_Endpoint" {
   value       = module.eks.cluster_Endpoint
 }
 
-# vpc module output attributes
-#------------------------------
-
-
-# iam module output attributes
-#------------------------------
-
-
 # s3 module output attributes
 #-----------------------------
 # AWS s3 bucket id

@@ -13,7 +13,7 @@
 # limitations under the License.
 
 variable "name" {
-  description = "The name to give the new Kubernetes cluster resources."
+  description = "Name is the prefix to use for resources that needs to be created."
   type        = string
 }
 
@@ -23,12 +23,12 @@ variable "environment" {
 }
 
 variable "role_arn" {
-  description = "Iam role arn to attach the EKS cluster."
+  description = "IAM role arn to attach the EKS cluster."
   type        = string
 }
 
 variable "worker_role_arn" {
-  description = "Iam worker role arn to attach the EKS cluster."
+  description = "IAM worker role arn to attach the EKS cluster."
   type        = string
 }
 
@@ -67,7 +67,7 @@ variable "cluster_version" {
 }
 
 variable "instance_type" {
-  description = "Type of instance to be used in the k8ssandra."
+  description = "Type of instance to be used for the Kubernetes cluster."
   type        = string
 }
 

@@ -14,7 +14,7 @@
 
 # Input variables for the iam module.
 variable "name" {
-  description = "The name to give the new Kubernetes cluster resources."
+  description = "Name is the prefix to use for resources that needs to be created."
   type        = string
 }
 

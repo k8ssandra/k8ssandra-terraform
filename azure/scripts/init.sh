@@ -40,11 +40,22 @@ export storage_container_name="${TF_VAR_name}-terraform-statefiles"
 # Create Storage Account and Container to store the state files. 
 source "${ROOT}/scripts/create_storage_account.py"
 
+# Generate Backend Template to store Terraform State files.
+readonly backend_config="terraform {
+  backend \"azurerm\" {
+    resource_group_name  = \"${resource_group_name}\"
+    storage_account_name = \"${storage_account_name}\"
+    container_name       = \"${storage_container_name}\"
+    key                  = \"terraform/${TF_VAR_environment}/\"
+  }
+}"
+
 # Terraform initialize should run on env folder.
 cd "${ROOT}/env"
+echo -e "${backend_config}" > backend.tf
 
-# Terraform initinalize the backend Storage Account.
-terraform init -input=false -backend-config="resource_group_name=${resource_group_name}" -backend-config="storage_account_name=${storage_account_name}" -backend-config="container_name=${storage_container_name}" -backend-config="key=${TF_VAR_environment}/"
+# Terraform initinalize the backend bucket
+terraform init -input=false
 
 # Validate the Terraform resources.
 terraform validate

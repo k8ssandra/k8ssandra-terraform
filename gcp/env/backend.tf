@@ -12,14 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Output variable for the vpc network selflink.
-output "network_selflink" {
-  description = "variable for the vpc network selflink"
-  value       = google_compute_network.compute_network.self_link
-}
-
-# Output variable for the subnetwork selflink. 
-output "subnetwork_selflink" {
-  description = "variable for the subnetwork selflink"
-  value       = google_compute_subnetwork.compute_subnetwork.self_link
+# Backend GCS bucket for terraform statefiles.
+# Delete the backend file for local testing.
+terraform {
+  backend "gcs" {
+    bucket = "tf-state-files-k8ssandra-testing"
+    prefix = "terraform/"
+  }
 }

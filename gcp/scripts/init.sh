@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Copyright 2021 Datastax LLC
+# Copyright 2021 DataStax, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -33,11 +33,20 @@ export bucket_name="${TF_VAR_name}-${TF_VAR_project_id}-statefiles"
 # Create Google cloud storage bucket to store the state files. 
 source "${ROOT}/gcp/scripts/make_bucket.py"
 
-# Terraform initialize and run cd gcp/env
+# Generate Backend Template to store Terraform State files.
+readonly backend_config="terraform {
+  backend \"gcs\" {
+    bucket = \"${bucket_name}\"
+    prefix = \"terraform/${TF_VAR_environment}/\"
+  }
+}"
+
+# Terraform initialize should run on env folder.
 cd "${ROOT}/env"
+echo -e "${backend_config}" > backend.tf
 
 # Terraform initinalize the backend bucket
-terraform init -input=false -backend-config="bucket=${bucket_name}" -backend-config="prefix=terraform/${TF_VAR_environment}/"
+terraform init -input=false
 
 # Create workspace based on the environment, by doing this you don't overlap wih the resources in different environments.
 terraform workspace new "$TF_VAR_environment" || terraform workspace select "$TF_VAR_environment"

@@ -1,4 +1,4 @@
-# Copyright 2021 Datastax LLC
+# Copyright 2021 DataStax, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -73,7 +73,7 @@ resource "google_container_node_pool" "container_node_pool" {
   node_config {
     machine_type = var.machine_type
     preemptible  = true
-    tags         = ["http", "ssh", "rdp"]
+    tags         = ["http", "ssh"]
 
     metadata = {
       disable-legacy-endpoints = "true"

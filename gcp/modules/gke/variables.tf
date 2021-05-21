@@ -1,4 +1,4 @@
-# Copyright 2021 Datastax LLC
+# Copyright 2021 DataStax, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -34,7 +34,7 @@ variable "initial_node_count" {
 variable "machine_type" {
   description = "Type of machines which are used by cluster node pool"
   type        = string
-  default     = "n1-standard-8"
+  default     = "e2-highmem-8"
 }
 
 variable "region" {

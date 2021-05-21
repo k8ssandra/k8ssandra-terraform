@@ -1,4 +1,4 @@
-# Copyright 2021 Datastax LLC
+# Copyright 2021 DataStax, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,12 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Output variable for the vpc network selflink
+# Output variable for the vpc network selflink.
 output "network_selflink" {
-  value = google_compute_network.compute_network.self_link
+  description = "variable for the vpc network selflink"
+  value       = google_compute_network.compute_network.self_link
 }
 
 # Output variable for the subnetwork selflink. 
 output "subnetwork_selflink" {
-  value = google_compute_subnetwork.compute_subnetwork.self_link
+  description = "variable for the subnetwork selflink"
+  value       = google_compute_subnetwork.compute_subnetwork.self_link
 }

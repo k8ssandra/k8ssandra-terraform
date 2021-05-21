@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Copyright 2021 Datastax LLC
+# Copyright 2021 DataStax, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -28,8 +28,21 @@ source "${ROOT}/scripts/common.sh"
 # Exporting the bucket name as an environment variable.
 export bucket_name="${TF_VAR_name}-${TF_VAR_project_id}-statefiles"
 
-# Make destroy : this command will destroy the GKE cluster- infrastructure
-cd "${ROOT}"/env
+# Generate Backend Template to store Terraform State files.
+readonly backend_config="terraform {
+  backend \"gcs\" {
+    bucket = \"${bucket_name}\"
+    prefix = \"terraform/${TF_VAR_environment}/\"
+  }
+}"
+
+# Terraform initialize should run on env folder.
+cd "${ROOT}/env"
+echo -e "${backend_config}" > backend.tf
+
+# Terraform initinalize the back
+end bucket
+terraform init -input=false
 
 # Select the environment workspace where you want destroy all your resources
 terraform workspace select $"TF_VAR_environment"

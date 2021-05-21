@@ -105,6 +105,23 @@ gcloud init
 
 If you created your Google cloud account newly, Google Compute Engine enforces quotas on resource usage for a variety of reasons. For example, quotas protect the community of Google Cloud users by preventing unforeseen spikes in usage, Google keep some soft limitations on the resources, you can always make a request to increase your quota limit. If you are planning to deploy k8ssandra cluster on GKE, you will need to make a request to increase your **Compute Engine API (backend services)** quota to `50` for the future use.
 
+### Backend
+  * Terraform uses persistent state data to keep track of the resources it manages. Since it needs the state in order to know which real-world infrastructure objects correspond to the resources in a configuration, everyone working with a given collection of infrastructure resources must be able to access the same state data.
+  * Terraform backend configuration: 
+  [Configuring your backend in aws gcs](https://www.terraform.io/docs/language/settings/backends/gcs.html)
+  * Terraform state
+  [How Terraform state works](https://www.terraform.io/docs/language/state/index.html)
+
+Sample template to configure your backend in gcs bucket:
+```
+  terraform {
+    backend "gcs" {
+      bucket = "<REPLACEME_bucket_name>"
+      prefix = "<REPLACEME_bucket_key>"
+    }
+  }
+``` 
+
 ### Tools
 
 * Access to an existing Google Cloud project as a owner or a developer.

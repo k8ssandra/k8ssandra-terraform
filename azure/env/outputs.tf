@@ -39,5 +39,5 @@ output "storage_account_id" {
 # connection string to connect you Azure Kubernetes cluster.
 output "connect_cluster" {
   description = "Connection string to be used to configure kubectl."
-  value          =  format("az aks get-credentials --resource-group %s --name %s", module.iam.resource_group_name, module.aks.azurerm_kubernetes_cluster_id)
+  value          =  format("az aks get-credentials --resource-group %s --name %s", module.iam.resource_group_name, module.aks.azurerm_kubernetes_cluster_name)
 }

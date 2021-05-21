@@ -36,9 +36,9 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_account_tier"></a> [account\_tier](#input\_account\_tier) | The Storage Acount tier. | `string` | `"standard"` | no |
-| <a name="input_environment"></a> [environment](#input\_environment) | The environment of the infrastructure being built. | `string` | n/a | yes |
+| <a name="input_environment"></a> [environment](#input\_environment) | Name of the environment where infrastructure being built. | `string` | n/a | yes |
 | <a name="input_location"></a> [location](#input\_location) | Azure location where all the resources being created. | `string` | n/a | yes |
-| <a name="input_name"></a> [name](#input\_name) | Prifix of the all resource name. | `string` | n/a | yes |
+| <a name="input_name"></a> [name](#input\_name) | Name is the prefix to use for resources that needs to be created. | `string` | n/a | yes |
 | <a name="input_private_subnet"></a> [private\_subnet](#input\_private\_subnet) | The subnet id of the virtual network where the virtual machines will reside. | `string` | n/a | yes |
 | <a name="input_replication_type"></a> [replication\_type](#input\_replication\_type) | The Storage Account Repluucation type. | `string` | `"LRS"` | no |
 | <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | The name of the resource group in which the resources will be created. | `string` | n/a | yes |

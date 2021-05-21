@@ -14,7 +14,7 @@
 
 # Azure Kubernetes Cluster Service(AKS) configuration
 resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
-  name                = format("%s-AKS-cluster", var.name)
+  name                = format("%s-aks-cluster", var.name)
   kubernetes_version  = var.kubernetes_version
   location            = var.location
   resource_group_name = var.resource_group_name
@@ -63,6 +63,10 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
     prevent_destroy = false
 
     create_before_destroy = true
+  }
+
+  provisioner "local-exec" {
+    command = format("az aks get-credentials --resource-group %s --name %s-aks-cluster --overwrite-existing", var.resource_group_name, var.name)
   }
 
 }

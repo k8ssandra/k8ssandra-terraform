@@ -13,13 +13,13 @@
 # limitations under the License.
 
 variable "environment" {
-  description = "The environment of the infrastructure being built."
+  description = "Name of the environment where infrastructure being built."
   type        = string
 }
 
 variable "name" {
+  description = "Name is the prefix to use for resources that needs to be created."
   type        = string
-  description = "AKS name in Azure"
 }
 
 variable "region" {
@@ -27,8 +27,14 @@ variable "region" {
   type        = string
 }
 
+variable "resource_owner" {
+  description = "The name of the Account Owner"
+  type        = string
+  default     = "Datastax"
+}
+
 variable "kubernetes_version" {
-  description = "version of the kubernetes cluster"
+  description = "Version of the Azure kubernetes cluster"
   default     = "1.19.9"
   type        = string
 }
@@ -64,12 +70,12 @@ variable "public_service_endpoints" {
 }
 
 locals {
-  # Prefix of all the resourec names.
+  # Prefix of the resourecs.
   prefix = format("%s-%s", lower(var.environment), lower(var.name))
 
   tags = {
     "environment"     = var.environment
-    "project_name"    = var.name
+    "resource-owner"  = var.resource_owner
     "location"        = var.region
     "subscription_id" = data.azurerm_subscription.current.display_name
   }

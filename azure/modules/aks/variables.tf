@@ -19,12 +19,12 @@ variable "location" {
 }
 
 variable "name" {
-  description = "Prifix of the all resource name."
+  description = "Name is the prefix to use for resources that needs to be created."
   type        = string
 }
 
 variable "environment" {
-  description = "The environment of the infrastructure being built."
+  description = "Name of the environment where infrastructure being built."
   type        = string
 }
 
@@ -82,7 +82,7 @@ variable "network_plugin" {
   type        = string
 }
 variable "docker_bridge_cidr" {
-  description = "CNI Docker bridge cidr"
+  description = "CNI Docker bridge CIDR"
   default     = "172.17.0.1/16"
   type        = string
 }
@@ -94,7 +94,7 @@ variable "dns_service_ip" {
 }
 
 variable "service_cidr" {
-  description = "CNI service cidr"
+  description = "CNI service CIDR"
   default     = "10.2.0.0/24"
   type        = string
 }

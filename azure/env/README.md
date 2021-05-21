@@ -118,7 +118,7 @@ module "storage" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_environment"></a> [environment](#input\_environment) | The environment of the infrastructure being built. | `string` | n/a | yes |
+| <a name="input_environment"></a> [environment](#input\_environment) | Name of the environment where infrastructure being built. | `string` | n/a | yes |
 | <a name="input_kubernetes_version"></a> [kubernetes\_version](#input\_kubernetes\_version) | version of the kubernetes cluster | `string` | `"1.19.9"` | no |
 | <a name="input_name"></a> [name](#input\_name) | AKS name in Azure | `string` | n/a | yes |
 | <a name="input_private_service_endpoints"></a> [private\_service\_endpoints](#input\_private\_service\_endpoints) | service endpoints to attach Private Subnets. | `list(string)` | <pre>[<br>  "Microsoft.Storage"<br>]</pre> | no |

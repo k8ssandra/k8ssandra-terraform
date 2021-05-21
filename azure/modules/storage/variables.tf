@@ -5,12 +5,12 @@ variable "location" {
 }
 
 variable "name" {
-  description = "Prifix of the all resource name."
+  description = "Name is the prefix to use for resources that needs to be created."
   type        = string
 }
 
 variable "environment" {
-  description = "The environment of the infrastructure being built."
+  description = "Name of the environment where infrastructure being built."
   type        = string
 }
 

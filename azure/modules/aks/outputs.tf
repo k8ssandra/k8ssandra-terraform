@@ -14,11 +14,16 @@
 
 # Azure Kubernetes Cluster output attributes.
 output "azurerm_kubernetes_cluster_id" {
-  description = "Azure kubernetes cluster id"
+  description = "Azure Kubernetes cluster id"
   value       = azurerm_kubernetes_cluster.kubernetes_cluster.id
 }
 
+output "azurerm_kubernetes_cluster_name" {
+  description = "Azure Kubernetes cluster resource name."
+  value       = format("%s-aks-cluster", var.name)
+}
+
 output "azurerm_kubernetes_cluster_fqdn" {
-  description = "Azure kubernetes cluster fqdn."
+  description = "Azure Kubernetes cluster fqdn."
   value       = azurerm_kubernetes_cluster.kubernetes_cluster.fqdn
 }

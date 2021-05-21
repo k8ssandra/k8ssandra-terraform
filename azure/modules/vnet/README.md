@@ -42,9 +42,9 @@ No modules.
 | <a name="input_address_space"></a> [address\_space](#input\_address\_space) | The address space that is used by the virtual network. | `list(string)` | <pre>[<br>  "10.1.0.0/16"<br>]</pre> | no |
 | <a name="input_dns_servers"></a> [dns\_servers](#input\_dns\_servers) | The DNS servers to be used with vNet. | `list(string)` | `[]` | no |
 | <a name="input_endpoint_network_policies"></a> [endpoint\_network\_policies](#input\_endpoint\_network\_policies) | A map of subnet name to enable/disable private link endpoint network policies on the subnet. | `bool` | `true` | no |
-| <a name="input_environment"></a> [environment](#input\_environment) | The environment of the infrastructure being built. | `string` | n/a | yes |
+| <a name="input_environment"></a> [environment](#input\_environment) | Name of the environment where infrastructure being built. | `string` | n/a | yes |
 | <a name="input_location"></a> [location](#input\_location) | Azure location where all the resources being created. | `string` | n/a | yes |
-| <a name="input_name"></a> [name](#input\_name) | Prifix of the all resource name. | `string` | n/a | yes |
+| <a name="input_name"></a> [name](#input\_name) | Name is the prefix to use for resources that needs to be created. | `string` | n/a | yes |
 | <a name="input_nsg_ids"></a> [nsg\_ids](#input\_nsg\_ids) | A map of subnet name to Network Security Group IDs | `map(string)` | `{}` | no |
 | <a name="input_policy_id"></a> [policy\_id](#input\_policy\_id) | subnet service storage endpoint policy id. | `string` | n/a | yes |
 | <a name="input_private_service_endpoints"></a> [private\_service\_endpoints](#input\_private\_service\_endpoints) | A map of subnet name to service endpoints to add to the subnet. | `list(string)` | `[]` | no |

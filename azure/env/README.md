@@ -127,6 +127,7 @@ module "storage" {
 | <a name="input_public_subnet_prefixes"></a> [public\_subnet\_prefixes](#input\_public\_subnet\_prefixes) | value | `list(string)` | <pre>[<br>  "10.1.0.0/24"<br>]</pre> | no |
 | <a name="input_region"></a> [region](#input\_region) | Azure location where all the resources being created. | `string` | n/a | yes |
 | <a name="input_system_node_count"></a> [system\_node\_count](#input\_system\_node\_count) | Number of AKS worker nodes | `number` | `3` | no |
+| <a name="input_vm_size"></a> [vm\_size](#input\_vm\_size\_count) | Specifies the size of the virtual machine. | `string` | `Standard_E8_v4` | no |
 
 ## Outputs
 

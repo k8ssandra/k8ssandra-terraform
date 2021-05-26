@@ -27,7 +27,7 @@ ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 source "${ROOT}/scripts/common.sh"
 
 # Make apply : this command will apply the infrastructure changes
-(cd "${ROOT}/env"; terraform apply -input=false -auto-approve)
+(cd "${ROOT}/env"; terraform apply -no-color -auto-approve)
 
 # Get cluster outputs from the cluster.
 GET_OUTPUTS="$(terraform output connect_cluster)"

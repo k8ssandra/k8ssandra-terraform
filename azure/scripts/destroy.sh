@@ -47,7 +47,7 @@ echo -e "${backend_config}" > backend.tf
 terraform init -input=false
 
 # this will destroy all of your resources in the environment workspace.
-terraform destroy -input=flase -auto-approve
+terraform destroy -no-color -auto-approve
 
 # Delete terraform workspace.
 terraform workspace select default

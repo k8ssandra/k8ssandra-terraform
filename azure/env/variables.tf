@@ -45,6 +45,12 @@ variable "system_node_count" {
   default     = 3
 }
 
+variable "vm_size" {
+  description = "Specifies the size of the virtual machine."
+  default     = "Standard_E8_v4"
+  type        = string
+}
+
 variable "public_subnet_prefixes" {
   description = "value"
   type        = list(string)

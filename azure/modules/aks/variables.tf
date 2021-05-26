@@ -52,13 +52,12 @@ variable "private_subnet" {
 
 variable "vm_size" {
   description = "Specifies the size of the virtual machine."
-  default     = "Standard_DS2_v2"
   type        = string
 }
 
 variable "node_count" {
-  description = "number of nodes to deploy"
-  default     = "3"
+  description = "Number of nodes to deploy"
+  default     = 3
   type        = number
 }
 

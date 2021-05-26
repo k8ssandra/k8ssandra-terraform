@@ -23,6 +23,7 @@ module "aks" {
   location            = module.iam.location
   private_subnet      = module.vnet.private_subnets
   user_assigned_id    = module.iam.user_id
+  vm_size             = var.vm_size
 
   tags = merge(local.tags, { "resource_group" = module.iam.resource_group_name })
 }

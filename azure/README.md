@@ -59,9 +59,9 @@ Azure/
 | Terraform version   |   0.14     |
 | Azurerm provider    |   ~>2.49.0 |
 | Helm version        |   v3.5.3   |
-|   AZ CLI            |  ~>2.22.1  |   
-|  kubectl            |  ~>1.17.17 |
-|  python             |    3       |
+| AZ CLI              |  ~>2.22.1  |   
+| kubectl             |  ~>1.17.17 |
+| python              |    3       |
 
 ### Backend
   * Terraform uses persistent state data to keep track of the resources it manages. Since it needs the state in order to know which real-world infrastructure objects correspond to the resources in a configuration, everyone working with a given collection of infrastructure resources must be able to access the same state data.
@@ -122,7 +122,7 @@ ex:- export TF_VAR_name=k8ssandra
 
 # Location
 export TF_VAR_region=<REGION_REPLACEME>
-ex:- export TF_VAR_region=us-east-1
+ex:- export TF_VAR_region=eastus
 
 ```
 

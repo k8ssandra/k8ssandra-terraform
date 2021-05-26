@@ -1,11 +1,11 @@
-# Terraform google cloud storage module 
+# Terraform Azure cloud storage module 
 This is a Dynamic modules in Terraform to create Azure Storage Account in a subnet.
 
 * main.tf : contains all the resources which will be created with `terraform apply` command. 
 * variables.tf : contains all variables required to create the resources.
 * outputs.tf : contains output attributes of the resources. 
 
-## google cloud resources created
+## Azure cloud resources created
 * Azure Storage Account
     * Network profile( configured a subnet_id, let subnet resources will be able to communicate with the storage account privately.)
 * Azure Storage Container
@@ -40,7 +40,7 @@ No modules.
 | <a name="input_location"></a> [location](#input\_location) | Azure location where all the resources being created. | `string` | n/a | yes |
 | <a name="input_name"></a> [name](#input\_name) | Name is the prefix to use for resources that needs to be created. | `string` | n/a | yes |
 | <a name="input_private_subnet"></a> [private\_subnet](#input\_private\_subnet) | The subnet id of the virtual network where the virtual machines will reside. | `string` | n/a | yes |
-| <a name="input_replication_type"></a> [replication\_type](#input\_replication\_type) | The Storage Account Repluucation type. | `string` | `"LRS"` | no |
+| <a name="input_replication_type"></a> [replication\_type](#input\_replication\_type) | The Storage Account Replication type. | `string` | `"LRS"` | no |
 | <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | The name of the resource group in which the resources will be created. | `string` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | A map of the tags to use on the resources that are deployed with this module. | `map(string)` | `{}` | no |
 

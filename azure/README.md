@@ -49,6 +49,16 @@ Azure/
  |  └── variables.tf 
  |  └── outputs.tf
  |  └── README.md
+ |
+ ├──<a href="scripts/README.md">scripts</a>
+ |  ├── apply.sh
+ |  └── common.sh
+ |  └── delete_storage_account.py
+ |  └── destroy.sh
+ |  └── init.sh
+ |  └── create_storage_account.py
+ |  └── plan.sh
+ |  └── README.md
  └──README.md
 </pre>
 

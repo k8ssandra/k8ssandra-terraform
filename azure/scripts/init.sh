@@ -38,7 +38,7 @@ az group create -l "${TF_VAR_region}" -n "${resource_group_name}"
 export storage_container_name="${TF_VAR_name}-terraform-statefiles"
 
 # Create Storage Account and Container to store the state files. 
-source "${ROOT}/scripts/create_storage_account.py"
+python3 "${ROOT}/scripts/create_storage_account.py"
 
 # Generate Backend Template to store Terraform State files.
 readonly backend_config="terraform {

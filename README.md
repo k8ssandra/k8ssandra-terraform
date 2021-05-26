@@ -182,8 +182,55 @@ make destroy "provider=gcp"
 [ WORK IN PROGRESS ]
 
 ## Create AKE resources
+
+* Testing this project Locally [azure](./azure#Test-this-project-locally)
+* Set up environment on your machine before running the make commands. use the following links to setup your machine.
+
+    * [Prerequisites](./azure#Prerequisites)
+    * [Tools](./azure#Tools)
+    * [Configure-AZ-CLI](./azure#Configure-AZ-CLI)
+
 * How to create AKS cluster resources by using make command
-[ work In progress] 
+Before using the make commands export the following terraform environment variables(TFVARS) for terraform to create the resources. 
+
+```console
+
+export TF_VAR_environment=<ENVIRONMENT_REPLACEME>
+ex:- export TF_VAR_environment=dev
+
+export TF_VAR_name=<CLUSTERNAME_REPLACEME>
+ex:- export TF_VAR_name=k8ssandra
+
+export TF_VAR_region=<REGION_REPLACEME>
+ex:- export TF_VAR_region=eastus
+
+```
+
+```console
+#To list out the available options to use.
+make help
+```
+### important: Before running the following command, we need to Export the environment variables as show above.
+
+```console
+# Initialize and configure Backend.
+make init "provider=azure"
+```
+```console
+# Plan all Azure resources.
+make plan "provider=azure"
+```
+### This command will create a Kubernetes cluster and deploy k8ssandra on the cluster.
+```console
+# Create or update Azure resources
+# This command will take some time to execute. 
+make apply "provider=azure"
+```
+```console
+# Destroy all Azure resources created with terraform.
+
+make destroy "provider=azure"
+```
 
 
 ## Troubleshooting

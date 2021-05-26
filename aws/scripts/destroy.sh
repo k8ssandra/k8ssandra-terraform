@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC2154,SC1091
 
 # Copyright 2021 DataStax, Inc.
 #
@@ -37,7 +38,6 @@ readonly backend_config="terraform {
   }
 }"
 
-# Make destroy : this command will destroy the cluster infrastructure.
 cd "${ROOT}/env"
 echo -e "${backend_config}" > backend.tf
 
@@ -48,7 +48,7 @@ terraform init -input=false
 terraform workspace select $"TF_VAR_environment"
 
 # this will destroy all of your resources in the environment workspace
-terraform destroy -input=flase -auto-approve
+terraform destroy -no-color -auto-approve
 
 # Delete terraform workspace.
 terraform workspace select default

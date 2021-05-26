@@ -50,20 +50,6 @@ At a minimum 61 GiB of memory, 8 vCPUs virtual machines are needed to run k8ssan
         * [gcp](https://stepan.wtf/cloud-naming-convention/)
 
 
-### GCP Prerequisites
-
-|       NAME        |   Version  | 
-|-------------------|------------|
-| terraform version |   0.14     |
-| gcp provider      |   ~>3.0    |
-| Helm version      |   v3.5.3   |
-| Google Cloud SDK  |   333.0.0  |
-|    bq             |   2.0.65   |
-|   core            | 2021.03.19 |
-|  gsutil           |    4.60    |
-|  kubectl          |  1.17.17   |
-
-
 ## Project directory Structure
 <pre>
 k8ssandra-terraform/
@@ -127,6 +113,7 @@ k8ssandra-terraform/
 * Testing this project Locally [gcp](./gcp#test-this-project-locally)
 
 * Set up environment on your machine before running the make commands. use the following links to setup your machine.
+    * [Prerequisites](./gcp#Prerequisites)
     * [Tools](./gcp#Tools)
     * [GCP-authentication](./gcp#GCP-authentication)
     * [Configure-gcloud-settings](./gcp/#Configure-gcloud-settings)
@@ -178,8 +165,57 @@ make destroy "provider=gcp"
 
 ## Create EKS resources
 
-* How to create EKS cluster resources by using the make command
-[ WORK IN PROGRESS ]
+* Testing this project Locally [AWS EKS](./aws#Test-this-project-locally)
+
+* Set up environment on your machine before running the make commands. use the following links to setup your machine.
+    * [Prerequisites](./aws#Prerequisites)
+    * [Tools](./aws#Tools)
+    * [AWS-IAM-authenticator](./aws#AWS-IAM-authenticator)
+    * [Configure-AWSCLI](./aws#Configure-AWSCLI)
+
+* How to create AWS EKS cluster resources by using the make command
+Before using the make commands export the following terraform environment variables(TFVARS) for terraform to create the resources. 
+
+```console
+
+export TF_VAR_environment=<ENVIRONMENT_REPLACEME>
+ex:- export TF_VAR_environment=dev
+
+export TF_VAR_name=<CLUSTERNAME_REPLACEME>
+ex:- export TF_VAR_name=k8ssandra
+
+# Resource owner defaulted to Datastax
+
+export TF_VAR_region=<REGION_REPLACEME>
+ex:- export TF_VAR_region=us-east-1
+
+```
+
+```console
+#To list out the available options to use.
+make help
+```
+### important: Before running the following command, we need to Export the environment variables as show above.
+
+```console
+# Initialize and configure Backend.
+make init "provider=aws"
+```
+```console
+# Plan all GCP resources.
+make plan "provider=aws"
+```
+### This command will create a Kubernetes cluster and deploy k8ssandra on the cluster.
+```console
+# Create or update AWS resources
+# This command takes some time to execute. 
+make apply "provider=aws"
+```
+```console
+# Destroy all AWS resources created 
+
+make destroy "provider=aws"
+```
 
 ## Create AKE resources
 * How to create AKS cluster resources by using make command
@@ -192,7 +228,7 @@ make destroy "provider=gcp"
 
 * **Terraform timeouts** - Sometimes resources may take longer than usual to create and Terraform will timeout. The solution is to just run `make create` again. Terraform should pick up where it left off.
 
-* **Terraform statelock** - Sometime if two are more people working on the same Terraform statefile a lock will be placed on your remote Terraform statefile, to unlock the state run the following command `terraform force-unlock <LOCK_ID>`.
+* **Terraform state lock** - Sometime if two are more people working on the same Terraform state file a lock will be placed on your remote Terraform state file, to unlock the state run the following command `terraform force-unlock <LOCK_ID>`.
 
 * **Terraform Incomplete resource deletion** - If you created some resources manually on the cloud console and attach those resources to the resources created by the Terraform, `terraform destroy` or `make destroy` commands will fail. To resolve those errors you will have to login into the cloud console, delete those resource manually and run `make destroy` or `terraform destory`.
 

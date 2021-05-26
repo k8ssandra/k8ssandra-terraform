@@ -1,7 +1,7 @@
 # K8ssandra AWS Terraform Module
 
 ## What is Elastic Kubernetes Service(EKS)?
-[Amazon Elastic Kubernetes Service](https://docs.aws.amazon.com/eks/latest/userguide/what-is-eks.html) is a managed kubernetes service on AWS, it gives user flexibility to run and scale kubernetes applications in the AWS cloud.
+[Amazon Elastic Kubernetes Service](https://docs.aws.amazon.com/eks/latest/userguide/what-is-eks.html) is a managed Kubernetes service on AWS, it gives user flexibility to run and scale Kubernetes applications in the AWS cloud.
 
 
 ## Terraform Resources created
@@ -54,9 +54,18 @@ aws/
  |    ../modules/eks
  |    ../modules/s3
  |  ├── version.tf 
- |  └── backend.tf 
  |  └── variables.tf 
  |  └── outputs.tf
+ |  └── README.md
+ |
+ ├──<a href="scripts/README.md">scripts</a>
+ |  ├── apply.sh
+ |  └── common.sh
+ |  └── delete_bucket.py
+ |  └── destroy.sh
+ |  └── init.sh
+ |  └── make_bucket.py
+ |  └── plan.sh
  |  └── README.md
  └──README.md
 </pre>
@@ -103,14 +112,14 @@ Sample template to configure your backend in s3 bucket:
 
 Terraform is used to automate the manipulation of cloud infrastructure. Its [Terraform installation instructions](https://www.terraform.io/intro/getting-started/install.html) are also available online.
 
-#### Install aws-iam-authenticator
+#### AWS IAM authenticator
 
 Amazon EKS uses IAM to provide authentication to your Kubernetes cluster through the AWS IAM authenticator for Kubernetes. Follow the instructions to install [aws-iam-authenticator installation instructions](https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html).
 
 #### Install kubectl
 Kubernetes uses a command line utility called kubectl for communicating with the cluster API server. The kubectl binary is available in many operating system package managers, and this option is often much easier than a manual download and install process. Follow the instructions to install [kubectl installation instructions](https://docs.aws.amazon.com/eks/latest/userguide/install-kubectl.html).
 
-### Configure AWS CLI
+### Configure AWSCLI
 Run `aws configure` command to configure your AWS cli, This Terraform module AWS CLI v2, if you have older versions of AWS CLI use the following instructions to uninstall older versions.
 
 * [uninstall AWS cli v1](https://docs.aws.amazon.com/cli/latest/userguide/install-linux.html)

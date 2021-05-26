@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+# shellcheck disable=SC2154,SC1091
 # Copyright 2021 DataStax, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,7 +26,7 @@ ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 source "${ROOT}/scripts/common.sh"
 
 # Make apply : this command will apply the infrastructure changes
-(cd "${ROOT}/env"; terraform apply -input=false -auto-approve)
+(cd "${ROOT}/env"; terraform apply -no-color -auto-approve)
 
 # Get cluster outputs from the cluster.
 GET_OUTPUTS="$(terraform output endpoint)"

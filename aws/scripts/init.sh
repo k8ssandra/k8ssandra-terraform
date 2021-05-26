@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+# shellcheck disable=SC2154,SC1091
 # Copyright 2021 DataStax, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -28,7 +28,7 @@ ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 export bucket_name="${TF_VAR_name}-bucket-statefiles"
 
 # Create storage bucket to store the state files. 
-source "${ROOT}/scripts/make_bucket.py"
+python3 "${ROOT}/scripts/make_bucket.py"
 
 # Run common.sh script for validation
 source "${ROOT}/scripts/common.sh"

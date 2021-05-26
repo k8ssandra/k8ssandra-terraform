@@ -5,34 +5,44 @@ This is a Dynamic module in Terraform to create IAM resources. This module will 
 * variables.tf : contains all the variables required to create the resources.
 * outputs.tf : print output attributes of the resources.
 
+## Requirements
 
-## Google cloud resources created
-* Service Account will be created 
-* IAM member with roles attached
-* Custom IAM member with roles attached
-* Project Services.
-
+No requirements.
 
 ## Providers
-|       NAME        |   Version  | 
-|-------------------|------------|
-| terraform version |   0.14     |
-| gcp provider      |   ~>3.0    |
+
+| Name | Version |
+|------|---------|
+| <a name="provider_google"></a> [google](#provider\_google) | n/a |
+
+## Modules
+
+No modules.
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [google_project_iam_member.service_account](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/project_iam_member) | resource |
+| [google_project_iam_member.service_account_custom](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/project_iam_member) | resource |
+| [google_project_service.project_services](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/project_service) | resource |
+| [google_service_account.service_account](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/service_account) | resource |
+| [google_service_account_key.service_account_key](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/service_account_key) | resource |
 
 ## Inputs
 
-|       Name        |   Description  |  Type  |  Required    |
-|-------------------|----------------|--------|:------------:|
-| name |  name of the cluster and prefix of the related resources names | `string` | yes |
-| project_id |  Id of the project which holds the components | `string` | yes |
-| region | the region to create the vpc network | `string` | yes |
-| service_account_custom_iam_roles | service account custom iam roles | `list` | no |
-| service_account_iam_roles | service account iam roles | `list` | no |
-| project_services | The GCP APIs that should be enabled in this project. | `list` | no |
-
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_name"></a> [name](#input\_name) | name of the cluster | `string` | n/a | yes |
+| <a name="input_project_id"></a> [project\_id](#input\_project\_id) | The project in which to hold the components | `string` | n/a | yes |
+| <a name="input_project_services"></a> [project\_services](#input\_project\_services) | n/a | `list(string)` | `[]` | no |
+| <a name="input_region"></a> [region](#input\_region) | The region in which to create the VPC network | `string` | n/a | yes |
+| <a name="input_service_account_custom_iam_roles"></a> [service\_account\_custom\_iam\_roles](#input\_service\_account\_custom\_iam\_roles) | service account custom iam roles | `list(string)` | `[]` | no |
+| <a name="input_service_account_iam_roles"></a> [service\_account\_iam\_roles](#input\_service\_account\_iam\_roles) | service account custom iam roles | `list(string)` | n/a | yes |
 
 ## Outputs
 
-|    Name     |    description   | 
-|-------------|:----------------:|
-| service_account | service account email |
+| Name | Description |
+|------|-------------|
+| <a name="output_service_account"></a> [service\_account](#output\_service\_account) | Service Account Email-id |
+| <a name="output_service_account_key"></a> [service\_account\_key](#output\_service\_account\_key) | The service Account Key to configure Medusa backups to use GCS bucket |

@@ -12,7 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Output variable for the service account email
+# Output variable for the service account email.
 output "service_account" {
-  value = google_service_account.service_account.email
+  description = "Service Account Email-id"
+  value       = google_service_account.service_account.email
+}
+
+# Output variable for the service account key.
+output "service_account_key" {
+  description = "The service Account Key to configure Medusa backups to use GCS bucket"
+  value       = base64decode(google_service_account_key.service_account_key.private_key)
 }

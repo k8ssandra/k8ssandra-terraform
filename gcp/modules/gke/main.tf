@@ -73,7 +73,7 @@ resource "google_container_node_pool" "container_node_pool" {
   node_config {
     machine_type = var.machine_type
     preemptible  = true
-    tags         = ["http", "ssh", "rdp"]
+    tags         = ["http", "ssh"]
 
     metadata = {
       disable-legacy-endpoints = "true"

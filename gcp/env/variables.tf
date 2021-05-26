@@ -45,6 +45,12 @@ variable "k8s_namespace" {
   default     = "default"
 }
 
+variable "machine_type" {
+  description = "Type of machines which are used by cluster node pool"
+  type        = string
+  default     = "e2-highmem-8"
+}
+
 variable "service_account_iam_roles" {
   type = list(string)
 

@@ -28,6 +28,7 @@ module "gke" {
   name            = local.prefix
   region          = var.region
   project_id      = var.project_id
+  machine_type    = var.machine_type
   network_link    = module.vpc.network_selflink
   subnetwork_link = module.vpc.subnetwork_selflink
   service_account = module.iam.service_account

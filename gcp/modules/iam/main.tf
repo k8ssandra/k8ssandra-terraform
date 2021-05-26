@@ -19,6 +19,10 @@ resource "google_service_account" "service_account" {
   project      = var.project_id
 }
 
+resource "google_service_account_key" "service_account_key" {
+  service_account_id = format(google_service_account.service_account.name)
+}
+
 # Add the service account to the project
 resource "google_project_iam_member" "service_account" {
   count   = length(var.service_account_iam_roles)

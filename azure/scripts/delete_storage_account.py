@@ -15,13 +15,22 @@
 # limitations under the License.
 
 # Delete Storage Account function is used to delete the Storage Account created for the terraform state files..
+from azure.identity import ClientSecretCredential
 from azure.mgmt.storage import StorageManagementClient
 import os
 import sys
 
+# Following Credentials needs to be passed as environment variables.
+credential = ClientSecretCredential(
+        tenant_id = os.getenv('tenant_id'),
+        client_id = os.getenv('client_id'),
+        client_secret = os.getenv('client_secret')
+    )
+subscription_id = os.getenv('subscription_id')
+
 def delete_storage_account(resource_group_name, storage_account_name):
+    storage_client = StorageManagementClient(credential, subscription_id)
     """ delete the Storage Account created for the terraform state files. """
-    storage_client = storage_client()
     try:
         storage_client.storage_accounts.delete(resource_group_name, storage_account_name)
         print("storage Account {} deleted".format(storage_account_name))

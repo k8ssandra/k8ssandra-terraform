@@ -43,6 +43,7 @@ output "service_account" {
 output "service_account_key" {
   description = "The service Account Key to configure Medusa backups to use GCS bucket"
   value       = module.iam.service_account_key
+  sensitive   = true
 }
 
 # Configuring GKE cluster access for kubectl.

@@ -111,10 +111,10 @@ No resources.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_environment"></a> [environment](#input\_environment) | The environment of the infrastructure being built. | `any` | n/a | yes |
+| <a name="input_environment"></a> [environment](#input\_environment) | Name of the environment where infrastructure being built. | `any` | n/a | yes |
 | <a name="input_k8s_namespace"></a> [k8s\_namespace](#input\_k8s\_namespace) | The namespace to use for the deployment and workload identity binding | `string` | `"default"` | no |
 | <a name="input_machine_type"></a> [machine\_type](#input\_machine\_type) | Type of machines which are used by cluster node pool | `string` | `"e2-highmem-8"` | no |
-| <a name="input_name"></a> [name](#input\_name) | Name of the cluster resources | `string` | `"k8ssandra"` | no |
+| <a name="input_name"></a> [name](#input\_name) | Name is the prefix to use for resources that needs to be created. | `string` | `"k8ssandra"` | no |
 | <a name="input_project_id"></a> [project\_id](#input\_project\_id) | The GCP project in which the components are created. | `string` | `"k8ssandra-testing"` | no |
 | <a name="input_project_services"></a> [project\_services](#input\_project\_services) | The GCP APIs that should be enabled in this project. | `list(string)` | <pre>[<br>  "cloudresourcemanager.googleapis.com",<br>  "servicenetworking.googleapis.com",<br>  "container.googleapis.com",<br>  "compute.googleapis.com",<br>  "iam.googleapis.com",<br>  "logging.googleapis.com",<br>  "monitoring.googleapis.com",<br>  "sqladmin.googleapis.com",<br>  "securetoken.googleapis.com"<br>]</pre> | no |
 | <a name="input_region"></a> [region](#input\_region) | The region in which to create the VPC network | `string` | `"us-central1"` | no |

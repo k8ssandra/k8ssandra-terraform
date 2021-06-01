@@ -31,10 +31,10 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_bucket_policy_only"></a> [bucket\_policy\_only](#input\_bucket\_policy\_only) | Enables Bucket Policy Only access to a bucket. | `bool` | `true` | no |
-| <a name="input_environment"></a> [environment](#input\_environment) | The environment of the infrastructure being built. | `string` | n/a | yes |
-| <a name="input_name"></a> [name](#input\_name) | Globally unique name of the bucket | `string` | n/a | yes |
+| <a name="input_environment"></a> [environment](#input\_environment) | Name of the environment where infrastructure being built. | `string` | n/a | yes |
+| <a name="input_name"></a> [name](#input\_name) | Name is the prefix to use for resources that needs to be created. | `string` | n/a | yes |
 | <a name="input_project_id"></a> [project\_id](#input\_project\_id) | The ID of the project to create the bucket in. | `string` | n/a | yes |
-| <a name="input_region"></a> [region](#input\_region) | location of the bucket | `string` | n/a | yes |
+| <a name="input_region"></a> [region](#input\_region) | The region where terraform builds resources. | `string` | n/a | yes |
 | <a name="input_role"></a> [role](#input\_role) | Role of the google storage bucket iam member | `string` | `"roles/storage.admin"` | no |
 | <a name="input_service_account"></a> [service\_account](#input\_service\_account) | service account email address | `string` | n/a | yes |
 | <a name="input_storage_class"></a> [storage\_class](#input\_storage\_class) | Storage class for the gcs bucket | `string` | `null` | no |

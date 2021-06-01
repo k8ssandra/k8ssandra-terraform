@@ -33,7 +33,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_name"></a> [name](#input\_name) | name of the cluster | `string` | n/a | yes |
+| <a name="input_name"></a> [name](#input\_name) | Name is the prefix to use for resources that needs to be created. | `string` | n/a | yes |
 | <a name="input_project_id"></a> [project\_id](#input\_project\_id) | The project in which to hold the components | `string` | n/a | yes |
 | <a name="input_project_services"></a> [project\_services](#input\_project\_services) | n/a | `list(string)` | `[]` | no |
 | <a name="input_region"></a> [region](#input\_region) | The region in which to create the VPC network | `string` | n/a | yes |

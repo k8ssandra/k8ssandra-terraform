@@ -27,11 +27,11 @@ ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 # Create storage bucket for the terraform backend.
 export bucket_name="${TF_VAR_name}-bucket-statefiles"
 
-# Create storage bucket to store the state files. 
-python3 "${ROOT}/scripts/make_bucket.py"
-
 # Run common.sh script for validation
 source "${ROOT}/scripts/common.sh"
+
+# Create storage bucket to store the state files.
+python3 "${ROOT}/scripts/make_bucket.py"
 
 # Generate Backend Template to store Terraform State files.
 readonly backend_config="terraform {

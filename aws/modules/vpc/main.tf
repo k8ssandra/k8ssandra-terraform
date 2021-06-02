@@ -193,6 +193,8 @@ resource "aws_security_group_rule" "https_security_group_rule" {
 
 
 # Create AWS Workstation HTTPS Security group rule.
+# This security group controls networking access to the Kubernetes masters. We configure this with an ingress rule to allow traffic from the worker nodes.
+# Allow inbound traffic from your local workstation external IP to the Kubernetes.
 resource "aws_security_group_rule" "workstation_https_group_rule" {
   cidr_blocks       = [var.cluster_api_cidr]
   description       = "Allow workstation to communicate with the cluster API Server"

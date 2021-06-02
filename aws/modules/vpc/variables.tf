@@ -75,7 +75,9 @@ variable "tags" {
   default     = {}
 }
 
-# Allow workstation to communicate with the cluster API Server
+# Allow workstation to communicate with the cluster API Server.
+# This security group controls networking access to the Kubernetes masters. We configure this with an ingress rule to allow traffic from the worker nodes.
+# Allow inbound traffic from your local workstation external IP to the Kubernetes.
 variable "cluster_api_cidr" {
   description = "Allow workstation to communicate with the cluster API Server"
   type        = string

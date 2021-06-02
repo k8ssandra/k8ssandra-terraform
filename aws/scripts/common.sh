@@ -78,14 +78,6 @@ command -V pip3 >/dev/null 2>&1 || { \
  exit 1
 }
 
-# Make sure boto3 is installed. if not, refer to:
-# Run this command to install:  pip3 install boto3 
-command pip3 show boto3 2>&1 || { \
- echo >&2 "I require boto3 but it's not installed.  Aborting."
- echo >&2 "pip3 install boto3"
- exit 1
-}
-
 # Make sure you initialize the following TF_VAR's before you initialize the environment
 if [ -z "${TF_VAR_environment}" ] || [ -z "${TF_VAR_name}" ] || [ -z "${TF_VAR_region}" ]; then
   printf "This step requires to export the the following variables \nTF_VAR_environment: %s \nTF_VAR_name: %s \nTF_VAR_region: %s" "${TF_VAR_environment}" "${TF_VAR_name}" "${TF_VAR_region}"

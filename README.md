@@ -12,14 +12,14 @@ This repo contains a Terraform modules for creating Kubernetes clusters on Googl
         * [iam](./gcp/modules/iam/README.md): Identity Access Management modules.
 * [aws](./aws/README.md): Amazon Web Services terraform module to create kubernetes cluster using Elastic Kubernetes Service(EKS).
 * [azure](./azure/README.md): Azure terraform module to create kubernetes cluster using Azure Kubernetes Service(AKS).
-* [aws](./aws/README.md): Tanzu terraform module to create kubernetes cluster using Elastic Kubernetes Service.
+* [tanzu](./tanzu/README.md): Tanzu terraform module to create kubernetes cluster using Elastic Kubernetes Service.
 * [test](./test): Automated tests for the files in this project repository.
 
 
 ## What is Kubernetes?
 [Kubernetes](https://kubernetes.io/) is an open source container management system for deploying, scaling, and managing containerized applications. Kubernetes is built by Google based on their internal proprietary container management systems (Borg and Omega). Kubernetes provides a cloud agnostic platform to deploy your containerized applications with built in support for common operational tasks such as replication, autoscaling, self-healing, and rolling deployments.
 
-## What is Manged Kubernetes services?
+## What is Managed Kubernetes services?
 Managed Kubernetes is when third-party providers take over responsibility for some or all of the work necessary for the successful set-up and operation of K8s. Depending on the vendor, “managed” can refer to anything from dedicated support, to hosting with pre-configured environments, to full hosting and operation. We will be using GKE, AKS, EKS, Tanzu. 
 
 ## What is Terraform?
@@ -102,10 +102,10 @@ k8ssandra-terraform/
 |       └── variables.tf 
 |       └── outputs.tf
 |       └── README.md
+|    ├──<a href="gcp/scripts/README.md">scripts</a>
 |  azure/
 |  tanzu/
 |  test/
-|  scripts/
 |  LICENSE
 |  Makefile
 |  README.md

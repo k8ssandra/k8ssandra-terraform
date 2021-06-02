@@ -29,7 +29,7 @@ command -v git >/dev/null 2>&1 || { \
  exit 1
 }
 
-# glcoud is required for this tutorial
+# aws cliv2 is required for this tutorial
 # https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-linux.html
 command -v aws >/dev/null 2>&1 || { \
  echo >&2 "I require aws cliv2 but it's not installed.  Aborting."
@@ -53,10 +53,10 @@ command -v helm >/dev/null 2>&1 || { \
  exit 1
 }
 
-# Make sure Terraform0.14 is installed. If not, refer to:
+# Make sure Terraform 0.14 or higer versions installed. If not, refer to:
 # https://www.terraform.io/docs/cli/install/apt.html
 command -v terraform >/dev/null 2>&1 || { \
- echo >&2 "I require terraform 0.14 but it's not installed.  Aborting."
+ echo >&2 "I require terraform 0.14 or higher version but it's not installed.  Aborting."
  echo >&2 "https://www.terraform.io/docs/cli/install/apt.html"
  echo >&2 "Refer to: sudo apt install terraform=0.14.0"
  exit 1

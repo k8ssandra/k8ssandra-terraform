@@ -12,5 +12,5 @@
 
 
 **Only use this script to delete state files bucket, This bucket might also contains other environment State files.** 
-If you delete this bucket terraform will loose track of your environment resources. 
+If you delete this bucket terraform will lose track of your environment resources. 
 [delete_bucket.py](./delete_bucket.py): By using this script we can delete the AWS bucket created for terraform state files.

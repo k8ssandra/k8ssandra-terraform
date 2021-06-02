@@ -40,7 +40,7 @@ resource "aws_s3_bucket" "s3_bucket" {
 
 }
 
-# Block Public access to the bucket
+# Block public access to the bucket
 resource "aws_s3_bucket_public_access_block" "s3_bucket_public_access_block" {
   bucket = aws_s3_bucket.s3_bucket.id
 

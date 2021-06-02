@@ -178,16 +178,33 @@ Before using the make commands export the following terraform environment variab
 
 ```console
 
-export TF_VAR_environment=<ENVIRONMENT_REPLACEME>
-ex:- export TF_VAR_environment=dev
+# Environment name, eg. "dev"
+# bash, zsh
+export TF_VAR_environment=dev
 
-export TF_VAR_name=<CLUSTERNAME_REPLACEME>
-ex:- export TF_VAR_name=k8ssandra
+#fish
+set -x TF_VAR_environment dev
 
-# Resource owner defaulted to Datastax
+# Kubernetes cluster name, eg. "k8ssandra"
+# bash, zsh
+export TF_VAR_name=k8ssandra
 
-export TF_VAR_region=<REGION_REPLACEME>
-ex:- export TF_VAR_region=us-east-1
+# Resource Owner name, eg. "DataStax"
+# bash, zsh
+export TF_VAR_resource_owner=DataStax
+
+#fish
+set -x TF_VAR_resource_owner DataStax
+
+#fish
+set -x TF_VAR_name k8ssandra
+
+# AWS region name, eg. "us-east-1" 
+# bash, zsh
+export TF_VAR_region=us-east-1
+
+#fish
+set -x TF_VAR_region us-east-1
 
 ```
 

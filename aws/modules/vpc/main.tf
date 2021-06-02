@@ -119,7 +119,7 @@ resource "aws_route" "private_nat_gateway_route" {
 
 #--------------------------------------------------------------------
 
-# create AWS NAT gateway for the private avilability zones.
+# Create AWS NAT gateway for the private availability zones.
 resource "aws_nat_gateway" "nat_gateway" {
   count         = var.multi_az_nat_gateway * local.pri_az_count + var.single_nat_gateway * 1
   subnet_id     = element(aws_subnet.public_subnet.*.id, count.index)
@@ -151,7 +151,7 @@ resource "aws_internet_gateway" "internet_gateway" {
 }
 
 #----------------------------------------------------------------------
-# create Elastic ip adress for the NAT
+# Create Elastic IP adress for the NAT gateway.
 resource "aws_eip" "mod_nat_eip" {
   count = var.multi_az_nat_gateway * local.pri_az_count + var.single_nat_gateway * 1
   tags = merge(var.tags, {

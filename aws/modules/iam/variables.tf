@@ -19,7 +19,7 @@ variable "name" {
 }
 
 variable "environment" {
-  description = "Name of the environment where infrastructure being built."
+  description = "Name of the environment where infrastructure is being built."
   type        = string
 }
 

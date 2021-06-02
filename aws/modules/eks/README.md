@@ -1,6 +1,6 @@
 # Terraform AWS EKS module
 
-This is a Dynamic module in terraform to create EKS cluster. This module will be called from ../env/dev.tf modules file, by using this reusable module we will be able to create EKS cluster and Cluster Node Pool.
+This is a Dynamic module in terraform to create EKS cluster. This module will be called from [`../env/dev.tf`](../env/dev.tf) modules file, by using this reusable module we will be able to create EKS cluster and Cluster Node Pool.
 
 * main.tf : contains all the resources which will be created with `terraform apply` command.
 * variables.tf : contains all the variables required to create the resources.
@@ -33,7 +33,7 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_cluster_version"></a> [cluster\_version](#input\_cluster\_version) | Version of the EKS cluster. | `string` | `"1.19"` | no |
 | <a name="input_desired_capacity"></a> [desired\_capacity](#input\_desired\_capacity) | Desired capacity for the auto scaling Group. | `string` | `"3"` | no |
-| <a name="input_environment"></a> [environment](#input\_environment) | Name of the environment where infrastructure being built. | `string` | n/a | yes |
+| <a name="input_environment"></a> [environment](#input\_environment) | Name of the environment where infrastructure is being built. | `string` | n/a | yes |
 | <a name="input_instance_profile_name"></a> [instance\_profile\_name](#input\_instance\_profile\_name) | Instance profile name to attach aws lunch configuration. | `string` | n/a | yes |
 | <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | Type of instance to be used for the Kubernetes cluster. | `string` | n/a | yes |
 | <a name="input_max_size"></a> [max\_size](#input\_max\_size) | Maximum number of the instances in autoscaling group | `string` | `"5"` | no |

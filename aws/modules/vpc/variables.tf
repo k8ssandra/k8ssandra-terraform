@@ -18,7 +18,7 @@ variable "name" {
 }
 
 variable "environment" {
-  description = "Name of the environment where infrastructure being built."
+  description = "Name of the environment where infrastructure is being built."
   type        = string
 }
 
@@ -27,7 +27,7 @@ variable "region" {
   type        = string
 }
 
-# Virtual Private Cloud cidr block
+# Virtual Private Cloud CIDR block
 variable "vpc_cidr_block" {
   description = "Virtual Private Cloud CIDR block"
   type        = string
@@ -62,6 +62,7 @@ variable "public_cidr_block" {
   description = "List of public subnet CIDR blocks"
   type        = list(string)
 }
+
 variable "private_cidr_block" {
   description = "List of private subnet CIDR blocks"
   type        = list(string)

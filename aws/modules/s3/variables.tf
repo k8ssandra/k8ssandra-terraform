@@ -12,14 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Variables to create S3 bucket
+# Variables to create s3 bucket
 variable "name" {
   description = "Name is the prefix to use for resources that needs to be created."
   type        = string
 }
 
 variable "environment" {
-  description = "Name of the environment where infrastructure being built."
+  description = "Name of the environment where infrastructure is being built."
   type        = string
 }
 

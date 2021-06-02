@@ -19,14 +19,13 @@ variable "name" {
 }
 
 variable "environment" {
-  description = "Name of the environment where infrastructure being built."
+  description = "Name of the environment where infrastructure is being built."
   type        = string
 }
 
 variable "resource_owner" {
   description = "The name of the Account Owner"
   type        = string
-  default     = "Datastax"
 }
 
 variable "region" {

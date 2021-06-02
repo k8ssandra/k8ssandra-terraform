@@ -155,12 +155,12 @@ export TF_VAR_name=k8ssandra
 #fish
 set -x TF_VAR_name k8ssandra
 
-# Resource Owner name, eg. "DataStax"
+# Resource Owner name, eg. "k8ssandra"
 # bash, zsh
-export TF_VAR_resource_owner=DataStax
+export TF_VAR_resource_owner=k8ssandra
 
 #fish
-set -x TF_VAR_resource_owner DataStax
+set -x TF_VAR_resource_owner k8ssandra
 
 
 # AWS region name, eg. "us-east-1" 

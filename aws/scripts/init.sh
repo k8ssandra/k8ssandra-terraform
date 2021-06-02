@@ -24,27 +24,12 @@ ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 
 # Make will use bash instead of sh
 # Set environment variables
-# Create storage bucket for the terraform backend.
-export bucket_name="${TF_VAR_name}-bucket-statefiles"
 
 # Run common.sh script for validation
 source "${ROOT}/scripts/common.sh"
 
-# Create storage bucket to store the state files.
-python3 "${ROOT}/scripts/make_bucket.py"
-
-# Generate Backend Template to store Terraform State files.
-readonly backend_config="terraform {
-  backend \"s3\" {
-    region = \"${TF_VAR_region}\"
-    bucket = \"${bucket_name}\"
-    key    = \"terraform/${TF_VAR_environment}/\"
-  }
-}"
-
 # Terraform initialize should run on env folder.
 cd "${ROOT}/env"
-echo -e "${backend_config}" > backend.tf
 
 # Terraform initinalize the backend bucket
 terraform init -input=false

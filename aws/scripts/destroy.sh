@@ -26,20 +26,7 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 # Run common.sh script for variable declaration and validation
 source "${ROOT}/scripts/common.sh"
 
-# Exporting the bucket name as an environment variable.
-export bucket_name="${TF_VAR_name}-bucket-statefiles"
-
-# Generate Backend Template to store Terraform State files.
-readonly backend_config="terraform {
-  backend \"s3\" {
-    region = \"${TF_VAR_region}\"
-    bucket = \"${bucket_name}\"
-    key    = \"terraform/${TF_VAR_environment}/\"
-  }
-}"
-
 cd "${ROOT}/env"
-echo -e "${backend_config}" > backend.tf
 
 # Terraform initinalize the backend bucket
 terraform init -input=false
@@ -53,6 +40,3 @@ terraform destroy -no-color -auto-approve
 # Delete terraform workspace.
 terraform workspace select default
 terraform workspace delete "${TF_VAR_environment}"
-
-# Delete the terraform statefile bucket folder.
-aws s3 rm s3://"${bucket_name}/terraform/${TF_VAR_environment}" --recursive

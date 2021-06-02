@@ -234,7 +234,7 @@ make apply "provider=aws"
 make destroy "provider=aws"
 ```
 
-## Create AKE resources
+## Create AKS resources
 * How to create AKS cluster resources by using make command
 [ work In progress] 
 

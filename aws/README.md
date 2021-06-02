@@ -92,6 +92,8 @@ aws/
 
 Following Backend template is to store your backend remotely in s3 bucket, if you are planning to use remote backend copy the following sample template to [./env](#./env) folder and update the backend file with your bucket name, key and your bucket region.
 
+If you don't want to use the remote backend, you can use the local local directory to store the state files. `terraform init` will generate a state file and it will be stored in your local directory under [./env/.terraform](./env).
+
 Sample template to configure your backend in s3 bucket:
 ```
   terraform {
@@ -102,6 +104,7 @@ Sample template to configure your backend in s3 bucket:
     }
   }
 ```   
+
 ### Tools
 
 * Access to an existing AWS cloud as a owner or a developer.

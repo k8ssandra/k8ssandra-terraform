@@ -30,6 +30,9 @@ module "eks" {
   region                = var.region
   environment           = var.environment
   instance_type         = var.instance_type
+  desired_capacity      = var.desired_capacity
+  max_size              = var.max_size
+  min_size              = var.min_size
   role_arn              = module.iam.role_arn
   worker_role_arn       = module.iam.worker_role_arn
   subnet_ids            = module.vpc.aws_subnet_private_ids

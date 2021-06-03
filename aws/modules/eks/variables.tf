@@ -56,7 +56,7 @@ variable "tags" {
 }
 
 variable "instance_profile_name" {
-  description = "Instance profile name to attach aws lunch configuration."
+  description = "Instance profile name to attach aws launch configuration."
   type        = string
 }
 
@@ -73,18 +73,15 @@ variable "instance_type" {
 
 variable "desired_capacity" {
   description = "Desired capacity for the autoscaling Group."
-  type        = string
-  default     = "3"
+  type        = number
 }
 
 variable "max_size" {
   description = "Maximum number of the instances in autoscaling group"
-  type        = string
-  default     = "5"
+  type        = number
 }
 
 variable "min_size" {
   description = "Minimum number of the instances in autoscaling group"
-  type        = string
-  default     = "3"
+  type        = number
 }

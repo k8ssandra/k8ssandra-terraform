@@ -40,6 +40,24 @@ variable "instance_type" {
   default     = "r5d.2xlarge"
 }
 
+variable "desired_capacity" {
+  description = "Desired capacity for the autoscaling Group."
+  type        = number
+  default     = 3
+}
+
+variable "max_size" {
+  description = "Maximum number of the instances in autoscaling group"
+  type        = number
+  default     = 5
+}
+
+variable "min_size" {
+  description = "Minimum number of the instances in autoscaling group"
+  type        = number
+  default     = 3
+}
+
 # Expose Subnet Ssettings
 variable "public_cidr_block" {
   description = "List of public subnet cidr blocks"

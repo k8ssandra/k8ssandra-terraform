@@ -39,11 +39,11 @@ No modules.
 | <a name="input_environment"></a> [environment](#input\_environment) | Name of the environment where infrastructure being built. | `string` | n/a | yes |
 | <a name="input_kubernetes_version"></a> [kubernetes\_version](#input\_kubernetes\_version) | Version of the AKS cluster. | `string` | n/a | yes |
 | <a name="input_location"></a> [location](#input\_location) | Azure location where all the resources being created. | `string` | n/a | yes |
-| <a name="input_max_count"></a> [max\_count](#input\_max\_count) | Maximum Node Count | `number` | `5` | no |
-| <a name="input_min_count"></a> [min\_count](#input\_min\_count) | Minimum Node Count | `number` | `3` | no |
+| <a name="input_max_count"></a> [max\_count](#input\_max\_count) | Maximum Node Count | `number` | n\a | yes |
+| <a name="input_min_count"></a> [min\_count](#input\_min\_count) | Minimum Node Count | `number` | n\a | yes |
 | <a name="input_name"></a> [name](#input\_name) | Name is the prefix to use for resources that needs to be created. | `string` | n/a | yes |
 | <a name="input_network_plugin"></a> [network\_plugin](#input\_network\_plugin) | Network plugin type | `string` | `"azure"` | no |
-| <a name="input_node_count"></a> [node\_count](#input\_node\_count) | number of nodes to deploy | `number` | `"3"` | no |
+| <a name="input_node_count"></a> [node\_count](#input\_node\_count) | Number of nodes to deploy | `number` | n\a | yes |
 | <a name="input_private_subnet"></a> [private\_subnet](#input\_private\_subnet) | The subnet id of the virtual network where the virtual machines will reside. | `string` | n/a | yes |
 | <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | The name of the resource group in which the resources will be created. | `string` | n/a | yes |
 | <a name="input_service_cidr"></a> [service\_cidr](#input\_service\_cidr) | CNI service CIDR | `string` | `"10.2.0.0/24"` | no |

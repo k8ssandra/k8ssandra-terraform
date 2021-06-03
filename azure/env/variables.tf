@@ -39,10 +39,22 @@ variable "kubernetes_version" {
   type        = string
 }
 
-variable "system_node_count" {
+variable "node_count" {
   description = "Number of AKS worker nodes"
   type        = number
   default     = 3
+}
+
+variable "min_count" {
+  description = "Minimum Node Count"
+  default     = 5
+  type        = number
+}
+
+variable "max_count" {
+  description = "Maximum Node Count"
+  default     = 3
+  type        = number
 }
 
 variable "vm_size" {

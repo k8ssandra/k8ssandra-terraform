@@ -120,7 +120,10 @@ module "storage" {
 |------|-------------|------|---------|:--------:|
 | <a name="input_environment"></a> [environment](#input\_environment) | Name of the environment where infrastructure being built. | `string` | n/a | yes |
 | <a name="input_kubernetes_version"></a> [kubernetes\_version](#input\_kubernetes\_version) | version of the kubernetes cluster | `string` | `"1.19.9"` | no |
+| <a name="input_max_count"></a> [max\_count](#input\_max\_count) | Maximum Node Count | `number` | `5` | no |
+| <a name="input_min_count"></a> [min\_count](#input\_min\_count) | Minimum Node Count | `number` | `3` | no |
 | <a name="input_name"></a> [name](#input\_name) | AKS name in Azure | `string` | n/a | yes |
+| <a name="input_node_count"></a> [node\_count](#input\_node\_count) | Number of AKS worker nodes | `number` | `5` | no |
 | <a name="input_private_service_endpoints"></a> [private\_service\_endpoints](#input\_private\_service\_endpoints) | service endpoints to attach Private Subnets. | `list(string)` | <pre>[<br>  "Microsoft.Storage"<br>]</pre> | no |
 | <a name="input_private_subnet_prefixes"></a> [private\_subnet\_prefixes](#input\_private\_subnet\_prefixes) | value | `list(string)` | <pre>[<br>  "10.1.1.0/24"<br>]</pre> | no |
 | <a name="input_public_service_endpoints"></a> [public\_service\_endpoints](#input\_public\_service\_endpoints) | service endpoints to attche public Subnets. | `list(string)` | `[]` | no |

@@ -57,18 +57,15 @@ variable "vm_size" {
 
 variable "node_count" {
   description = "Number of nodes to deploy"
-  default     = 3
   type        = number
 }
 
 variable "min_count" {
   description = "Minimum Node Count"
-  default     = 3
   type        = number
 }
 variable "max_count" {
   description = "Maximum Node Count"
-  default     = 5
   type        = number
 }
 

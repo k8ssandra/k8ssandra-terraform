@@ -19,11 +19,15 @@ module "aks" {
   name                = local.prefix
   environment         = var.environment
   kubernetes_version  = var.kubernetes_version
+  node_count          = var.node_count
+  max_count           = var.max_count
+  min_count           = var.min_count
   resource_group_name = module.iam.resource_group_name
   location            = module.iam.location
   private_subnet      = module.vnet.private_subnets
   user_assigned_id    = module.iam.user_id
   vm_size             = var.vm_size
+
 
   tags = merge(local.tags, { "resource_group" = module.iam.resource_group_name })
 }

@@ -103,11 +103,24 @@ Sample template to configure your backend in s3 bucket:
       region = "<REPLACEME_region>"
     }
   }
-```   
+```
+
+### Access
+
+* Access to an existing AWS cloud as a owner or a developer. following permissions are required 
+  * Managed policies( These policies are Managed by the AWS, you can locate them in the attach existing policies section).
+    * AmazonEKSClusterPolicy
+    * AmazonEKSWorkerNodePolicy
+    * AmazonEKSServicePolicy
+    * AmazonEKSVPCResourceController
+  * Custom policy document located here.[policy_document](#./scripts/policy_document.json). In this JSON file there are three different policy documents. 
+    * [IAM-Developer](#./scripts/policy_document.json/policy-for-IAM) Policy to manage IAM access to the user.
+    * [AutoScaling Group](#./scripts/policy_document.json/Policy-for-AutoScaling-Group) Policy to manage AutoScaling Group access permissions.
+    * [EC2&S3_policy](#./scripts/policy_document.json/policy-for-S3-and-EC2) Policy to manage EC2 and S3 permissions.
+    you will need to create three different policies, we cannot able to add all the policies in the single document, it will exceeds the resource limit on the policy document.
 
 ### Tools
 
-* Access to an existing AWS cloud as a owner or a developer.
 * Bash and common command line tools (Make, etc.)
 * [Terraform v0.14.0+](https://www.terraform.io/downloads.html)
 * [AWS CLI v2](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html)

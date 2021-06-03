@@ -1,0 +1,190 @@
+# Policy for IAM
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": [
+                "iam:CreateInstanceProfile",
+                "iam:UpdateAssumeRolePolicy",
+                "iam:GetPolicyVersion",
+                "iam:TagRole",
+                "iam:RemoveRoleFromInstanceProfile",
+                "iam:DeletePolicy",
+                "iam:AttachRolePolicy",
+                "iam:ListInstanceProfileTags",
+                "iam:ListInstanceProfilesForRole",
+                "iam:DetachRolePolicy",
+                "iam:DeleteRolePolicy",
+                "iam:ListPolicyTags",
+                "iam:ListRolePolicies",
+                "iam:ListAccessKeys",
+                "iam:DeleteInstanceProfile",
+                "iam:GetRole",
+                "iam:GetInstanceProfile",
+                "iam:GetPolicy",
+                "iam:AttachUserPolicy",
+                "iam:DeleteRole",
+                "iam:ListInstanceProfiles",
+                "iam:TagPolicy",
+                "iam:TagUser",
+                "iam:CreatePolicy",
+                "iam:ListPolicyVersions",
+                "iam:GetUserPolicy",
+                "iam:UntagPolicy",
+                "iam:UntagInstanceProfile",
+                "iam:GetRolePolicy",
+                "iam:DeletePolicyVersion",
+                "iam:TagInstanceProfile"
+            ],
+            "Resource": [
+                "arn:aws:iam::<REPLACE_ME>:instance-profile/*",
+                "arn:aws:iam::<REPLACE_ME>:policy/*",
+                "arn:aws:iam::<REPLACE_ME>:user/*",
+                "arn:aws:iam::<REPLACE_ME>:role/*"
+            ]
+        },
+        {
+            "Sid": "VisualEditor1",
+            "Effect": "Allow",
+            "Action": [
+                "iam:ListPolicies",
+                "iam:ListServerCertificates",
+                "iam:ListPoliciesGrantingServiceAccess",
+                "iam:ListUsers",
+                "eks:*"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "VisualEditor2",
+            "Effect": "Allow",
+            "Action": [
+                "iam:GetPolicyVersion",
+                "iam:ListRoleTags",
+                "iam:UntagRole",
+                "iam:TagRole",
+                "iam:DeletePolicy",
+                "iam:CreateRole",
+                "iam:AttachRolePolicy",
+                "iam:PutRolePolicy",
+                "iam:DeleteRolePermissionsBoundary",
+                "iam:AddRoleToInstanceProfile",
+                "iam:GetServiceLinkedRoleDeletionStatus",
+                "iam:DetachRolePolicy",
+                "iam:DeleteRolePolicy",
+                "iam:ListPolicyTags",
+                "iam:ListRolePolicies",
+                "iam:DetachUserPolicy",
+                "iam:CreatePolicyVersion",
+                "iam:GetRole",
+                "iam:GetPolicy",
+                "iam:DeleteUserPolicy",
+                "iam:DeleteRole",
+                "iam:UpdateRoleDescription",
+                "iam:DeleteUserPermissionsBoundary",
+                "iam:ListUserPolicies",
+                "iam:TagPolicy",
+                "iam:TagUser",
+                "iam:CreatePolicy",
+                "iam:UntagUser",
+                "iam:ListPolicyVersions",
+                "iam:PutUserPolicy",
+                "iam:UntagPolicy",
+                "iam:UpdateRole",
+                "iam:DeleteServiceLinkedRole",
+                "iam:DeleteGroupPolicy",
+                "iam:GetRolePolicy",
+                "iam:DeletePolicyVersion",
+                "iam:ListUserTags"
+            ],
+            "Resource": [
+                "arn:aws:iam::<REPLACE_ME>:group/*",
+                "arn:aws:iam::<REPLACE_ME>:instance-profile/*",
+                "arn:aws:iam::<REPLACE_ME>:policy/*",
+                "arn:aws:iam::<REPLACE_ME>:role/*",
+                "arn:aws:iam::<REPLACE_ME>:user/<REPLACEME_USERNAME>"
+            ]
+        }
+    ]
+}
+
+Policy for Auto Scaling Group.
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": "autoscaling:*",
+            "Resource": [
+                "arn:aws:autoscaling:*:<REPLACE_ME>:autoScalingGroup:*:autoScalingGroupName/*",
+                "arn:aws:autoscaling:*:<REPLACE_ME>:launchConfiguration:*:launchConfigurationName/*"
+            ]
+        },
+        {
+            "Sid": "VisualEditor1",
+            "Effect": "Allow",
+            "Action": [
+                "autoscaling:DescribeAutoScalingNotificationTypes",
+                "autoscaling:DescribeLifecycleHookTypes",
+                "autoscaling:DescribeAutoScalingInstances",
+                "autoscaling:DescribeTerminationPolicyTypes",
+                "autoscaling:DescribeScalingProcessTypes",
+                "autoscaling:DescribePolicies",
+                "autoscaling:DescribeTags",
+                "autoscaling:DescribeLaunchConfigurations",
+                "autoscaling:DescribeMetricCollectionTypes",
+                "autoscaling:DescribeLoadBalancers",
+                "autoscaling-plans:*",
+                "autoscaling:DescribeLifecycleHooks",
+                "autoscaling:DescribeAdjustmentTypes",
+                "autoscaling:DescribeScalingActivities",
+                "autoscaling:DescribeAutoScalingGroups",
+                "autoscaling:DescribeAccountLimits",
+                "autoscaling:DescribeScheduledActions",
+                "autoscaling:DescribeLoadBalancerTargetGroups",
+                "autoscaling:DescribeNotificationConfigurations",
+                "autoscaling:DescribeInstanceRefreshes"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+
+# policy for S3 and EC2
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": "iam:PassRole",
+            "Resource": "arn:aws:iam::<REPLACE_ME>:role/*"
+        },
+        {
+            "Sid": "VisualEditor1",
+            "Effect": "Allow",
+            "Action": [
+                "s3:*",
+                "ec2:*"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "VisualEditor2",
+            "Effect": "Allow",
+            "Action": "iam:ListRoles",
+            "Resource": "*"
+        },
+        {
+            "Sid": "VisualEditor3",
+            "Effect": "Allow",
+            "Action": "organizations:DescribeOrganization",
+            "Resource": "*"
+        }
+    ]
+}

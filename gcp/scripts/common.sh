@@ -62,10 +62,10 @@ command -v terraform >/dev/null 2>&1 || { \
  exit 1
 }
 
-# Make sure python3 is installed. If not, refer to:
+# Make sure python is installed. If not, refer to:
 # https://www.python.org/downloads/
-command -v python3 >/dev/null 2>&1 || { \
- echo >&2 "I require python3 but it's not installed.  Aborting."
+command -v python >/dev/null 2>&1 || { \
+ echo >&2 "I require python but it's not installed.  Aborting."
  echo >&2 "https://www.python.org/downloads/"
  exit 1
 }

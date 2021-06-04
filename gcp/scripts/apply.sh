@@ -26,7 +26,7 @@ ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 source "${ROOT}/scripts/common.sh"
 
 # Make apply : this command will apply the infrastructure changes
-(cd "${ROOT}/env"; terraform apply -input=false -auto-approve)
+(cd "${ROOT}/env"; terraform apply -auto-approve)
 
 # Get cluster outputs from the gke cluster.
 GET_OUTPUTS="$(terraform output endpoint master_version)"

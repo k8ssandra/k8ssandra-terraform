@@ -29,22 +29,9 @@ source "${ROOT}/scripts/common.sh"
 # Set environment variables
 # Create a gcs bucket through cli to store terraform statefiles
 # Create google storage bucket for the terraform backend.
-export bucket_name="${TF_VAR_name}-${TF_VAR_project_id}-statefiles"
-
-# Create Google cloud storage bucket to store the state files. 
-python3 "${ROOT}/scripts/make_bucket.py"
-
-# Generate Backend Template to store Terraform State files.
-readonly backend_config="terraform {
-  backend \"gcs\" {
-    bucket = \"${bucket_name}\"
-    prefix = \"terraform/${TF_VAR_environment}/\"
-  }
-}"
 
 # Terraform initialize should run on env folder.
 cd "${ROOT}/env"
-echo -e "${backend_config}" > backend.tf
 
 # Terraform initinalize the backend bucket
 terraform init -input=false

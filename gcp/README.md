@@ -49,9 +49,6 @@ gcp/
  |     └── variables.tf 
  |     └── outputs.tf 
  |     └── README.md
- └──README.md
- └──gitignore
- |
  ├──<a href="env/README.md">env</a>
     ├── dev.tf
       ../modules/vpc
@@ -63,6 +60,7 @@ gcp/
     └── outputs.tf
     └── README.md
  ├──<a href="gcp/scripts/README.md">scripts</a>
+ └── README.md
 </pre>
 
 ## Prerequisites

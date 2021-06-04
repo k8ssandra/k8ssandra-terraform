@@ -21,7 +21,7 @@ resource "google_container_cluster" "container_cluster" {
   remove_default_node_pool = true
   initial_node_count       = var.initial_node_count
 
-  # VPC and Subnet work self links. 
+  # VPC and Sub-network self links. 
   network    = var.network_link
   subnetwork = var.subnetwork_link
 
@@ -67,7 +67,7 @@ resource "google_container_node_pool" "container_node_pool" {
   project    = var.project_id
   location   = var.region
   cluster    = google_container_cluster.container_cluster.name
-  node_count = 1
+  node_count = var.initial_node_count
 
   # Node configuration
   node_config {

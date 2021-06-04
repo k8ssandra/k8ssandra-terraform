@@ -24,14 +24,16 @@ Usage: The following module call will create GKE cluster and cluster node pool r
 ```
 # Module used for creating a google kubernetes cluster.
 module "gke" {
-  source          = "../modules/gke"
-  name            = local.prefix
-  environment     = var.environment
-  region          = var.region
-  project         = var.project_id
-  network_link    = module.vpc.network_selflink
-  subnetwork_link = module.vpc.subnetwork_selflink
-  service_account = module.iam.service_account
+  source             = "../modules/gke"
+  environment        = var.environment
+  name               = local.prefix
+  region             = var.region
+  project_id         = var.project_id
+  initial_node_count = var.initial_node_count
+  machine_type       = var.machine_type
+  network_link       = module.vpc.network_selflink
+  subnetwork_link    = module.vpc.subnetwork_selflink
+  service_account    = module.iam.service_account
 }
 
 ```   
@@ -112,6 +114,7 @@ No resources.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_environment"></a> [environment](#input\_environment) | Name of the environment where infrastructure being built. | `any` | n/a | yes |
+| <a name="input_initial_node_count"></a> [initial\_node\_count](#input\_initial\_node\_count) | n/a | `number` | `1` | no |
 | <a name="input_k8s_namespace"></a> [k8s\_namespace](#input\_k8s\_namespace) | The namespace to use for the deployment and workload identity binding | `string` | `"default"` | no |
 | <a name="input_machine_type"></a> [machine\_type](#input\_machine\_type) | Type of machines which are used by cluster node pool | `string` | `"e2-highmem-8"` | no |
 | <a name="input_name"></a> [name](#input\_name) | Name is the prefix to use for resources that needs to be created. | `string` | `"k8ssandra"` | no |

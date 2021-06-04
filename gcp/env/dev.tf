@@ -23,15 +23,16 @@ module "vpc" {
 
 # Create GKE cluster.
 module "gke" {
-  source          = "../modules/gke"
-  environment     = var.environment
-  name            = local.prefix
-  region          = var.region
-  project_id      = var.project_id
-  machine_type    = var.machine_type
-  network_link    = module.vpc.network_selflink
-  subnetwork_link = module.vpc.subnetwork_selflink
-  service_account = module.iam.service_account
+  source             = "../modules/gke"
+  environment        = var.environment
+  name               = local.prefix
+  region             = var.region
+  project_id         = var.project_id
+  initial_node_count = var.initial_node_count
+  machine_type       = var.machine_type
+  network_link       = module.vpc.network_selflink
+  subnetwork_link    = module.vpc.subnetwork_selflink
+  service_account    = module.iam.service_account
 }
 
 # Create Service Account and IAM roles in GCP.

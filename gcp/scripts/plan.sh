@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC1091
 
 # Copyright 2021 DataStax, Inc.
 #
@@ -32,4 +33,4 @@ cd "${ROOT}"/env
 terraform validate
 
 # Terraform plan will create a plan file in your current repository. Verify the all the resource it create by using plan. 
-terraform plan -input=false -no-color -out=./plan.json
+terraform plan -no-color

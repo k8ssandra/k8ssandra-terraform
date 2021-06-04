@@ -42,8 +42,8 @@ No modules.
 | <a name="input_cloud_nat_logging_filter"></a> [cloud\_nat\_logging\_filter](#input\_cloud\_nat\_logging\_filter) | What filtering should be applied to logs for this NAT. Valid values are: 'ERRORS\_ONLY', 'TRANSLATIONS\_ONLY', 'ALL'. Defaults to 'ERRORS\_ONLY'. | `string` | `"ERRORS_ONLY"` | no |
 | <a name="input_enable_cloud_nat"></a> [enable\_cloud\_nat](#input\_enable\_cloud\_nat) | Whether to enable Cloud NAT. This can be used to allow private cluster nodes to accesss the internet. Defaults to 'true' | `bool` | `true` | no |
 | <a name="input_enable_cloud_nat_logging"></a> [enable\_cloud\_nat\_logging](#input\_enable\_cloud\_nat\_logging) | Whether the NAT should export logs. Defaults to 'true'. | `bool` | `true` | no |
-| <a name="input_environment"></a> [environment](#input\_environment) | Name of the environment the infrasstructure is being built. | `string` | n/a | yes |
-| <a name="input_name"></a> [name](#input\_name) | name of the cluster | `string` | n/a | yes |
+| <a name="input_environment"></a> [environment](#input\_environment) | Name of the environment where infrastructure being built. | `string` | n/a | yes |
+| <a name="input_name"></a> [name](#input\_name) | Name is the prefix to use for resources that needs to be created. | `string` | n/a | yes |
 | <a name="input_project_id"></a> [project\_id](#input\_project\_id) | The project in which to hold the components | `string` | n/a | yes |
 | <a name="input_region"></a> [region](#input\_region) | The region in which to create the VPC network | `string` | n/a | yes |
 | <a name="input_secondary_cidr_block"></a> [secondary\_cidr\_block](#input\_secondary\_cidr\_block) | The IP address range of the VPC's secondary address range in CIDR notation. A prefix of /16 is recommended. Do not use a prefix higher than /27. | `string` | `"10.1.0.0/16"` | no |

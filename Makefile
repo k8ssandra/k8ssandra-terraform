@@ -53,7 +53,7 @@ destroy:
 # Get pods details of the running cluster.
 .PHONY: getpods
 getpods:
-	python ${ROOT}/test/kube-pods.py
+	python3 ${ROOT}/test/kube-pods.py
 
 .PHONY: lint
 lint: check_shell check_terraform check_shebangs check_trailing_whitespace

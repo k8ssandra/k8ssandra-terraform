@@ -13,7 +13,7 @@
 # limitations under the License.
 
 variable "name" {
-  description = "Globally unique name of the bucket"
+  description = "Name is the prefix to use for resources that needs to be created."
   type        = string
 }
 
@@ -28,7 +28,7 @@ variable "project_id" {
 }
 
 variable "region" {
-  description = "location of the bucket"
+  description = "The region where terraform builds resources."
   type        = string
 }
 

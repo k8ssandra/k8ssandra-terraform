@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC1091,SC2154
 
 # Copyright 2021 DataStax, Inc.
 #
@@ -31,7 +32,7 @@ source "${ROOT}/scripts/common.sh"
 export bucket_name="${TF_VAR_name}-${TF_VAR_project_id}-statefiles"
 
 # Create Google cloud storage bucket to store the state files. 
-source "${ROOT}/gcp/scripts/make_bucket.py"
+python3 "${ROOT}/scripts/make_bucket.py"
 
 # Generate Backend Template to store Terraform State files.
 readonly backend_config="terraform {

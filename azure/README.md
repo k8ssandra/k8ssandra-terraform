@@ -134,6 +134,9 @@ ex:- export TF_VAR_name=k8ssandra
 export TF_VAR_region=<REGION_REPLACEME>
 ex:- export TF_VAR_region=eastus
 
+# Location
+export TF_VAR_resource_owner=<REGION_REPLACEME>
+ex:- export TF_VAR_resource_owner=k8ssandra
 ```
 
 Important: Initialize the terraform modules delete the backend file for local testing.
@@ -143,18 +146,6 @@ cd env/
 terraform init
 ````
 
-After the terraform initialization is successful, create your workspace and by using the following command
-
-```console
-terraform workspace new <WORKSPACENAME_REPLACEME>
-```
-
-or select the workspace if there are any existing workspaces
-
-```console
-terraform workspace select <WORKSPACENAME_REPLACEME>
-```
-
 Run the following commands to apply changes to your infrastructure.
 
 ```console
@@ -163,21 +154,13 @@ terraform apply
 ```
 
 To destroy the resource, use the following instructions:
-
-Create your workspace with the environment name, it is the recommended way of working with the Terraform workspaces among your teams. Select the workspace where resources need to be destroyed.
-
-It is important to export the same values when destroying the resources on a workspace. Make sure you exported the right environment variables (TF_VAR).
-
-```console
-terraform workspace select <WORKSPACENAME_REPLACEME>
-```
-verify the resources before you destroy Used the following command.
+It is important to export the same values when destroying the resources. Make sure you exported the right environment variables (TF_VAR).
 
 ```console
 terraform plan -destroy
 ```
 
-Run the following command to destroy all the resources in your workspace. 
+Run the following command to destroy all the resources in your local workspace.
 
 ```console
 terraform destroy

@@ -30,7 +30,6 @@ variable "region" {
 variable "resource_owner" {
   description = "The name of the Account Owner"
   type        = string
-  default     = "Datastax"
 }
 
 variable "kubernetes_version" {

@@ -143,7 +143,7 @@ resource "azurerm_subnet_route_table_association" "private_subnet_route_table_as
 }
 */
 
-# Azure public ip adress to attach NAT gateway
+# Azure public IP adress to attach NAT gateway
 resource "azurerm_public_ip" "public_ip" {
   name                = format("%s-public-ip", var.name)
   location            = var.location
@@ -164,13 +164,13 @@ resource "azurerm_nat_gateway" "nat_gateway" {
   tags                    = var.tags
 }
 
-# NAT Gateway public ip association.
+# NAT gateway public IP association.
 resource "azurerm_nat_gateway_public_ip_association" "nat_gateway_public_ip_association" {
   nat_gateway_id       = azurerm_nat_gateway.nat_gateway.id
   public_ip_address_id = azurerm_public_ip.public_ip.id
 }
 
-# Azure subnet nat gateway association.
+# Azure subnet NAT gateway association.
 resource "azurerm_subnet_nat_gateway_association" "subnet_nat_gateway_association" {
   subnet_id      = azurerm_subnet.public_subnet.id
   nat_gateway_id = azurerm_nat_gateway.nat_gateway.id

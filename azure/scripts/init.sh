@@ -28,31 +28,9 @@ source "${ROOT}/scripts/common.sh"
 
 # Make will use bash instead of sh
 # Set environment variables
-# Create Storage Account for the terraform backend.
-export storage_account_name="${TF_VAR_name}statefiles"
-export resource_group_name="${storage_account_name}-resource-group" 
-
-# Create Azure Resource Group in the given location.
-az group create -l "${TF_VAR_region}" -n "${resource_group_name}"
-
-export storage_container_name="${TF_VAR_name}-terraform-statefiles"
-
-# Create Storage Account and Container to store the state files. 
-python3 "${ROOT}/scripts/create_storage_account.py"
-
-# Generate Backend Template to store Terraform State files.
-readonly backend_config="terraform {
-  backend \"azurerm\" {
-    resource_group_name  = \"${resource_group_name}\"
-    storage_account_name = \"${storage_account_name}\"
-    container_name       = \"${storage_container_name}\"
-    key                  = \"terraform/${TF_VAR_environment}/\"
-  }
-}"
 
 # Terraform initialize should run on env folder.
 cd "${ROOT}/env"
-echo -e "${backend_config}" > backend.tf
 
 # Terraform initinalize the backend bucket
 terraform init -input=false

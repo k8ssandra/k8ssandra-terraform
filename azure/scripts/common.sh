@@ -63,20 +63,20 @@ command -v terraform >/dev/null 2>&1 || { \
  exit 1
 }
 
-# Make sure python3 is installed. If not, refer to:
+# Make sure python is installed. If not, refer to:
 # https://www.python.org/downloads/
-command -v python3 >/dev/null 2>&1 || { \
- echo >&2 "I require python3 but it's not installed.  Aborting."
+command -v python >/dev/null 2>&1 || { \
+ echo >&2 "I require python but it's not installed.  Aborting."
  echo >&2 "https://www.python.org/downloads/"
  exit 1
 }
 
 # Make sure you initialize the following TF_VAR's before you initialize the environment
-if [ -z "${TF_VAR_environment}" ] || [ -z "${TF_VAR_name}" ] || [ -z "${TF_VAR_region}" ]; then
-  printf "This step requires to export the the following variables \n TF_VAR_environment: %s \n TF_VAR_name: %s \n TF_VAR_region: %s \n" "${TF_VAR_environment}" "${TF_VAR_name}" "${TF_VAR_region}"
+if [ -z "${TF_VAR_environment}" ] || [ -z "${TF_VAR_name}" ] || [ -z "${TF_VAR_region}" ] || [ -z "${TF_VAR_resource_owner}" ]; then
+  printf "This step requires to export the the following variables \n TF_VAR_environment: %s \n TF_VAR_name: %s \n TF_VAR_region: %s \n TF_VAR_resource_owner: %s \n" "${TF_VAR_environment}" "${TF_VAR_name}" "${TF_VAR_region}" "${TF_VAR_resource_owner}"
   exit 1
 else 
-  printf "Following variables are configured \nTF_VAR_environment: %s \nTF_VAR_name: %s \nTF_VAR_region: %s \n" "${TF_VAR_environment}" "${TF_VAR_name}" "${TF_VAR_region}"
+  printf "Following variables are configured \nTF_VAR_environment: %s \nTF_VAR_name: %s \nTF_VAR_region: %s \n TF_VAR_resource_owner: %s \n" "${TF_VAR_environment}" "${TF_VAR_name}" "${TF_VAR_region}" "${TF_VAR_resource_owner}"
 fi
 
 # Simple test helpers that avoids eval and complex quoting. Note that stderr is

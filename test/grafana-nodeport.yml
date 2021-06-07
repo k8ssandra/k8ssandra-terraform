@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-grafana
+spec:
+  ports:
+    - name: app-grafana
+      port: 80
+      protocol: TCP
+      targetPort: 3000
+  selector:
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/name: grafana
+  type: NodePort

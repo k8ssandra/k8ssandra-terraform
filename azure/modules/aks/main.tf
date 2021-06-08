@@ -23,7 +23,7 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
   # Configure default node pool, it is mandatory to configure this block.
   default_node_pool {
     # The node pool only allows name with 12 characters, does not allow any special characters. 
-    name       = format("%snodepool", var.environment)
+    name       = format("%spool", var.environment)
     node_count = var.node_count
     vm_size    = var.vm_size
     # The type of node pool which should be created. 

@@ -1,0 +1,50 @@
+name: 'Terraform'
+
+on:
+  push:
+    branches:
+    - main
+  pull_request:
+
+jobs:
+  terraform:
+    name: 'Terraform'
+    runs-on: ubuntu-latest
+    environment: production
+    env:
+      working-directory: ./gcp/env
+
+    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: google-github-actions/setup-gcloud@master
+      with:
+        version: '290.0.1'
+        service_account_email: ".iam.gserviceaccount.com" #service account needs to be updated.
+        service_account_key: ${{ secrets.GCLOUD }}
+        project_id: "" # add project id
+        export_default_credentials: true
+    - run: gcloud info
+
+    # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+      
+
+    # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+    - name: Terraform Init
+      run: terraform init
+      working-directory: ${{env.working-directory}}
+
+    # Checks that all Terraform configuration files adhere to a canonical format
+    - name: Terraform Format
+      run: terraform fmt -recursive -write=false
+
+    # Generates an execution plan for Terraform
+    - name: Terraform Plan
+      run: terraform plan
+      working-directory: ${{env.working-directory}}

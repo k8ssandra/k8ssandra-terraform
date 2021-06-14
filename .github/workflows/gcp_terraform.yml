@@ -24,7 +24,7 @@ jobs:
     - uses: google-github-actions/setup-gcloud@master
       with:
         version: '290.0.1'
-        service_account_email: ".iam.gserviceaccount.com" #service account needs to be updated.
+        service_account_email: ${{ secrets.GCLOUD_SERVICE_ACCOUNT }} #service account needs to be updated.
         service_account_key: ${{ secrets.GCLOUD }}
         project_id: "" # add project id
         export_default_credentials: true

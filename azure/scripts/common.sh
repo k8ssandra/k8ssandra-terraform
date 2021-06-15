@@ -1,0 +1,104 @@
+#!/usr/bin/env bash
+
+# Copyright 2021 DataStax, Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
+# Common commands for all scripts              
+
+# Locate the root directory. Used by scripts that source this one.
+# shellcheck disable=SC2034
+ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
+
+# git is required for this tutorial
+# https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
+command -v git >/dev/null 2>&1 || { \
+ echo >&2 "I require git but it's not installed.  Aborting."
+ echo >&2 "Refer to: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git"
+ exit 1
+}
+
+
+# Make sure kubectl is installed.  If not, refer to:
+# https://kubernetes.io/docs/tasks/tools/install-kubectl/
+command -v kubectl >/dev/null 2>&1 || { \
+ echo >&2 "I require kubectl but it's not installed.  Aborting."
+ echo >&2 "Refer to: https://kubernetes.io/docs/tasks/tools/install-kubectl/"
+ exit 1
+}
+
+# Make sure Helm is installed. If not, refer to:
+# https://helm.sh/docs/intro/install/
+command -v helm >/dev/null 2>&1 || { \
+ echo >&2 "I require helm but it's not installed.  Aborting."
+ echo >&2 "Refer to: https://helm.sh/docs/intro/install/"
+ exit 1
+}
+
+# Make sure Az CLI(Azure) is installed. If not, refer to:
+# https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-linux?pivots=apt
+command -v az >/dev/null 2>&1 || { \
+ echo >&2 "I require AZ cli but it's not installed.  Aborting."
+ echo >&2 "Refer to: https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-linux?pivots=apt"
+ exit 1
+}
+
+# Make sure Terraform0.14 is installed. If not, refer to:
+# https://www.terraform.io/docs/cli/install/apt.html
+command -v terraform >/dev/null 2>&1 || { \
+ echo >&2 "I require terraform 0.14 but it's not installed.  Aborting."
+ echo >&2 "https://www.terraform.io/docs/cli/install/apt.html"
+ echo >&2 "Refer to: sudo apt install terraform=0.14.0"
+ exit 1
+}
+
+# Make sure python is installed. If not, refer to:
+# https://www.python.org/downloads/
+command -v python >/dev/null 2>&1 || { \
+ echo >&2 "I require python but it's not installed.  Aborting."
+ echo >&2 "https://www.python.org/downloads/"
+ exit 1
+}
+
+# Make sure you initialize the following TF_VAR's before you initialize the environment
+if [ -z "${TF_VAR_environment}" ] || [ -z "${TF_VAR_name}" ] || [ -z "${TF_VAR_region}" ] || [ -z "${TF_VAR_resource_owner}" ]; then
+  printf "This step requires to export the the following variables \n TF_VAR_environment: %s \n TF_VAR_name: %s \n TF_VAR_region: %s \n TF_VAR_resource_owner: %s \n" "${TF_VAR_environment}" "${TF_VAR_name}" "${TF_VAR_region}" "${TF_VAR_resource_owner}"
+  exit 1
+else 
+  printf "Following variables are configured \nTF_VAR_environment: %s \nTF_VAR_name: %s \nTF_VAR_region: %s \n TF_VAR_resource_owner: %s \n" "${TF_VAR_environment}" "${TF_VAR_name}" "${TF_VAR_region}" "${TF_VAR_resource_owner}"
+fi
+
+# Simple test helpers that avoids eval and complex quoting. Note that stderr is
+# redirected to stdout so we can properly handle output.
+# Usage: test_des "description"
+test_des() {
+  echo -n "Checking that $1... "
+}
+
+# Usage: test_cmd "$(command string 2>&1)"
+test_cmd() {
+  local result=$?
+  local output="$1"
+
+  # If command completes successfully, output "pass" and continue.
+  if [[ $result == 0 ]]; then
+    echo "pass"
+
+  # If ccommand fails, output the error code, command output and exit.
+  else
+    echo -e "fail ($result)\\n"
+    cat <<<"$output"
+    exit $result
+  fi
+}

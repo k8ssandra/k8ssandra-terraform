@@ -12,11 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Backend GCS bucket for terraform statefiles.
-# Delete the backend file for local testing.
-terraform {
-  backend "gcs" {
-    bucket = "tf-state-files-k8ssandra-testing"
-    prefix = "terraform/"
-  }
+# Azure Kubernetes Cluster output attributes.
+output "azurerm_kubernetes_cluster_id" {
+  description = "Azure Kubernetes cluster id"
+  value       = azurerm_kubernetes_cluster.kubernetes_cluster.id
+}
+
+output "azurerm_kubernetes_cluster_name" {
+  description = "Azure Kubernetes cluster resource name."
+  value       = format("%s-aks-cluster", var.name)
+}
+
+output "azurerm_kubernetes_cluster_fqdn" {
+  description = "Azure Kubernetes cluster fqdn."
+  value       = azurerm_kubernetes_cluster.kubernetes_cluster.fqdn
 }

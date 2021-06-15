@@ -59,10 +59,10 @@ gcp/
       ../modules/gke
       ../modules/gcs
     ├── version.tf 
-    └── backend.tf 
     └── variables.tf 
     └── outputs.tf
     └── README.md
+ ├──<a href="gcp/scripts/README.md">scripts</a>
 </pre>
 
 ## Prerequisites
@@ -78,7 +78,7 @@ gcp/
 |  gsutil           |    4.60    |
 |  kubectl          |  1.17.17   |
 
-The steps to create kubernetes cluster in this document require the following tools installation and configuration to access Google cloud resources.
+The steps to create Kubernetes cluster in this document require the following tools installation and configuration to access Google cloud resources.
 
 ### Cloud project
 
@@ -96,7 +96,7 @@ The following APIs are enabled when the terraform is utilized:
 * Stackdriver Monitoring API
 * IAM Service Account Credentials API
 
-Execute the following commands on the linux machine in order to setup gcloud cli.
+Execute the following commands on the Linux machine in order to setup gcloud cli.
 
 ```console
 gcloud init
@@ -108,7 +108,7 @@ If you created your Google cloud account newly, Google Compute Engine enforces q
 ### Backend
   * Terraform uses persistent state data to keep track of the resources it manages. Since it needs the state in order to know which real-world infrastructure objects correspond to the resources in a configuration, everyone working with a given collection of infrastructure resources must be able to access the same state data.
   * Terraform backend configuration: 
-  [Configuring your backend in aws gcs](https://www.terraform.io/docs/language/settings/backends/gcs.html)
+  [Configuring your backend in gcs](https://www.terraform.io/docs/language/settings/backends/gcs.html)
   * Terraform state
   [How Terraform state works](https://www.terraform.io/docs/language/state/index.html)
 

@@ -12,33 +12,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+#variables
+variable "location" {
+  description = "Azure location where all the resources being created."
+  type        = string
+}
+
 variable "name" {
   description = "Name is the prefix to use for resources that needs to be created."
   type        = string
 }
 
-variable "project_id" {
-  description = "The project in which to hold the components"
+variable "environment" {
+  description = "Name of the environment where infrastructure being built."
   type        = string
 }
 
-variable "service_account_custom_iam_roles" {
-  description = "service account custom iam roles"
-  type        = list(string)
-  default     = []
-}
-
-variable "region" {
-  description = "The region in which to create the VPC network"
-  type        = string
-}
-
-variable "service_account_iam_roles" {
-  description = "service account custom iam roles"
-  type        = list(string)
-}
-
-variable "project_services" {
-  type    = list(string)
-  default = []
+variable "tags" {
+  description = "A map of the tags to use on the resources that are deployed with this module."
+  type        = map(string)
 }

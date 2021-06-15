@@ -12,23 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Terraform provider
-terraform {
-  required_version = ">= 0.14"
+# Azure User assigned identity
+resource "azurerm_user_assigned_identity" "user_assigned_identity" {
+  resource_group_name = azurerm_resource_group.resource_group.name
+  location            = azurerm_resource_group.resource_group.location
 
-  required_providers {
-    google = {
-      source  = "hashicorp/google"
-      version = "~> 3.0"
-    }
-  }
+  name = format("%s-user-identity", var.name)
+  tags = var.tags
 }
 
-# Google beta provider 
-# Necessary for creating and managing Private subnets.
-provider "google-beta" {
-  alias   = "google-beta"
-  project = var.project_id
-  region  = var.region
-  zone    = var.zone
+# Azure Resource group
+resource "azurerm_resource_group" "resource_group" {
+  name     = format("%s-resource-group", var.name)
+  location = var.location
+  tags     = var.tags
 }

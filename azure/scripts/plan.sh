@@ -33,4 +33,4 @@ cd "${ROOT}"/env
 terraform validate
 
 # Terraform plan will create a plan file in your current repository. Verify the all the resource it create by using plan. 
-terraform plan -no-color
+terraform plan -no-color -out=./plan.json

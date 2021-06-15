@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+# shellcheck disable=SC1091,SC2154
 # Copyright 2021 DataStax, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -40,8 +40,7 @@ readonly backend_config="terraform {
 cd "${ROOT}/env"
 echo -e "${backend_config}" > backend.tf
 
-# Terraform initinalize the back
-end bucket
+# Terraform initinalize the backend bucket.
 terraform init -input=false
 
 # Select the environment workspace where you want destroy all your resources

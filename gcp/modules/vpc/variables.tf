@@ -13,12 +13,12 @@
 # limitations under the License.
 
 variable "name" {
-  description = "name of the cluster "
+  description = "Name is the prefix to use for resources that needs to be created."
   type        = string
 }
 
 variable "environment" {
-  description = "Name of the environment the infrasstructure is being built."
+  description = "Name of the environment where infrastructure being built."
   type        = string
 }
 

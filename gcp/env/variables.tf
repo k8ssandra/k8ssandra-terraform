@@ -13,24 +13,23 @@
 # limitations under the License.
 
 variable "name" {
-  description = "Name of the cluster resources"
-  default     = "k8ssandra"
+  description = "Name is the prefix to use for resources that needs to be created."
+  type        = string
 }
 
 variable "environment" {
-  description = "The environment of the infrastructure being built."
+  description = "Name of the environment where infrastructure being built."
+  type        = string
 }
 
 variable "region" {
   description = "The region in which to create the VPC network"
   type        = string
-  default     = "us-central1"
 }
 
 variable "project_id" {
   description = "The GCP project in which the components are created."
   type        = string
-  default     = "k8ssandra-testing"
 }
 
 variable "zone" {

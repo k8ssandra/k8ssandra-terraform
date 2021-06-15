@@ -12,14 +12,14 @@ This repo contains a Terraform modules for creating Kubernetes clusters on Googl
         * [iam](./gcp/modules/iam/README.md): Identity Access Management modules.
 * [aws](./aws/README.md): Amazon Web Services terraform module to create kubernetes cluster using Elastic Kubernetes Service(EKS).
 * [azure](./azure/README.md): Azure terraform module to create kubernetes cluster using Azure Kubernetes Service(AKS).
-* [aws](./aws/README.md): Tanzu terraform module to create kubernetes cluster using Elastic Kubernetes Service.
+* [tanzu](./tanzu/README.md): Tanzu terraform module to create kubernetes cluster using Elastic Kubernetes Service.
 * [test](./test): Automated tests for the files in this project repository.
 
 
 ## What is Kubernetes?
 [Kubernetes](https://kubernetes.io/) is an open source container management system for deploying, scaling, and managing containerized applications. Kubernetes is built by Google based on their internal proprietary container management systems (Borg and Omega). Kubernetes provides a cloud agnostic platform to deploy your containerized applications with built in support for common operational tasks such as replication, autoscaling, self-healing, and rolling deployments.
 
-## What is Manged Kubernetes services?
+## What is Managed Kubernetes services?
 Managed Kubernetes is when third-party providers take over responsibility for some or all of the work necessary for the successful set-up and operation of K8s. Depending on the vendor, “managed” can refer to anything from dedicated support, to hosting with pre-configured environments, to full hosting and operation. We will be using GKE, AKS, EKS, Tanzu. 
 
 ## What is Terraform?
@@ -88,10 +88,10 @@ k8ssandra-terraform/
 |       └── variables.tf 
 |       └── outputs.tf
 |       └── README.md
+|    ├──<a href="gcp/scripts/README.md">scripts</a>
 |  azure/
 |  tanzu/
 |  test/
-|  scripts/
 |  LICENSE
 |  Makefile
 |  README.md
@@ -235,8 +235,55 @@ make destroy "provider=aws"
 ```
 
 ## Create AKS resources
+
+* Testing this project Locally [azure](./azure#Test-this-project-locally)
+* Set up environment on your machine before running the make commands. use the following links to setup your machine.
+
+    * [Prerequisites](./azure#Prerequisites)
+    * [Tools](./azure#Tools)
+    * [Configure-AZ-CLI](./azure#Configure-AZ-CLI)
+
 * How to create AKS cluster resources by using make command
-[ work In progress] 
+Before using the make commands export the following terraform environment variables(TFVARS) for terraform to create the resources. 
+
+```console
+
+export TF_VAR_environment=<ENVIRONMENT_REPLACEME>
+ex:- export TF_VAR_environment=dev
+
+export TF_VAR_name=<CLUSTERNAME_REPLACEME>
+ex:- export TF_VAR_name=k8ssandra
+
+export TF_VAR_region=<REGION_REPLACEME>
+ex:- export TF_VAR_region=eastus
+
+```
+
+```console
+#To list out the available options to use.
+make help
+```
+### important: Before running the following command, we need to Export the environment variables as show above.
+
+```console
+# Initialize and configure Backend.
+make init "provider=azure"
+```
+```console
+# Plan all Azure resources.
+make plan "provider=azure"
+```
+### This command will create a Kubernetes cluster and deploy k8ssandra on the cluster.
+```console
+# Create or update Azure resources
+# This command will take some time to execute. 
+make apply "provider=azure"
+```
+```console
+# Destroy all Azure resources created with terraform.
+
+make destroy "provider=azure"
+```
 
 
 ## Troubleshooting

@@ -12,23 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Terraform provider
+# Backend configuration.
 terraform {
-  required_version = ">= 0.14"
-
-  required_providers {
-    google = {
-      source  = "hashicorp/google"
-      version = "~> 3.0"
-    }
-  }
-}
-
-# Google beta provider 
-# Necessary for creating and managing Private subnets.
-provider "google-beta" {
-  alias   = "google-beta"
-  project = var.project_id
-  region  = var.region
-  zone    = var.zone
+  // backend "azurerm" {
+  //   resource_group_name  = "tf_state"
+  //   storage_account_name = "tfstate019"
+  //   container_name       = "tfstate"
+  //   key                  = "terraform.tfstate"
+  // }
 }

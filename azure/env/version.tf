@@ -12,23 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Terraform provider
+# Terraform and Azurerm provider configuration.
 terraform {
   required_version = ">= 0.14"
 
   required_providers {
-    google = {
-      source  = "hashicorp/google"
-      version = "~> 3.0"
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "2.49.0"
     }
   }
 }
 
-# Google beta provider 
-# Necessary for creating and managing Private subnets.
-provider "google-beta" {
-  alias   = "google-beta"
-  project = var.project_id
-  region  = var.region
-  zone    = var.zone
+provider "azurerm" {
+  features {}
 }

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# shellcheck disable=SC1091
+# shellcheck disable=SC1091,SC2154
 
 # Copyright 2021 DataStax, Inc.
 #
@@ -23,14 +23,20 @@ set -o pipefail
 # Locate the root directory
 ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 
-# Run common.sh script for variable declaration and validation
+# Run common.sh script for validation
 source "${ROOT}/scripts/common.sh"
 
-#make plan : this command will validate the terraform code
-cd "${ROOT}"/env
+# Make will use bash instead of sh
+# Set environment variables
 
-# Terraform validate before the plan
+# Terraform initialize should run on env folder.
+cd "${ROOT}/env"
+
+# Terraform initinalize the backend bucket
+terraform init -input=false
+
+# Validate the Terraform resources.
 terraform validate
 
-# Terraform plan will create a plan file in your current repository. Verify the all the resource it create by using plan. 
-terraform plan -no-color
+# Create workspace based on the environment, by doing this you don't overlap wih the resources in different environments.
+terraform workspace new "$TF_VAR_environment" || terraform workspace select "$TF_VAR_environment"

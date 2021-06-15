@@ -26,11 +26,16 @@ ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 # Run common.sh script for variable declaration and validation
 source "${ROOT}/scripts/common.sh"
 
-#make plan : this command will validate the terraform code
-cd "${ROOT}"/env
+# Make apply : this command will apply the infrastructure changes
+(cd "${ROOT}/env"; terraform apply -no-color -auto-approve)
 
-# Terraform validate before the plan
-terraform validate
+# Get cluster outputs from the cluster.
+GET_OUTPUTS="$(terraform output connect_cluster)"
+${GET_OUTPUTS}
 
-# Terraform plan will create a plan file in your current repository. Verify the all the resource it create by using plan. 
-terraform plan -no-color
+# Clone k8ssandra repo
+git clone https://github.com/k8ssandra/k8ssandra.git
+cd k8ssandra 
+
+# Call the existing script to run the E2E testing on the cluster.
+make integ-test

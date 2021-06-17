@@ -21,9 +21,40 @@ resource "azurerm_user_assigned_identity" "user_assigned_identity" {
   tags = var.tags
 }
 
+data "azuread_service_principal" "service_principal" {
+  display_name = "k8ssandra-terraform"
+}
+
 # Azure Resource group
 resource "azurerm_resource_group" "resource_group" {
   name     = format("%s-resource-group", var.name)
   location = var.location
   tags     = var.tags
+}
+
+resource "azurerm_role_assignment" "network_role_assignment" {
+  scope                = var.public_subnet
+  role_definition_name = "Network Contributor"
+  principal_id         = data.azuread_service_principal.service_principal.object_id
+}
+
+resource "azurerm_role_assignment" "Operator_role_assignment" {
+  scope                = azurerm_user_assigned_identity.user_assigned_identity.id
+  role_definition_name = "Managed Identity Operator"
+  principal_id         = data.azuread_service_principal.service_principal.object_id
+  depends_on           = [azurerm_user_assigned_identity.user_assigned_identity]
+}
+
+resource "azurerm_role_assignment" "contributor_role_assignment" {
+  scope                = var.appgw_id
+  role_definition_name = "Contributor"
+  principal_id         = azurerm_user_assigned_identity.user_assigned_identity.principal_id
+  depends_on           = [azurerm_user_assigned_identity.user_assigned_identity]
+}
+
+resource "azurerm_role_assignment" "reader_role_assignment" {
+  scope                = azurerm_resource_group.resource_group.id
+  role_definition_name = "Reader"
+  principal_id         = azurerm_user_assigned_identity.user_assigned_identity.principal_id
+  depends_on           = [azurerm_user_assigned_identity.user_assigned_identity]
 }

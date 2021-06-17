@@ -43,3 +43,10 @@ output "private_subnets" {
   description = "The ids of subnets created inside the newl virtual_network"
   value       = azurerm_subnet.private_subnet.id
 }
+
+# Application Gateway output attributes
+
+output "appgw_id" {
+  description = "The id of application gateway"
+  value       = azurerm_application_gateway.application_gateway.id
+}

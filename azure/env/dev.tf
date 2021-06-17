@@ -49,11 +49,13 @@ module "vnet" {
 
 # Azure Identities module
 module "iam" {
-  source      = "../modules/iam"
-  name        = local.prefix
-  environment = var.environment
-  location    = var.region
-  tags        = local.tags
+  source        = "../modules/iam"
+  name          = local.prefix
+  environment   = var.environment
+  public_subnet = module.vnet.public_subnets
+  appgw_id      = module.vnet.appgw_id
+  location      = var.region
+  tags          = local.tags
 }
 
 # Azure Storage Account module

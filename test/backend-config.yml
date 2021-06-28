@@ -1,0 +1,11 @@
+apiVersion: cloud.google.com/v1
+kind: BackendConfig
+metadata:
+  name: my-backendconfig
+spec:
+  healthCheck:
+    checkIntervalSec: 60
+    port: 30335
+    type: HTTP
+    timeoutSec: 60
+    requestPath: /webui

@@ -5,10 +5,10 @@ metadata:
   namespace: default
 spec:
   rules:
-  - http:
-      paths:
-      - backend:
-          serviceName: reaper-nodeport
-          servicePort: 8080
-        path: /webui/*
-        pathType: ImplementationSpecific
+    - http:
+        paths:
+          - backend:
+              serviceName: reaper-crd-test
+              servicePort: 8080
+            path: /webui/*
+            pathType: ImplementationSpecific

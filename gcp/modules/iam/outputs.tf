@@ -22,4 +22,5 @@ output "service_account" {
 output "service_account_key" {
   description = "The service Account Key to configure Medusa backups to use GCS bucket"
   value       = base64decode(google_service_account_key.service_account_key.private_key)
+  sensitive = true
 }

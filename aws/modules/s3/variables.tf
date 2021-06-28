@@ -12,15 +12,24 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Output variable for the service account email.
-output "service_account" {
-  description = "Service Account Email-id"
-  value       = google_service_account.service_account.email
+# Variables to create s3 bucket
+variable "name" {
+  description = "Name is the prefix to use for resources that needs to be created."
+  type        = string
 }
 
-# Output variable for the service account key.
-output "service_account_key" {
-  description = "The service Account Key to configure Medusa backups to use GCS bucket"
-  value       = base64decode(google_service_account_key.service_account_key.private_key)
-  sensitive = true
+variable "environment" {
+  description = "Name of the environment where infrastructure is being built."
+  type        = string
+}
+
+variable "tags" {
+  description = "Common tags to attach all the resources create in this project."
+  type        = map(string)
+}
+
+variable "region" {
+  description = "The AWS region where terraform builds resources."
+  type        = string
+  default     = "us-east-1"
 }

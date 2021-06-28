@@ -12,15 +12,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Output variable for the service account email.
-output "service_account" {
-  description = "Service Account Email-id"
-  value       = google_service_account.service_account.email
+#variables
+variable "location" {
+  description = "Azure location where all the resources being created."
+  type        = string
 }
 
-# Output variable for the service account key.
-output "service_account_key" {
-  description = "The service Account Key to configure Medusa backups to use GCS bucket"
-  value       = base64decode(google_service_account_key.service_account_key.private_key)
-  sensitive = true
+variable "name" {
+  description = "Name is the prefix to use for resources that needs to be created."
+  type        = string
+}
+
+variable "environment" {
+  description = "Name of the environment where infrastructure being built."
+  type        = string
+}
+
+variable "tags" {
+  description = "A map of the tags to use on the resources that are deployed with this module."
+  type        = map(string)
 }

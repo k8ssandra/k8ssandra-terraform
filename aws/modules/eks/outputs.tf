@@ -12,15 +12,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Output variable for the service account email.
-output "service_account" {
-  description = "Service Account Email-id"
-  value       = google_service_account.service_account.email
+# Output attributes of the eks cluster.
+# Name of the EKS cluster
+output "cluster_name" {
+  description = "Name of the EKS cluster"
+  value       = aws_eks_cluster.eks_cluster.id
 }
 
-# Output variable for the service account key.
-output "service_account_key" {
-  description = "The service Account Key to configure Medusa backups to use GCS bucket"
-  value       = base64decode(google_service_account_key.service_account_key.private_key)
-  sensitive = true
+# Version of the EKS cluster
+output "cluster_version" {
+  description = "Version of the EKS cluster"
+  value       = aws_eks_cluster.eks_cluster.version
+}
+
+# The endpoint for your EKS Kubernetes API
+output "cluster_Endpoint" {
+  description = "The endpoint for your EKS Kubernetes API"
+  value       = aws_eks_cluster.eks_cluster.endpoint
 }

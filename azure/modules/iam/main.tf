@@ -12,15 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Output variable for the service account email.
-output "service_account" {
-  description = "Service Account Email-id"
-  value       = google_service_account.service_account.email
+# Azure User assigned identity
+resource "azurerm_user_assigned_identity" "user_assigned_identity" {
+  resource_group_name = azurerm_resource_group.resource_group.name
+  location            = azurerm_resource_group.resource_group.location
+
+  name = format("%s-user-identity", var.name)
+  tags = var.tags
 }
 
-# Output variable for the service account key.
-output "service_account_key" {
-  description = "The service Account Key to configure Medusa backups to use GCS bucket"
-  value       = base64decode(google_service_account_key.service_account_key.private_key)
-  sensitive = true
+# Azure Resource group
+resource "azurerm_resource_group" "resource_group" {
+  name     = format("%s-resource-group", var.name)
+  location = var.location
+  tags     = var.tags
 }

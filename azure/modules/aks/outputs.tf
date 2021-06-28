@@ -12,15 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Output variable for the service account email.
-output "service_account" {
-  description = "Service Account Email-id"
-  value       = google_service_account.service_account.email
+# Azure Kubernetes Cluster output attributes.
+output "azurerm_kubernetes_cluster_id" {
+  description = "Azure Kubernetes cluster id"
+  value       = azurerm_kubernetes_cluster.kubernetes_cluster.id
 }
 
-# Output variable for the service account key.
-output "service_account_key" {
-  description = "The service Account Key to configure Medusa backups to use GCS bucket"
-  value       = base64decode(google_service_account_key.service_account_key.private_key)
-  sensitive = true
+output "azurerm_kubernetes_cluster_name" {
+  description = "Azure Kubernetes cluster resource name."
+  value       = format("%s-aks-cluster", var.name)
+}
+
+output "azurerm_kubernetes_cluster_fqdn" {
+  description = "Azure Kubernetes cluster fqdn."
+  value       = azurerm_kubernetes_cluster.kubernetes_cluster.fqdn
 }

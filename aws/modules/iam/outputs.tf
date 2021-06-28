@@ -12,15 +12,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Output variable for the service account email.
-output "service_account" {
-  description = "Service Account Email-id"
-  value       = google_service_account.service_account.email
+# Output attibutes of the iam resources.
+# AWS Iam role arn.
+output "role_arn" {
+  description = "IAM role for EKS service."
+  value       = aws_iam_role.iam_role.arn
 }
 
-# Output variable for the service account key.
-output "service_account_key" {
-  description = "The service Account Key to configure Medusa backups to use GCS bucket"
-  value       = base64decode(google_service_account_key.service_account_key.private_key)
-  sensitive = true
+# AWS Iam worker role arn.
+output "worker_role_arn" {
+  description = "IAM role arn for EKS worker nodes."
+  value       = aws_iam_role.worker_iam_role.arn
+}
+
+# AWS Iam instace profile id.
+output "iam_instance_profile" {
+  description = "IAM instance profile for the EKS worker nodes."
+  value       = aws_iam_instance_profile.iam_instance_profile.id
 }

@@ -39,7 +39,9 @@ resource "aws_subnet" "public_subnet" {
   tags = merge(var.tags, {
     "Name" = format("%s-public-subnet-%s", var.name, local.pub_avilability_zones[count.index])
 
-    format("kubernetes.io/cluster/%s-eks-cluster", var.name) = "owned"
+    format("kubernetes.io/cluster/%s-eks-cluster", var.name) = "shared"
+
+    "kubernetes.io/role/elb" = 1
     }
   )
 }
@@ -62,7 +64,9 @@ resource "aws_subnet" "private_subnet" {
   tags = merge(var.tags, {
     "Name" = format("%s-private-subnet-%s", var.name, local.pri_avilability_zones[count.index])
 
-    format("kubernetes.io/cluster/%s-eks-cluster", var.name) = "owned"
+    format("kubernetes.io/cluster/%s-eks-cluster", var.name) = "shared"
+
+    "kubernetes.io/role/internal-elb" = 1
     }
   )
 }
@@ -221,7 +225,7 @@ resource "aws_security_group" "worker_security_group" {
   tags = merge(var.tags, {
     "Name" = format("%s-worker-security-group", var.name)
 
-    format("kubernetes.io/cluster/%s-eks-cluster", var.name) = "owned"
+    format("kubernetes.io/cluster/%s-eks-cluster", var.name) = "shared"
     }
   )
 }

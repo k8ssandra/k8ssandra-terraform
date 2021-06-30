@@ -1,0 +1,54 @@
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": [
+                "iam:ListOpenIDConnectProviderTags",
+                "iam:UpdateOpenIDConnectProviderThumbprint",
+                "iam:UntagOpenIDConnectProvider",
+                "iam:AddClientIDToOpenIDConnectProvider",
+                "iam:GetOpenIDConnectProvider",
+                "iam:TagOpenIDConnectProvider",
+                "iam:CreateOpenIDConnectProvider"
+            ],
+            "Resource": "arn:aws:iam::337811753388:oidc-provider/*"
+        },
+        {
+            "Sid": "VisualEditor1",
+            "Effect": "Allow",
+            "Action": "iam:ListOpenIDConnectProviders",
+            "Resource": "*"
+        },
+        {
+            "Sid": "VisualEditor2",
+            "Effect": "Allow",
+            "Action": [
+                "cloudformation:CreateUploadBucket",
+                "cloudformation:RegisterType",
+                "cloudformation:DescribeStackDriftDetectionStatus",
+                "cloudformation:ListExports",
+                "cloudformation:ListStacks",
+                "cloudformation:SetTypeDefaultVersion",
+                "cloudformation:DescribeType",
+                "cloudformation:ListImports",
+                "cloudformation:ListTypes",
+                "cloudformation:DescribeTypeRegistration",
+                "cloudformation:DeregisterType",
+                "cloudformation:ListTypeRegistrations",
+                "cloudformation:EstimateTemplateCost",
+                "cloudformation:DescribeAccountLimits",
+                "cloudformation:CreateStackSet",
+                "cloudformation:ValidateTemplate",
+                "cloudformation:ListTypeVersions"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "VisualEditor3",
+            "Effect": "Allow",
+            "Action": "cloudformation:*",
+            "Resource": "arn:aws:cloudformation:*:337811753388:stack/*/*"
+        }
+    ]
+}

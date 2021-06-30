@@ -203,7 +203,7 @@ terraform plan
 terraform apply
 ```
 
-To destroy the resource, use the following instructions:
+**To destroy the resource, use the following instructions:**
 
 It is important to export or pass the right values when destroying the resources on a local workspace. Make sure you exported(TF_VAR) or enter right environment variables.
 
@@ -223,3 +223,194 @@ or
 ```console
 terraform destroy -auto-approve
 ```
+
+## Setup AWS Ingress Controller
+OpenID Connect (OIDC) Identity Provider (IDP) This feature allows customers to integrate an OIDC identity provider with a new or existing Amazon EKS cluster running Kubernetes version 1.16 or later. The OIDC IDP can be used as an alternative to, or along with AWS Identity and Access Management (IAM). With this feature, you can manage user access to your cluster by leveraging existing identity management life cycle through your OIDC identity provider.
+
+**enable OIDC provider:**
+```console
+eksctl utils associate-iam-oidc-provider --region <REPLACEME_region> --cluster <REPLACEME_cluster_name> --approve
+```
+eg:- eksctl utils associate-iam-oidc-provider --region us-east-1 --cluster dev-k8ssandra-eks-cluster --approve
+
+
+**create IAM policy:**
+Locate the IAM policy document and provide path and create a policy, If the policy exists skip to the next step
+```console
+aws iam create-policy --policy-name AWSLoadBalancerControllerIAMPolicy --policy-document file://<path>iam_policy.json
+```
+Get the ARN of the IAM policy, save it for future use.
+
+eg:- aws iam create-policy --policy-name AWSLoadBalancerControllerIAMPolicy --policy-document file://iam_policy.json
+
+**create a service account user the policy arn create above:**
+
+Get the Account number
+```console
+aws sts get-caller-identity
+```
+Get the policy ARN we created earlier. ARN of the policy example
+eg:- arn:aws:iam::xxxxxxxxxxxx:policy/AWSLoadBalancerControllerIAMPolicy
+
+Create an IAM role and annotate the Kubernetes service account named aws-load-balancer-controller in the kube-system namespace for the AWS Load Balancer Controller using eksctl or the AWS Management Console and kubectl.
+
+```console
+eksctl create iamserviceaccount --cluster=<REPLACEME_clustername> --region=<REPLACEME_region> --namespace=kube-system --name=aws-load-balancer-controller --attach-policy-arn=arn:aws:iam::xxxxxxxxxxxx:policy/AWSLoadBalancerControllerIAMPolicy --override-existing-serviceaccounts --approve
+```
+
+eg:-
+eksctl create iamserviceaccount --cluster=dev-k8ssandra-eks-cluster --region=us-east-1 --namespace=kube-system --name=aws-load-balancer-controller --attach-policy-arn=arn:aws:iam::xxxxxxxxxxx:policy/AWSLoadBalancerControllerIAMPolicy --override-existing-serviceaccounts --approve
+
+If you currently have the AWS ALB Ingress Controller for Kubernetes installed, uninstall it. The AWS Load Balancer Controller replaces the functionality of the AWS ALB Ingress Controller for Kubernetes.
+
+**Install the AWS Load Balancer Controller using Helm V3 or later:**
+Install the TargetGroupBinding custom resource definitions.
+```console
+kubectl apply -k "github.com/aws/eks-charts/stable/aws-load-balancer-controller//crds?ref=master"
+```
+
+**Add the eks-charts repository:**
+```console
+helm repo add eks https://aws.github.io/eks-charts
+```
+Update your local repo to make sure that you have the most recent charts
+```console
+helm repo update
+```
+
+**Install the AWS Load Balancer Controller:**
+Install aws-load-balancer-controller by using helm command
+
+```console
+helm upgrade -i aws-load-balancer-controller eks/aws-load-balancer-controller --set clusterName=<REPLACEME_cluster_name> -n kube-system --set serviceAccount.create=false --set serviceAccount.name=aws-load-balancer-controller
+```
+eg :-
+helm upgrade -i aws-load-balancer-controller eks/aws-load-balancer-controller --set clusterName=dev-k8ssandra-eks-cluster -n kube-system --set serviceAccount.create=false --set serviceAccount.name=aws-load-balancer-controller
+
+**Check the deployment status:**
+```console
+kubectl get deployment -n kube-system aws-load-balancer-controller
+```
+Check the deployment status you should see the following output.
+
+Output:-
+NAME                           READY   UP-TO-DATE   AVAILABLE   AGE
+aws-load-balancer-controller   2/2     2            2           84s
+
+**check the logs:**
+```console
+kubectl logs -n kube-system   deployment.apps/aws-load-balancer-controller
+```
+
+### Deploy K8ssandra
+
+Add the following helm repo's if there are not already added.
+```console
+helm repo add k8ssandra https://helm.k8ssandra.io/stable
+```
+
+### Installation 
+Deploy k8ssasndra by running the following command.
+```console
+helm install <REPLACEME_release-name> k8ssandra/k8ssandra --set cassandra.cassandraLibDirVolume.storageClass=gp2
+
+eg: helm install test k8ssandra/k8ssandra --set cassandra.cassandraLibDirVolume.storageClass=gp2
+```
+After the installation please verify the pods status, it will take about 3-5 minutes provision the resources wait until all the resources are in running state.
+
+to check the status of the pods run the following command, wait until all the pods and services available.
+
+```console
+kubectl get pods
+```
+
+### Create Nodeport
+locate `nodeport.yaml` file and run the following command to create Nodeport service.
+```console
+kubectl create -f /nodeport.yaml
+```
+
+### Create ingress:
+```console
+cd test
+kubectl create -f /ingress.yml
+```
+Wait for the load balancers to come available
+```console
+kubectl get ingress
+```
+
+Output:
+NAME             CLASS    HOSTS   ADDRESS                                                                 PORTS   AGE
+ingress          <none>   *       k8s-default-ingress-7cb30059ab-318290427.us-east-1.elb.amazonaws.com    80      38m
+
+When you create an Amazon EKS cluster, the IAM user or role (such as a federated user that creates the cluster) is automatically granted system:masters permissions in the cluster's RBAC configuration. If you access the Amazon EKS console and your IAM user or role isn't part of the aws-auth ConfigMap, then you can't see your Kubernetes workloads or overview details for the cluster.
+
+To grant additional AWS users or roles the ability to interact with your cluster, you must edit the aws-auth ConfigMap within Kubernetes.
+
+### Map the IAM users or roles to the RBAC roles and groups using aws-auth ConfigMap
+
+**Get the configuration of your AWS CLI user or role:**
+
+```console
+aws sts get-caller-identity
+```
+Confirm that the ARN matches the cluster creator or the admin with primary access to configure your cluster. If the ARN doesn't match the cluster creator or admin, then contact the cluster creator or admin to update the aws-auth ConfigMap.
+
+The group name in the [manifest](../scripts/manifest.yaml) file is `eks-console-dashboard-full-access-group`. This is the group that your IAM user or role must be mapped to in the aws-auth ConfigMap.
+
+**To create a cluster role and cluster role binding:** 
+
+Deploy the manifest file: Use the [manifest](../scripts/manifest.yaml) file.
+```console
+kubectl apply -f manifest.yaml
+```
+
+**Verify the creation of cluster role and cluster role binding objects:**
+```console
+kubectl describe clusterrole.rbac.authorization.k8s.io/eks-console-dashboard-full-access-clusterrole
+kubectl describe clusterrolebinding.rbac.authorization.k8s.io/eks-console-dashboard-full-access-binding
+```
+
+To edit aws-auth ConfigMap in a text editor, the cluster creator or admin must run the following command:
+
+```console
+kubectl edit configmap aws-auth -n kube-system
+```
+
+**To add an IAM user or IAM role, complete either of the following steps.**
+
+**Important:** mapUsers[].groups.`eks-console-dashboard-full-access-group`. Group name must be the same as the group name created in the [manifest](../scripts/manifest.yaml) file.
+
+```console
+Add the IAM user to mapUsers. For example:
+
+mapUsers: |
+  - userarn: arn:aws:iam::XXXXXXXXXXXX:user/<REPLACEME_username>
+  username: <REPLACEME_username>
+  groups:
+    - system:bootstrappers
+    - system:nodes
+    - eks-console-dashboard-full-access-group
+```
+
+-or-
+
+```console
+Add the IAM role to mapRoles. For example:
+
+mapRoles: |
+  - rolearn: arn:aws:iam::XXXXXXXXXXXX:role/<REPLACEME_role_name>
+  username: <REPLACEME_role_name>
+  groups:
+    - system:bootstrappers
+    - system:nodes
+    - eks-console-dashboard-full-access-group
+```
+
+### Verify access to your Amazon EKS cluster
+login to the AWS management console, Select your cluster on the navigation pane and Check the Overview and Workloads tabs for errors. You shouldn't see any errors.
+
+## Debugging:
+Helpful links to resolve issues on the EKS cluster access:
+https://aws.amazon.com/premiumsupport/knowledge-center/eks-kubernetes-object-access-error/

@@ -227,6 +227,45 @@ run the following commands
 terraform plan
 terraform apply
 ```
+## Google Load Balancer Controller setup.
+When you expose one or more Services through an Ingress using the default Ingress controller, GKE creates a Google Cloud external HTTP(S) load balancer or a Google Cloud internal HTTP(S) load balancer. Both of these load balancers support multiple backend services on a single URL map. Each of the backend services corresponds to a Kubernetes Service, and each backend service must reference a Google Cloud health check. This health check is different from a Kubernetes liveness or readiness probe because the health check is implemented outside of the cluster.
+
+**Note:**  Load balancer health checks are specified per backend service. While it's possible to use the same health check for all backend services of the load balancer, the health check reference isn't specified for the whole load balancer (at the Ingress object itself).
+
+On the [nodeport.yaml](./scripts/nodeport.yaml) has a Health Check CRD(custom Resource Definition) configured. when running the `kubectl crete -f nodeport.yaml` it will also create a backend health check. This health check annotated in the Reaper Nodeport service.
+
+```console
+  annotations:
+    beta.cloud.google.com/backend-config: '{"default": "my-backendconfig"}'
+```
+
+## Install K8ssandra on the Google Kubernetes Service
+
+**Check the storage classes type by running the following command:**
+check all the storage classes available in the Kubernetes Cluster
+```console
+kubectl get storageclass
+```
+
+**Run the following command to add the K8ssandra helm repository:**
+```console
+helm repo add k8ssandra https://helm.k8ssandra.io/stable
+helm repo update
+```
+
+**Run the following command to deploy the K8ssandra by using Helm command:**
+```console
+helm install <REPLACEME_release-name> k8ssandra/k8ssandra
+```
+eg:- helm install test k8ssandra/k8ssandra
+
+**Create Nodeport & Ingress service:**
+[nodeport.yaml](./scripts/nodeport.yaml) and [ingress.yaml](./scripts/nodeport) file will be found in the scripts folder.
+run the following command to create Nodeport service and Ingress.
+```console
+kubectl create -f ./nodeport.yaml
+kubectl create -f ./ingress.yaml
+```
 
 ### Install k8ssandra on the kubernetes cluster references documents 
 

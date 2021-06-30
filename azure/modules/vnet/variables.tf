@@ -110,5 +110,6 @@ variable "app_gateway_tier" {
 
 variable "app_gateway_subnet_address_prefix" {
   description = "Subnet server IP address."
-  default     = "15.1.0.0/16"
+  type        = list(string)
+  default     = ["10.1.2.0/24"]
 }

@@ -21,11 +21,6 @@ resource "azurerm_virtual_network" "virtual_network" {
   dns_servers         = var.dns_servers
   tags                = var.tags
 
-  subnet {
-    name           = "appgw-subnet"
-    address_prefix = var.app_gateway_subnet_address_prefix
-  }
-
   lifecycle {
     create_before_destroy = true
   }
@@ -45,6 +40,18 @@ resource "azurerm_subnet" "public_subnet" {
     create_before_destroy = true
   }
 }
+
+resource "azurerm_subnet" "appgw_subnet" {
+  name                 = format("%s-appgw-subnet", var.name)
+  resource_group_name  = var.resource_group_name
+  virtual_network_name = azurerm_virtual_network.virtual_network.name
+  address_prefixes     = var.app_gateway_subnet_address_prefix
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
 
 ## Private Subnet
 resource "azurerm_subnet" "private_subnet" {
@@ -147,12 +154,6 @@ resource "azurerm_subnet_route_table_association" "private_subnet_route_table_as
   tags = var.tags
 }
 */
-data "azurerm_subnet" "appgw_subnet" {
-  name                 = "appgw-subnet"
-  virtual_network_name = azurerm_virtual_network.virtual_network.name
-  resource_group_name  = var.resource_group_name
-  depends_on           = [azurerm_virtual_network.virtual_network]
-}
 
 # Public Ip 
 resource "azurerm_public_ip" "appgw_public_ip" {
@@ -199,7 +200,7 @@ resource "azurerm_subnet_nat_gateway_association" "subnet_nat_gateway_associatio
 }
 
 resource "azurerm_application_gateway" "application_gateway" {
-  name                = format("%s-nat-Gateway", var.name)
+  name                = format("%s-application-Gateway", var.name)
   resource_group_name = var.resource_group_name
   location            = var.location
 
@@ -211,7 +212,7 @@ resource "azurerm_application_gateway" "application_gateway" {
 
   gateway_ip_configuration {
     name      = format("%s-appGatewayIpConfig", var.environment)
-    subnet_id = data.azurerm_subnet.appgw_subnet.id
+    subnet_id = azurerm_subnet.appgw_subnet.id
   }
 
   frontend_port {
@@ -258,5 +259,5 @@ resource "azurerm_application_gateway" "application_gateway" {
 
   tags = var.tags
 
-  depends_on = [azurerm_virtual_network.virtual_network, azurerm_public_ip.appgw_public_ip]
+  depends_on = [azurerm_virtual_network.virtual_network, azurerm_public_ip.appgw_public_ip, azurerm_subnet.appgw_subnet]
 }

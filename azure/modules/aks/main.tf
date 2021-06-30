@@ -64,6 +64,10 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
     }
   }
 
+  role_based_access_control {
+    enabled = var.aks_enable_rbac
+  }
+
   lifecycle {
     # This life cycle policy to prevent the cluster being destroy. It set to false.
     prevent_destroy = false

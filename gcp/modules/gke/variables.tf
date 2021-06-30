@@ -28,7 +28,8 @@ variable "project_id" {
 }
 
 variable "initial_node_count" {
-  default = 1
+  description = "Node count to define number of nodes per Zone, each region by default creates three nodes."
+  type        = number
 }
 
 variable "machine_type" {

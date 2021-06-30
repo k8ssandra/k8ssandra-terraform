@@ -25,20 +25,8 @@ ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 # Run common.sh script for variable declaration and validation
 source "${ROOT}/scripts/common.sh"
 
-# Exporting the bucket name as an environment variable.
-export bucket_name="${TF_VAR_name}-${TF_VAR_project_id}-statefiles"
-
-# Generate Backend Template to store Terraform State files.
-readonly backend_config="terraform {
-  backend \"gcs\" {
-    bucket = \"${bucket_name}\"
-    prefix = \"terraform/${TF_VAR_environment}/\"
-  }
-}"
-
 # Terraform initialize should run on env folder.
 cd "${ROOT}/env"
-echo -e "${backend_config}" > backend.tf
 
 # Terraform initinalize the backend bucket.
 terraform init -input=false
@@ -52,6 +40,3 @@ terraform destroy -input=flase -auto-approve
 # Delete terraform workspace. 
 terraform workspace select default
 terraform workspace delete "${TF_VAR_environment}"
-
-# Delete the terraform statefile bucket folder.
-gsutil rm gs://"${bucket_name}/terraform/${TF_VAR_environment}"

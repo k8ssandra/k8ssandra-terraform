@@ -44,6 +44,12 @@ variable "k8s_namespace" {
   default     = "default"
 }
 
+variable "initial_node_count" {
+  description = "Node count to define number of nodes per Zone, each region by default creates three nodes."
+  type        = number
+  default     = 1
+}
+
 variable "machine_type" {
   description = "Type of machines which are used by cluster node pool"
   type        = string

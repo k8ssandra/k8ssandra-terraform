@@ -45,20 +45,20 @@ output "connect_cluster" {
 # Output variables to update helm-config file for ingress controller set up.
 output "identity_resource_id" {
   description = "User managed identity resource ID."
-  value = module.iam.user_id
+  value       = module.iam.user_id
 }
 
 output "identity_client_id" {
   description = "User managed identity client ID."
-  value = module.iam.identity_client_id
+  value       = module.iam.identity_client_id
 }
 
 output "current_subscription_display_name" {
   description = "Azure subscription ID."
-  value = data.azurerm_subscription.current.subscription_id
+  value       = data.azurerm_subscription.current.subscription_id
 }
 
 output "application_gateway_id" {
   description = "Azure application gateway ID."
-  value = module.vnet.appgw_id
+  value       = module.vnet.appgw_id
 }

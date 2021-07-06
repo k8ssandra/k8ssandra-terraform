@@ -125,9 +125,9 @@ module "storage" {
 | <a name="input_name"></a> [name](#input\_name) | Name is the prefix to use for resources that needs to be created. | `string` | n/a | yes |
 | <a name="input_node_count"></a> [node\_count](#input\_node\_count) | Number of AKS worker nodes | `number` | `3` | no |
 | <a name="input_private_service_endpoints"></a> [private\_service\_endpoints](#input\_private\_service\_endpoints) | service endpoints to attach Private Subnets. | `list(string)` | <pre>[<br>  "Microsoft.Storage"<br>]</pre> | no |
-| <a name="input_private_subnet_prefixes"></a> [private\_subnet\_prefixes](#input\_private\_subnet\_prefixes) | value | `list(string)` | <pre>[<br>  "10.1.1.0/24"<br>]</pre> | no |
+| <a name="input_private_subnet_prefixes"></a> [private\_subnet\_prefixes](#input\_private\_subnet\_prefixes) | Private subnet address prefixes. | `list(string)` | <pre>[<br>  "10.1.1.0/24"<br>]</pre> | no |
 | <a name="input_public_service_endpoints"></a> [public\_service\_endpoints](#input\_public\_service\_endpoints) | service endpoints to attche public Subnets. | `list(string)` | `[]` | no |
-| <a name="input_public_subnet_prefixes"></a> [public\_subnet\_prefixes](#input\_public\_subnet\_prefixes) | value | `list(string)` | <pre>[<br>  "10.1.0.0/24"<br>]</pre> | no |
+| <a name="input_public_subnet_prefixes"></a> [public\_subnet\_prefixes](#input\_public\_subnet\_prefixes) | Public subnet address prefixes. | `list(string)` | <pre>[<br>  "10.1.0.0/24"<br>]</pre> | no |
 | <a name="input_region"></a> [region](#input\_region) | Azure location where all the resources being created. | `string` | n/a | yes |
 | <a name="input_resource_owner"></a> [resource\_owner](#input\_resource\_owner) | The name of the Account Owner | `string` | n/a | yes |
 | <a name="input_vm_size"></a> [vm\_size](#input\_vm\_size) | Specifies the size of the virtual machine. | `string` | `"Standard_E8_v4"` | no |

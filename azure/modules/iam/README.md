@@ -37,5 +37,6 @@ No modules.
 |------|-------------|
 | <a name="output_location"></a> [location](#output\_location) | Azure location where all the resources being created. |
 | <a name="output_principal_id"></a> [principal\_id](#output\_principal\_id) | Azure Managed identity principal id. |
+| <a name="output_identity_client_id"></a> [identity\_client\_id](#output\_identity\_client\_id) | Azure Managed identity client id. |
 | <a name="output_resource_group_name"></a> [resource\_group\_name](#output\_resource\_group\_name) | The name of the resource group in which the resources will be created. |
 | <a name="output_user_id"></a> [user\_id](#output\_user\_id) | Azure Managed Identity id. |

@@ -19,6 +19,7 @@ output "user_id" {
 }
 
 output "identity_client_id" {
+  description = "Azure Managed identity client id."
   value = azurerm_user_assigned_identity.user_assigned_identity.client_id
 }
 

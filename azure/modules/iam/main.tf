@@ -32,12 +32,14 @@ resource "azurerm_resource_group" "resource_group" {
   tags     = var.tags
 }
 
+# Azure network role assignment.
 resource "azurerm_role_assignment" "network_role_assignment" {
   scope                = var.public_subnet
   role_definition_name = "Network Contributor"
   principal_id         = data.azuread_service_principal.service_principal.object_id
 }
 
+# Azure Operator role assignment.
 resource "azurerm_role_assignment" "Operator_role_assignment" {
   scope                = azurerm_user_assigned_identity.user_assigned_identity.id
   role_definition_name = "Managed Identity Operator"
@@ -45,6 +47,7 @@ resource "azurerm_role_assignment" "Operator_role_assignment" {
   depends_on           = [azurerm_user_assigned_identity.user_assigned_identity]
 }
 
+# Azure contributor role assignment.
 resource "azurerm_role_assignment" "contributor_role_assignment" {
   scope                = var.appgw_id
   role_definition_name = "Contributor"
@@ -52,6 +55,7 @@ resource "azurerm_role_assignment" "contributor_role_assignment" {
   depends_on           = [azurerm_user_assigned_identity.user_assigned_identity]
 }
 
+# Azure reader role assignment.
 resource "azurerm_role_assignment" "reader_role_assignment" {
   scope                = azurerm_resource_group.resource_group.id
   role_definition_name = "Reader"

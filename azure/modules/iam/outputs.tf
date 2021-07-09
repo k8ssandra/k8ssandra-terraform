@@ -18,6 +18,11 @@ output "user_id" {
   value       = azurerm_user_assigned_identity.user_assigned_identity.id
 }
 
+output "identity_client_id" {
+  description = "Azure Managed identity client id."
+  value = azurerm_user_assigned_identity.user_assigned_identity.client_id
+}
+
 output "principal_id" {
   description = "Azure Managed identity principal id."
   value       = azurerm_user_assigned_identity.user_assigned_identity.principal_id

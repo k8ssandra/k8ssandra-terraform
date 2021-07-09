@@ -63,13 +63,13 @@ variable "vm_size" {
 }
 
 variable "public_subnet_prefixes" {
-  description = "value"
+  description = "Public subnet address prefixes."
   type        = list(string)
   default     = ["10.1.0.0/24"]
 }
 
 variable "private_subnet_prefixes" {
-  description = "value"
+  description = "private subnet address prefixes."
   type        = list(string)
   default     = ["10.1.1.0/24"]
 }

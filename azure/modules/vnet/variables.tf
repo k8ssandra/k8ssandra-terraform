@@ -96,3 +96,20 @@ variable "tags" {
   description = "The tags to associate with your network and subnets."
   type        = map(string)
 }
+
+# Application gateway input variables
+variable "app_gateway_sku" {
+  description = "Name of the Application Gateway SKU"
+  default     = "Standard_v2"
+}
+
+variable "app_gateway_tier" {
+  description = "Tier of the Application Gateway tier"
+  default     = "Standard_v2"
+}
+
+variable "app_gateway_subnet_address_prefix" {
+  description = "Subnet server IP address."
+  type        = list(string)
+  default     = ["10.1.2.0/24"]
+}

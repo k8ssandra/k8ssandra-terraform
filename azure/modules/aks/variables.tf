@@ -95,6 +95,11 @@ variable "service_cidr" {
   type        = string
 }
 
+variable "aks_enable_rbac" {
+  description = "Enable RBAC on the AKS cluster. Defaults to false."
+  default     = "false"
+}
+
 # tags
 variable "tags" {
   description = "A map of the tags to use on the resources that are deployed with this module."

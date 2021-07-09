@@ -28,6 +28,16 @@ variable "environment" {
   type        = string
 }
 
+variable "public_subnet" {
+  description = "The subnet id of the virtual network where the virtual machines will reside."
+  type        = string
+}
+
+variable "appgw_id" {
+  description = "The id of the Application gateway"
+  type        = string
+}
+
 variable "tags" {
   description = "A map of the tags to use on the resources that are deployed with this module."
   type        = map(string)

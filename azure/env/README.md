@@ -119,18 +119,18 @@ module "storage" {
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_environment"></a> [environment](#input\_environment) | Name of the environment where infrastructure being built. | `string` | n/a | yes |
-| <a name="input_kubernetes_version"></a> [kubernetes\_version](#input\_kubernetes\_version) | version of the kubernetes cluster | `string` | `"1.19.9"` | no |
+| <a name="input_kubernetes_version"></a> [kubernetes\_version](#input\_kubernetes\_version) | Version of the Azure kubernetes cluster | `string` | `"1.19.9"` | no |
 | <a name="input_max_count"></a> [max\_count](#input\_max\_count) | Maximum Node Count | `number` | `5` | no |
 | <a name="input_min_count"></a> [min\_count](#input\_min\_count) | Minimum Node Count | `number` | `3` | no |
-| <a name="input_name"></a> [name](#input\_name) | AKS name in Azure | `string` | n/a | yes |
-| <a name="input_node_count"></a> [node\_count](#input\_node\_count) | Number of AKS worker nodes | `number` | `5` | no |
+| <a name="input_name"></a> [name](#input\_name) | Name is the prefix to use for resources that needs to be created. | `string` | n/a | yes |
+| <a name="input_node_count"></a> [node\_count](#input\_node\_count) | Number of AKS worker nodes | `number` | `3` | no |
 | <a name="input_private_service_endpoints"></a> [private\_service\_endpoints](#input\_private\_service\_endpoints) | service endpoints to attach Private Subnets. | `list(string)` | <pre>[<br>  "Microsoft.Storage"<br>]</pre> | no |
-| <a name="input_private_subnet_prefixes"></a> [private\_subnet\_prefixes](#input\_private\_subnet\_prefixes) | value | `list(string)` | <pre>[<br>  "10.1.1.0/24"<br>]</pre> | no |
+| <a name="input_private_subnet_prefixes"></a> [private\_subnet\_prefixes](#input\_private\_subnet\_prefixes) | Private subnet address prefixes. | `list(string)` | <pre>[<br>  "10.1.1.0/24"<br>]</pre> | no |
 | <a name="input_public_service_endpoints"></a> [public\_service\_endpoints](#input\_public\_service\_endpoints) | service endpoints to attche public Subnets. | `list(string)` | `[]` | no |
-| <a name="input_public_subnet_prefixes"></a> [public\_subnet\_prefixes](#input\_public\_subnet\_prefixes) | value | `list(string)` | <pre>[<br>  "10.1.0.0/24"<br>]</pre> | no |
+| <a name="input_public_subnet_prefixes"></a> [public\_subnet\_prefixes](#input\_public\_subnet\_prefixes) | Public subnet address prefixes. | `list(string)` | <pre>[<br>  "10.1.0.0/24"<br>]</pre> | no |
 | <a name="input_region"></a> [region](#input\_region) | Azure location where all the resources being created. | `string` | n/a | yes |
-| <a name="input_system_node_count"></a> [system\_node\_count](#input\_system\_node\_count) | Number of AKS worker nodes | `number` | `3` | no |
-| <a name="input_vm_size"></a> [vm\_size](#input\_vm\_size\_count) | Specifies the size of the virtual machine. | `string` | `Standard_E8_v4` | no |
+| <a name="input_resource_owner"></a> [resource\_owner](#input\_resource\_owner) | The name of the Account Owner | `string` | n/a | yes |
+| <a name="input_vm_size"></a> [vm\_size](#input\_vm\_size) | Specifies the size of the virtual machine. | `string` | `"Standard_E8_v4"` | no |
 
 ## Outputs
 
@@ -138,6 +138,10 @@ module "storage" {
 |------|-------------|
 | <a name="output_aks_fqdn"></a> [aks\_fqdn](#output\_aks\_fqdn) | Azure kuberenetes service fqdn. |
 | <a name="output_aks_id"></a> [aks\_id](#output\_aks\_id) | Azure kuberenetes service id. |
+| <a name="output_application_gateway_id"></a> [application\_gateway\_id](#output\_application\_gateway\_id) | Azure application gateway ID. |
 | <a name="output_connect_cluster"></a> [connect\_cluster](#output\_connect\_cluster) | Connection string to be used to configure kubectl. |
+| <a name="output_current_subscription_display_name"></a> [current\_subscription\_display\_name](#output\_current\_subscription\_display\_name) | Azure subscription ID. |
+| <a name="output_identity_client_id"></a> [identity\_client\_id](#output\_identity\_client\_id) | User managed identity client ID. |
+| <a name="output_identity_resource_id"></a> [identity\_resource\_id](#output\_identity\_resource\_id) | User managed identity resource ID. |
 | <a name="output_resource_group"></a> [resource\_group](#output\_resource\_group) | The name of the resource group in which the resources will be created. |
 | <a name="output_storage_account_id"></a> [storage\_account\_id](#output\_storage\_account\_id) | Azure Storage account id. |

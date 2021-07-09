@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: reaper-nodeport
+spec:
+  ports:
+    - name: app
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    app.kubernetes.io/managed-by: reaper-operator
+    reaper.cassandra-reaper.io/reaper: test-reaper
+  type: NodePort
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: grafana-nodeport
+spec:
+  ports:
+    - name: app-grafana
+      port: 80
+      protocol: TCP
+      targetPort: 3000
+  selector:
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/name: grafana
+  type: NodePort

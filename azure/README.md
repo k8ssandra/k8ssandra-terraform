@@ -16,6 +16,8 @@
 * Public IP
 * Route Table
 * Route Table association
+* Application gateway
+* Role assignments
 
 ## Project directory Structure
 <pre>
@@ -168,4 +170,122 @@ terraform destroy
 or 
 ```console
 terraform destroy -auto-approve
+```
+
+## Setup Ingress controller
+After `terraform apply` an application gateway will be configured
+
+Get the Kubernetes configuration and access credentials from the Azure using the Azure CLI command.
+
+```console
+az aks get-credentials --name <REPLACEME_AksCluserName>  --resource-group <REPLACEME_ResourceGroupName>
+```
+eg:- az aks get-credentials --name dev-k8ssandra-eks-cluster  --resource-group dev-k8ssandra-resource-group
+
+verify the health and status of the cluster nodes
+
+```console
+kubectl get nodes
+```
+### Install Azure AD Pod Identity
+Azure Active Directory Pod Identity provides token-based access to Azure Resource Manager.
+
+AAD Pod Identity enables Kubernetes applications to access cloud resources securely with Azure Active Directory.
+
+Using Kubernetes primitives, administrators configure identities and bindings to match pods. Then without any code modifications, your containerized applications can leverage any resource in the cloud that depends on AAD as an identity provider.
+
+If RBAC is enabled, run the following command to install Azure AD Pod Identity to your cluster:
+
+```console
+kubectl create -f https://raw.githubusercontent.com/Azure/aad-pod-identity/master/deploy/infra/deployment-rbac.yaml
+```
+If RBAC is disabled, run the following command to install Azure AD Pod Identity to your cluster:
+
+```console
+kubectl create -f https://raw.githubusercontent.com/Azure/aad-pod-identity/master/deploy/infra/deployment.yaml
+```
+
+### Install Helm
+The code in this section uses Helm - Kubernetes package manager - to install the application-gateway-kubernetes-ingress package:
+
+Run the follow helm commands to add the AGIC Helm repository:
+
+```console
+helm repo add application-gateway-kubernetes-ingress https://appgwingress.blob.core.windows.net/ingress-azure-helm-package/
+helm repo update
+```
+
+### Install Ingress Controller Helm Chart
+Locate the [helm-config.yaml](./scripts/helm-config.yaml) file in the scripts folder.
+
+The values are described as follows:
+
+**verbosityLevel:** Sets the verbosity level of the AGIC logging infrastructure. See Logging Levels for possible values.
+**appgw.subscriptionId:** The Azure Subscription ID for the App Gateway. Example: a123b234-a3b4-557d-b2df-a0bc12de1234
+**appgw.resourceGroup:** Name of the Azure Resource Group in which App Gateway was created.
+**appgw.name:** Name of the Application Gateway. Example: applicationgateway1.
+**appgw.shared:** This boolean flag should be defaulted to false. Set to true should you need a Shared App Gateway.
+**kubernetes.watchNamespace:** Specify the name space, which AGIC should watch. The namespace can be a single string value, or a comma-separated list of namespaces. Leaving this variable commented out, or setting it to blank or empty string results in Ingress Controller observing all accessible namespaces.
+**armAuth.type:** A value of either aadPodIdentity or servicePrincipal.
+**armAuth.identityResourceID:** Resource ID of the managed identity.
+**armAuth.identityClientId:** The Client ID of the Identity.
+**armAuth.secretJSON:** Only needed when Service Principal Secret type is chosen (when armAuth.type has been set to servicePrincipal).
+
+**Key notes:**
+
+The <identityResourceID> value is created in the terraform script and can be found by running: 
+```console
+echo "$(terraform output identity_resource_id)"
+```
+The <identityClientID> value is created in the terraform script and can be found by running: 
+```console
+echo "$(terraform output identity_client_id)"
+```
+The <resource-group> value is the resource group of your App Gateway or it can be found by running:
+```console
+echo "$(terraform output resource_group)"
+```
+
+The <identity-name> value is the name of the created identity.
+```console
+echo "$(terraform output application_gateway_id)"
+```
+
+All identities for a given subscription can be listed using: az identity list. or it can be found by running: 
+```console
+echo "$(terraform output subcription_id)"
+```
+
+**Install the Application Gateway ingress controller package:**
+Update the required variables in the `helm-config.yaml` file then run the following command, you can find all required values to update this file in the terraform outputs.
+```console
+helm install -f helm-config.yaml application-gateway-kubernetes-ingress/ingress-azure --generate-name
+```
+
+## Install K8ssandra on the Azure Kubernetes Service
+
+**Check the storage classes type by running the following command:**
+check all the storage classes available in the Azure Kubernetes Cluster
+```console
+kubectl get storageclass
+```
+
+**Run the following command to add the k8ssandra helm repository:**
+```console
+helm repo add k8ssandra https://helm.k8ssandra.io/stable
+helm repo update
+```
+
+**Run the following command to deploy the K8ssandra by using Helm command:**
+```console
+helm install <REPLACEME_release-name> k8ssandra/k8ssandra --set cassandra.cassandraLibDirVolume.storageClass=default
+```
+eg:- helm install test k8ssandra/k8ssandra --set cassandra.cassandraLibDirVolume.storageClass=default
+
+**Create Nodeport & Ingress service:**
+[nodeport.yaml](./scripts/nodeport.yaml) and [ingress.yaml](./scripts/nodeport) file will be found in the scripts folder.
+run the following command to create Nodeport service and Ingress.
+```console
+kubectl create -f ./nodeport.yaml
+kubectl create -f ./ingress.yaml
 ```

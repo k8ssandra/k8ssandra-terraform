@@ -15,19 +15,19 @@
 # Output attribute of the Azure Kubernetes Cluster id.
 output "aks_id" {
   description = "Azure kuberenetes service id."
-  value = module.aks.azurerm_kubernetes_cluster_id
+  value       = module.aks.azurerm_kubernetes_cluster_id
 }
 
 # Output attribute of the Azure Kubernetes Cluster fqdn.
 output "aks_fqdn" {
   description = "Azure kuberenetes service fqdn."
-  value = module.aks.azurerm_kubernetes_cluster_fqdn
+  value       = module.aks.azurerm_kubernetes_cluster_fqdn
 }
 
 # Output attribute of the Resource Group.
 output "resource_group" {
   description = "The name of the resource group in which the resources will be created."
-  value = module.iam.resource_group_name
+  value       = module.iam.resource_group_name
 }
 
 # Output attribute of the Storage Account id.
@@ -39,5 +39,26 @@ output "storage_account_id" {
 # connection string to connect you Azure Kubernetes cluster.
 output "connect_cluster" {
   description = "Connection string to be used to configure kubectl."
-  value          =  format("az aks get-credentials --resource-group %s --name %s", module.iam.resource_group_name, module.aks.azurerm_kubernetes_cluster_name)
+  value       = format("az aks get-credentials --resource-group %s --name %s", module.iam.resource_group_name, module.aks.azurerm_kubernetes_cluster_name)
+}
+
+# Output variables to update helm-config file for ingress controller set up.
+output "identity_resource_id" {
+  description = "User managed identity resource ID."
+  value       = module.iam.user_id
+}
+
+output "identity_client_id" {
+  description = "User managed identity client ID."
+  value       = module.iam.identity_client_id
+}
+
+output "current_subscription_display_name" {
+  description = "Azure subscription ID."
+  value       = data.azurerm_subscription.current.subscription_id
+}
+
+output "application_gateway_id" {
+  description = "Azure application gateway ID."
+  value       = module.vnet.appgw_id
 }

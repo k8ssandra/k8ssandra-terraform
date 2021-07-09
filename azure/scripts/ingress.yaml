@@ -1,0 +1,20 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: reaper
+  annotations:
+    kubernetes.io/ingress.class: azure/application-gateway
+spec:
+  rules:
+    - http:
+        paths:
+          - backend:
+              serviceName: reaper-nodeport
+              servicePort: 8080
+            path: /webui(/|$)(.*)
+            pathType: ImplementationSpecific
+          - backend:
+              serviceName: grafana-nodeport
+              servicePort: 80
+            path: /(.*)
+            pathType: ImplementationSpecific

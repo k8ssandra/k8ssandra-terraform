@@ -58,6 +58,16 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
     service_cidr = var.service_cidr
   }
 
+  addon_profile {
+    http_application_routing {
+      enabled = false
+    }
+  }
+
+  role_based_access_control {
+    enabled = var.aks_enable_rbac
+  }
+
   lifecycle {
     # This life cycle policy to prevent the cluster being destroy. It set to false.
     prevent_destroy = false

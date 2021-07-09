@@ -216,7 +216,7 @@ resource "azurerm_application_gateway" "application_gateway" {
   }
 
   frontend_port {
-    name = format("%s-fornt_end_port", var.environment)
+    name = format("%s-front_end_port", var.environment)
     port = 80
   }
 
@@ -245,7 +245,7 @@ resource "azurerm_application_gateway" "application_gateway" {
   http_listener {
     name                           = format("%s-http-listener", var.environment)
     frontend_ip_configuration_name = format("%s-frontend_ip_configuration", var.environment)
-    frontend_port_name             = format("%s-fornt_end_port", var.environment)
+    frontend_port_name             = format("%s-front_end_port", var.environment)
     protocol                       = "Http"
   }
 
